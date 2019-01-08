@@ -10,10 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SwerveDrive extends Command {
 	
-	/**
-	 * 
+	/*  
 	 * Enum used to set the way in which swerve is controlled
-	 *
+	 * 
 	 */
 	public enum ControlType {
 		CONTROLLER(1, 0, 4, 5, 4, 3, 6),
@@ -132,9 +131,9 @@ public class SwerveDrive extends Command {
     	if(controlType.getDockingModeButton()) {
     		System.out.println("Docking Mode");
     		
-    		Robot.swerveBase.swerveDrive(rlValue, fbValue, rotValue, false);
+    		Robot.swerveBase.swerveDrive(rlValue, fbValue, -rotValue, false);
     	} else {
-    		Robot.swerveBase.swerveDrive(fbValue, rlValue, rotValue, true);
+    		Robot.swerveBase.swerveDrive(fbValue, rlValue, -rotValue, true);
     	}
     	
     }
@@ -151,6 +150,7 @@ public class SwerveDrive extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        //i wish owen would die
     }
 
 }
