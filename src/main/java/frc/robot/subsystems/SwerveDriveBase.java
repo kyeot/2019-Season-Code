@@ -10,11 +10,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -50,6 +53,34 @@ public class SwerveDriveBase extends Subsystem {
 			motor.set(output);
 		}
 	}
+
+	public class PIDAnalogInput implements PIDSource {
+		PIDSourceType sourceType;
+
+		AnalogInput enc;
+
+		public PIDAnalogInput(AnalogInput enc) {
+			setPIDSourceType(PIDSourceType.kDisplacement);
+
+			this.enc = enc;
+
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			sourceType = pidSource;
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			return sourceType;
+		}
+
+		@Override
+		public double pidGet() {
+			return enc.getValue()/Constants.kAnalogInputToDegreeRatio;
+		}
+	}
 	
 	/**
 	 * 
@@ -59,7 +90,7 @@ public class SwerveDriveBase extends Subsystem {
 	public class SwerveModule {
 		TalonSRX driveMot;
 		VictorSP swivelMot;
-		Encoder enc;
+		PIDAnalogInput enc;
 		
 		PIDOutputClass pidOut;
 		PIDController pidCont;
@@ -76,7 +107,7 @@ public class SwerveDriveBase extends Subsystem {
 		public SwerveModule(
 				VictorSP swivelMot,
 				TalonSRX driveMot,
-				Encoder enc
+				PIDAnalogInput enc
 				) {
 			
 			this.driveMot = driveMot;
@@ -98,8 +129,8 @@ public class SwerveDriveBase extends Subsystem {
 			pidCont.setInputRange(-360, 360);
 			pidCont.setContinuous();
 			
-			enc.setDistancePerPulse(Constants.kAngleToEncoderTick);
-			enc.setSamplesToAverage(127);
+			//enc.setDistancePerPulse(Constants.kAngleToEncoderTick);
+			//enc.setSamplesToAverage(127);
 		}
 		
 		/**
@@ -163,7 +194,7 @@ public class SwerveDriveBase extends Subsystem {
 
 		//Returns where the Encoder is
 		public double getEncPercent() {
-			return enc.getDistance();
+			return enc.pidGet();
 		}
 		
 		//Gets the current angle of the module
@@ -207,40 +238,28 @@ public class SwerveDriveBase extends Subsystem {
     	flMod = new SwerveModule(
     					new VictorSP(Constants.kFrontLeftSwivelId),
     					new TalonSRX(Constants.kFrontLeftWheelId),
-    					new Encoder(new DigitalInput(Constants.kFrontLeftEncoderA), 
-    								new DigitalInput(Constants.kFrontLeftEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder))
     				);
     	
     	//Creates the front left Swerve Module
     	rlMod = new SwerveModule(
     					new VictorSP(Constants.kRearLeftSwivelId),
     					new TalonSRX(Constants.kRearLeftWheelId),
-    					new Encoder(new DigitalInput(Constants.kRearLeftEncoderA), 
-    								new DigitalInput(Constants.kRearLeftEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder))
     				);
     	
     	//Creates the rear right Swerve Module
     	frMod = new SwerveModule(
     					new VictorSP(Constants.kFrontRightSwivelId),
     					new TalonSRX(Constants.kFrontRightWheelId),
-    					new Encoder(new DigitalInput(Constants.kFrontRightEncoderA), 
-    								new DigitalInput(Constants.kFrontRightEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder))
     				);
     			
     	//Creates the rear left Swerve Module
     	rrMod = new SwerveModule(
     					new VictorSP(Constants.kRearRightSwivelId),
     					new TalonSRX(Constants.kRearRightWheelId),
-    					new Encoder(new DigitalInput(Constants.kRearRightEncoderA), 
-    								new DigitalInput(Constants.kRearRightEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder))
     				); // ):
     	
     }
