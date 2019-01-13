@@ -26,14 +26,7 @@ public class Constants {
 	public static final int kFrontRightSwivelId = 0;
 	public static final int kRearLeftSwivelId = 3;
 	public static final int kRearRightSwivelId = 1;
-
-	public static final double kAnalogInputToDegreeRatio = 4096/360;
 	
-	public static final int kFrontLeftAbsoluteEncoder = 0;
-	public static final int kFrontRightAbsoluteEncoder = 1;
-	public static final int kRearLeftAbsoluteEncoder = 2;
-	public static final int kRearRightAbsoluteEncoder = 3;
-
 	public static final int kFrontLeftEncoderA = 4;
 	public static final int kFrontLeftEncoderB = 5;
 	public static final int kFrontRightEncoderA = 0;
