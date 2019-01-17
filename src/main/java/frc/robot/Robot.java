@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.Manipulator;
 import frc.robot.subsystems.SwerveDriveBase;
+import frc.robot.subsystems.ManipulatorBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -28,6 +30,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
+  public static ManipulatorBase manipBase = new ManipulatorBase();
 
   public static AHRS navSensor;
 

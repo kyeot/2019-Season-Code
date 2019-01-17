@@ -13,8 +13,8 @@ public class Constants {
 	//public static final double kSwerveI = 0.04; 
 	//public static final double kSwerveD = 0.025;
 	public static final double kSwerveP = 0.01;
-	public static final double kSwerveI = 0.00; 
-	public static final double kSwerveD = 0.01;
+	public static final double kSwerveI = 0.0; 
+	public static final double kSwerveD = 0.02;
 	
 	public static final double kAngleToEncoderTick = 0.875;
 	
@@ -31,6 +31,11 @@ public class Constants {
 	public static final int kRearRightSwivelId = 254;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
+
+	public static final double kFrontLeftAngleOffset = 0;
+	public static final double kFrontRightAngleOffset = 345;
+	public static final double kRearLeftAngleOffset = 0;
+	public static final double kRearRightAngleOffset = 0;
 	
 	public static final int kFrontLeftAbsoluteEncoder = 0;
 	public static final int kFrontRightAbsoluteEncoder = 1;

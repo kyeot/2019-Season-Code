@@ -59,11 +59,15 @@ public class SwerveDriveBase extends Subsystem {
 		PIDSourceType sourceType;
 
 		AnalogInput enc;
+		double angleOffset;
 
-		public PIDAnalogInput(AnalogInput enc) {
+		double angle;
+
+		public PIDAnalogInput(AnalogInput enc, double angleOffset) {
 			setPIDSourceType(PIDSourceType.kDisplacement);
 
 			this.enc = enc;
+			this.angleOffset = angleOffset;
 
 		}
 
@@ -79,9 +83,13 @@ public class SwerveDriveBase extends Subsystem {
 
 		@Override
 		public double pidGet() {
-			SmartDashboard.putString("DB/String 1", "" + enc.getValue());
+			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
 
-			return enc.getValue()/Constants.kAnalogInputToDegreeRatio;
+			if(angle > 360){
+				angle %= 360;
+			}
+
+			return angle;
 		}
 	}
 	
@@ -115,7 +123,6 @@ public class SwerveDriveBase extends Subsystem {
 			this.driveMot = driveMot;
 			this.swivelMot = swivelMot;
 			this.enc = enc;
-			
 			
 			pidOut = new PIDOutputClass(
 							swivelMot
@@ -239,28 +246,32 @@ public class SwerveDriveBase extends Subsystem {
     	flMod = new SwerveModule(
     					new VictorSPX(Constants.kFrontLeftSwivelId),
     					new VictorSPX(Constants.kFrontLeftWheelId),
-    					new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder))
+						new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder), 
+						Constants.kFrontLeftAngleOffset)
     				);
     	
     	//Creates the front left Swerve Module
     	rlMod = new SwerveModule(
     					new VictorSPX(Constants.kRearLeftSwivelId),
     					new VictorSPX(Constants.kRearLeftWheelId),
-    					new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder))
+						new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder), 
+						Constants.kRearLeftAngleOffset)
     				);
     	
     	//Creates the rear right Swerve Module
     	frMod = new SwerveModule(
     					new VictorSPX(Constants.kFrontRightSwivelId),
     					new VictorSPX(Constants.kFrontRightWheelId),
-    					new PIDAnalogInput(new AnalogInput(Constants.kFrontRightAbsoluteEncoder))
+						new PIDAnalogInput(new AnalogInput(Constants.kFrontRightAbsoluteEncoder),
+						Constants.kFrontRightAngleOffset)
     				);
     			
     	//Creates the rear left Swerve Module
     	rrMod = new SwerveModule(
     					new VictorSPX(Constants.kRearRightSwivelId),
     					new VictorSPX(Constants.kRearRightWheelId),
-    					new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder))
+						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
+						Constants.kRearRightAngleOffset)
     				); // ):
     	
     }
