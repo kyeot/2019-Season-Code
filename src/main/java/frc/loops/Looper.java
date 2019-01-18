@@ -37,7 +37,7 @@ public class Looper {
 		for(Loop l : loops) {
 			l.onStart();
 		}
-		notifier.startPeriodic(Constants.kLoopPeriod);
+		notifier.startPeriodic(Constants.kPeriod);
 		
 	}
 	
