@@ -14,6 +14,8 @@ public class Constants {
 	public static final double kSwerveD = 0.025;
 	
 	public static final double kAngleToEncoderTick = 0.875;
+
+	public static final double kGyroMaxAge = 0.6;
 	
 	public static final int kDriverControllerId = 0;
 	
