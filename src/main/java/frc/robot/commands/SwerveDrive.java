@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.OI;
 import frc.robot.Robot;
-
+import frc.robot.subsystems.SwerveController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -81,6 +81,7 @@ public class SwerveDrive extends Command {
 	}
 
 	private ControlType controlType;
+	private SwerveController swerveController = SwerveController.getInstance();
 
 	//Makes SwerveDrive require the subsystem swerveBase
     public SwerveDrive(ControlType controlType) {
@@ -126,14 +127,16 @@ public class SwerveDrive extends Command {
     	//If Y is pressed resets the field orientation
     	if(controlType.getCenterGyroButton()) {
     		Robot.swerveBase.resetGyroNorth(0, 0);
-    	}
+		}
+		
+		swerveController.slide(fbValue, rlValue);
+		swerveController.rotate(rotValue);
     	
     	if(controlType.getDockingModeButton()) {
     		System.out.println("Docking Mode");
-    		
-    		Robot.swerveBase.swerveDrive(rlValue, fbValue, -rotValue, false);
+    		swerveController.update(false);
     	} else {
-    		Robot.swerveBase.swerveDrive(fbValue, rlValue, -rotValue, true);
+    		swerveController.update(true);
     	}
     	
     }
