@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.autonomous.actiongroups.TestGroup;
 import frc.robot.OI;
 import frc.robot.Robot;
 
@@ -27,12 +28,19 @@ public class Manipulator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.driver.getRawButton(2)){
+
+
+    if(OI.manipulator.getRawButton(1)){
+      Robot.actionScheduler.setGroup(new TestGroup());
+      Robot.actionScheduler.start();
+    }
+    else if(OI.manipulator.getRawButton(4)){
       Robot.manipBase.driveMot(1);
     }
     else{
       Robot.manipBase.driveMot(0);
     }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

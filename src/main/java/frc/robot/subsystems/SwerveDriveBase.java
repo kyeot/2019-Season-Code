@@ -358,9 +358,9 @@ public class SwerveDriveBase extends Subsystem {
     	
     	//Set Wheel Speeds and Angles
     	frMod.setModule(frAng, frSpd);
-    	//flMod.setModule(flAng, flSpd);
-    	//rrMod.setModule(rrAng, rrSpd);
-    	//rlMod.setModule(rlAng, rlSpd);
+    	flMod.setModule(flAng, flSpd);
+    	rrMod.setModule(rrAng, rrSpd);
+    	rlMod.setModule(rlAng, rlSpd);
     	
     }
     

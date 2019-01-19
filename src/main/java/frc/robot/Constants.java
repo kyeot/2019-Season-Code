@@ -19,6 +19,7 @@ public class Constants {
 	public static final double kAngleToEncoderTick = 0.875;
 	
 	public static final int kDriverControllerId = 0;
+	public static final int kManipulatorControllerId = 1;
 	
 	public static final int kFrontLeftWheelId = 862;
 	public static final int kFrontRightWheelId = 2;
