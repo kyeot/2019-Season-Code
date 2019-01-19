@@ -11,10 +11,18 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.loops.Looper;
-import frc.robot.subsystems.SwerveDriveBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+
+import frc.loops.Looper;
+import frc.robot.subsystems.SwerveDriveBase;
+import frc.util.Logger;
+import frc.autonomous.*;
+import frc.autonomous.actiongroups.*;
+
+import java.io.File;
+import java.io.IOException;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -25,7 +33,8 @@ public class Robot extends TimedRobot {
 
   private static AHRS navSensor;
 
-  public Looper looper = new Looper();
+  public Looper looper = new Looper(Constants.kPeriod);
+  public static ActionScheduler actionScheduler = new ActionScheduler();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -35,6 +44,10 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     looper.startLoops();
+
+    String[] autonomousList = {"Test"};
+    
+		SmartDashboard.putStringArray("Auto List", autonomousList);
     
     try {
        navSensor = new AHRS(SPI.Port.kMXP);
@@ -42,6 +55,10 @@ public class Robot extends TimedRobot {
        DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
    }
   }
+  
+	public static void setGroup(ActionGroup group) {
+		actionScheduler.setGroup(group);
+	}
 
   @Override
   public void robotPeriodic() {
@@ -58,10 +75,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+		Logger.info("Starting Autonomous");
+
+    String autoSelected = SmartDashboard.getString("Auto Selector", "None");
+    
+    switch (autoSelected) {
+      case "Test":
+        setGroup(new TestGroup());
+        break;
     }
+
+		actionScheduler.start();
   }
 
   @Override
@@ -88,4 +112,33 @@ public class Robot extends TimedRobot {
   public static AHRS getNavSensor() {
 		return navSensor;
   }
+
+  public static String parseMatchTime() {
+		double s = DriverStation.getInstance().getMatchTime();
+
+		if (s != -1.0) {
+			if (DriverStation.getInstance().isAutonomous()) {
+
+				int t = (int) (15 - Math.ceil(s));
+				return ":" + Integer.toString((int) t) + " (Auton)";
+
+			} else if (DriverStation.getInstance().isOperatorControl()) {
+
+				int t = (int) (135 - Math.ceil(s));
+				return Integer.toString((int) Math.floor(t / 60)) + ":" + Integer.toString((int) t % 60) + " (TeleOp)";
+
+			} else {
+
+				return "Disabled";
+
+			}
+
+		} else {
+
+			return "Not Practice";
+
+		}
+
+	}
+
 }

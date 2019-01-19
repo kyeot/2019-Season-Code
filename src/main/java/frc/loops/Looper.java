@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import frc.loops.Loop;
 import frc.robot.Constants;
 import frc.util.CrashTrackingRunnable;
+import frc.util.Logger;
 
 import edu.wpi.first.wpilibj.Notifier;
 
@@ -16,19 +17,29 @@ import edu.wpi.first.wpilibj.Notifier;
  */
 public class Looper {
 	
+	double period;
+	private final Object taskRunningLock_ = new Object();
+	
 	CrashTrackingRunnable runnable = new CrashTrackingRunnable() {
 		@Override
 		public void runCrashTracked() {
 			for(Loop l : loops) {
 				l.onLoop();
+				l.onLoop(200);
 			}
+		}
+		
+		@Override
+		public void logCrash() {
+			Logger.error("Exception caught in Loops");
 		}
 	};
 	
 	List<Loop> loops;
 	Notifier notifier;
 	
-	public Looper() {
+	public Looper(double period) {
+		this.period = 1/period;
 		loops = new ArrayList<Loop>();
 		notifier = new Notifier(runnable);
 	}
@@ -37,7 +48,7 @@ public class Looper {
 		for(Loop l : loops) {
 			l.onStart();
 		}
-		notifier.startPeriodic(Constants.kPeriod);
+		notifier.startPeriodic(period);
 		
 	}
 	
@@ -51,5 +62,11 @@ public class Looper {
 			l.onStop();
 		}
 	}
+	
+	public synchronized void register(Loop loop) {
+        synchronized (taskRunningLock_) {
+            loops.add(loop);
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import frc.autonomous.actiongroups.TestGroup;
 import frc.robot.OI;
 import frc.robot.Robot;
 
@@ -120,12 +121,12 @@ public class SwerveDrive extends Command {
     	
     	//If the X button is pressed resets the Swerve Modules
     	if(controlType.getZeroModulesButton()) {
-    		Robot.swerveBase.setZero();
+			Robot.swerveBase.setZero();
     	}
     	
     	//If Y is pressed resets the field orientation
     	if(controlType.getCenterGyroButton()) {
-    		Robot.swerveBase.resetGyroNorth(0, 0);
+			Robot.swerveBase.resetGyroNorth(0, 0);
     	}
     	
     	if(controlType.getDockingModeButton()) {
