@@ -282,6 +282,22 @@ public final class Main {
       return filterContoursOutput;
     }
 
+    public List<Double> getEllipseAngles() {
+      List<Double> angles = new ArrayList();
+      for(MatOfPoint contour : filterContoursOutput()) {
+        angles.add(Imgproc.fitEllipse(new MatOfPoint2f(contour.toArray())).clone().angle);
+      }
+      return angles;
+    }
+
+    public List<RotatedRect> getEllipsesFromContours() {
+      List<RotatedRect> ellipses = new ArrayList();
+      for(MatOfPoint contour : filterContoursOutput()) {
+        ellipses.add(Imgproc.fitEllipse(new MatOfPoint2f(contour.toArray())));
+      }
+      return ellipses;
+    }
+
     /**
      * Segment an image based on hue, saturation, and value ranges.
      *
