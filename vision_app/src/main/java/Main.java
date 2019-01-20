@@ -82,16 +82,6 @@ public final class Main {
     public JsonElement streamConfig;
   }
 
-  public static class VideoPackage {
-    public CameraServer server;
-    public VideoSource camera;
-
-    public VideoPackage(CameraServer server, VideoSource camera) {
-      this.server = server;
-      this.camera = camera;
-    }
-  }
-
   public static int team;
   public static boolean server;
   public static List<CameraConfig> cameraConfigs = new ArrayList<>();
@@ -197,7 +187,7 @@ public final class Main {
   /**
    * Start running the camera.
    */
-  public static VideoPackage startCamera(CameraConfig config) {
+  public static VideoSource startCamera(CameraConfig config) {
     System.out.println("Starting camera '" + config.name + "' on " + config.path);
     CameraServer inst = CameraServer.getInstance();
     UsbCamera camera = new UsbCamera(config.name, config.path);
@@ -212,7 +202,7 @@ public final class Main {
       server.setConfigJson(gson.toJson(config.streamConfig));
     }
 
-    return new VisionPackage(inst, camera);
+    return camera;
   }
 
   /**
@@ -436,14 +426,11 @@ public final class Main {
 
     // start cameras
     List<VideoSource> cameras = new ArrayList<>();
-    List<CameraServer> streams = new ArrayList<>();
     for (CameraConfig cameraConfig : cameraConfigs) {
-      VideoPackage pack = startCamera(cameraConfig);
       cameras.add(pack.camera);
-      streams.add(pack.server);
     }
 
-    CameraServer camServer = streams.get(0);
+    CameraServer camServer = CameraServer.getInstance();
     CvSink sink = camServer.getVideo();
     CvSource output = camServer.putVideo("stream", 160, 120);
 
