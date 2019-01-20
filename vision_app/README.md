@@ -1,6 +1,6 @@
 # Vision App
 This is the application that runs on the [WPILib Rasberry Pi Image](https://github.com/wpilibsuite/FRCVision-pi-gen/releases).
-It's written in Java, and we used GRIP to generate the Pipeline code.
+It's written in Java, and we used [GRIP](https://github.com/WPIRoboticsProjects/GRIP/releases) to generate the Pipeline code.
 
 #### Building (on Desktop)
 1. Make sure you're using Java 11 and your JAVA_HOME env variable is set (instructions for that [here](https://docs.oracle.com/cd/E19182-01/821-0917/inst_jdk_javahome_t/index.html))
