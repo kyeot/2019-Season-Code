@@ -82,6 +82,16 @@ public final class Main {
     public JsonElement streamConfig;
   }
 
+  public static class VideoPackage {
+    public CameraServer server;
+    public VideoSource camera;
+
+    public VideoPackage(CameraServer server, VideoSource camera) {
+      this.server = server;
+      this.camera = camera;
+    }
+  }
+
   public static int team;
   public static boolean server;
   public static List<CameraConfig> cameraConfigs = new ArrayList<>();
@@ -187,7 +197,7 @@ public final class Main {
   /**
    * Start running the camera.
    */
-  public static VideoSource startCamera(CameraConfig config) {
+  public static VideoPackage startCamera(CameraConfig config) {
     System.out.println("Starting camera '" + config.name + "' on " + config.path);
     CameraServer inst = CameraServer.getInstance();
     UsbCamera camera = new UsbCamera(config.name, config.path);
@@ -202,7 +212,7 @@ public final class Main {
       server.setConfigJson(gson.toJson(config.streamConfig));
     }
 
-    return camera;
+    return new VisionPackage(inst, camera);
   }
 
   /**
@@ -389,6 +399,15 @@ public final class Main {
       }
     }
 
+  }
+
+  public static Mat drawEllipses(Mat image, List<RotatedRect> ellipses) {
+
+    for(RotatedRect ellipse : ellipses) {
+      image = Imgproc.ellipse(image, ellipse, color);
+    }
+
+    return image;
 
   }
 
@@ -417,21 +436,28 @@ public final class Main {
 
     // start cameras
     List<VideoSource> cameras = new ArrayList<>();
+    List<CameraServer> streams = new ArrayList<>();
     for (CameraConfig cameraConfig : cameraConfigs) {
-      cameras.add(startCamera(cameraConfig));
+      VideoPackage pack = startCamera(cameraConfig);
+      cameras.add(pack.camera);
+      streams.add(pack.server);
     }
+
+    CameraServer camServer = streams.get(0);
+    CvSink sink = camServer.getVideo();
+    CvSource output = camServer.putVideo("stream", 160, 120);
+
+    Mat frame = new Mat();
 
     // start image processing on camera 0 if present
     if (cameras.size() >= 1) {
-      VisionThread visionThread = new VisionThread(cameras.get(0),
-              new MyPipeline(), pipeline -> {
-        // do something with pipeline results
+      VisionThread visionThread = new VisionThread(cameras.get(0), new MyPipeline(), pipeline -> {
+        sink.grabFrame(frame);
+        output.putFrame(drawEllipses(frame, pipeline.getEllipsesFromContours()));
       });
-      /* something like this for GRIP:
-      VisionThread visionThread = new VisionThread(cameras.get(0),
-              new GripPipeline(), pipeline -> {
-        ...
-      });
+      /*
+       * something like this for GRIP: VisionThread visionThread = new
+       * VisionThread(cameras.get(0), new GripPipeline(), pipeline -> { ... });
        */
       visionThread.start();
     }
