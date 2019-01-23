@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -27,6 +30,10 @@ import java.io.IOException;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
+  NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
+  NetworkTable table = ntinst.getTable("Vision");
+  NetworkTableEntry entry = table.getEntry("angle");
+
   public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
@@ -45,8 +52,11 @@ public class Robot extends TimedRobot {
 
     looper.startLoops();
 
-    String[] autonomousList = {"Test"};
-    
+    String[] autonomousList = {"hello"};
+
+    NetworkTable table = ntinst.getTable("Vision");
+
+    SmartDashboard.putString("DB/String 0", "value");
 		SmartDashboard.putStringArray("Auto List", autonomousList);
     
     try {
@@ -62,6 +72,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putString("DB/String 0", "" + entry.getDouble(10));
+    SmartDashboard.putNumber("foo", entry.getDouble(10));
   }
 
   @Override
