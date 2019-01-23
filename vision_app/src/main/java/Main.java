@@ -87,6 +87,15 @@ public final class Main {
   public static boolean server;
   public static List<CameraConfig> cameraConfigs = new ArrayList<>();
 
+  public static final int width = 160;
+  public static final int height = 120;
+
+  //Calculations from: http://vrguy.blogspot.com/2013/04/converting-diagonal-field-of-view-and.html
+  public static final double horizFov = 57.15;
+  public static final double vertFov = 44.44;
+
+  public static final double focalLength = imageWidth / (2 * Math.tan(horizFov / 2));
+
   private Main() {
   }
 
@@ -203,6 +212,8 @@ public final class Main {
       server.setConfigJson(gson.toJson(config.streamConfig));
     }
 
+    camera.setResolution(width, height);
+
     return camera;
   }
 
@@ -309,6 +320,10 @@ public final class Main {
         rectangles.add(Imgproc.minAreaRect(new MatOfPoint2f(contour.toArray())));
       }
       return rectangles;
+    }
+
+    public RotatedRect findBestTarget() {
+      return getRectanglesFromContours().get(0);
     }
 
     /**
@@ -459,9 +474,15 @@ public final class Main {
     }
 
     NetworkTable table = ntinst.getTable("Vision");
-    NetworkTableEntry entry = table.getEntry("angle");
-    entry.setDouble(12);
+    NetworkTableEntry xEntry = table.getEntry("x");
+    NetworkTableEntry yEntry = table.getEntry("y");
+    NetworkTableEntry zEntry = table.getEntry("z");
+    NetworkTableEntry timeEntry = table.getEntry("timestamp");
+    NetworkTableEntry emptyEntry = table.getEntry("empty");
 
+    double x;
+    double y;
+    double z;
 
     CameraServer camServer = CameraServer.getInstance();
     CvSink sink = camServer.getVideo();
@@ -472,14 +493,28 @@ public final class Main {
     // start image processing on camera 0 if present
     if (cameras.size() >= 1) {
       VisionThread visionThread = new VisionThread(cameras.get(0), new MyPipeline(), pipeline -> {
-        if(pipeline.getRectangleAngles().size() > 0) {
-          System.out.println(pipeline.getRectangleAngles().get(0));
-          entry.setDouble(pipeline.getRectangleAngles().get(0));
+        if(pipeline.filterContoursOutput.size() > 0) {
+
+          // Convert to a homogeneous 3d vector with x = 1
+          x = 1;
+          y = -(pipeline.findBestTarget().center.x - (width / 2)) / focalLength;
+          z = (pipeline.findBestTarget().center.y - (width / 2)) / focalLength;
+
+          System.out.println("x:  1; y: " + y + "z: " + z);
+          xEntry.setDouble(x);
+          yEntry.setDouble(y);
+          zEntry.setDouble(z);
+
+          emptyEntry.setBoolean(false);
+
         } else {
           System.out.println("no contours found");
+          emptyEntry.setBoolean(true);
         }
-        
-        sink.grabFrame(frame);
+
+        emptyEntry.setBoolean(true);
+        System.out.println(timeEntry.setDouble(sink.grabFrame(frame)));
+        //timeEntry.putDouble(sink.grabFrame(frame));
         output.putFrame(drawRectangles(frame, pipeline.getRectanglesFromContours()));
         
 

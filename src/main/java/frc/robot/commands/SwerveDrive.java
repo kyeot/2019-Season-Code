@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.autonomous.actiongroups.TestGroup;
+import frc.robot.FieldTransform;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
@@ -16,8 +17,8 @@ public class SwerveDrive extends Command {
 	 * 
 	 */
 	public enum ControlType {
-		CONTROLLER(1, 0, 4, 5, 4, 3, 6),
-		JOYSTICK(1, 0, 2, 1, 2, 4, 6);
+		CONTROLLER(1, 0, 4, 5, 4, 3, 6, 1),
+		JOYSTICK(1, 0, 2, 1, 2, 4, 6, 7);
 		
 		int fbAxis;
 		int rlAxis;
@@ -27,6 +28,7 @@ public class SwerveDrive extends Command {
 		int centerGyro;
 		int zeroModules;
 		int dockingMode;
+		int vision;
 	
 		/**
 		 * Constructs the variables based on control type
@@ -40,7 +42,7 @@ public class SwerveDrive extends Command {
 		 */
 		private ControlType(
 				int fbAxis, int rlAxis, int rotAxis,
-				int doubleSpeed, int centerGyro, int zeroModules, int dockingMode) {
+				int doubleSpeed, int centerGyro, int zeroModules, int dockingMode, int vision) {
 			
 			this.fbAxis = fbAxis;
 			this.rlAxis = rlAxis;
@@ -49,6 +51,7 @@ public class SwerveDrive extends Command {
 			this.centerGyro = centerGyro;
 			this.zeroModules = zeroModules;
 			this.dockingMode = dockingMode;
+			this.vision = vision;
 		}
 		
 		public double getFBAxis() {
@@ -78,11 +81,16 @@ public class SwerveDrive extends Command {
 		public boolean getDockingModeButton() {
 			return OI.driver.getRawButton(dockingMode);
 		}
+
+		public boolean getVisionButton() {
+			return OI.driver.getRawButton(vision);
+		}
 		
 	}
 
 	private ControlType controlType;
 	private SwerveController swerveController = SwerveController.getInstance();
+	private FieldTransform fieldTransform = FieldTransform.getInstance();
 
 	//Makes SwerveDrive require the subsystem swerveBase
     public SwerveDrive(ControlType controlType) {
@@ -133,12 +141,17 @@ public class SwerveDrive extends Command {
 		swerveController.slide(fbValue, rlValue);
 		swerveController.rotate(rotValue);
     	
-    	if(controlType.getDockingModeButton()) {
-    		System.out.println("Docking Mode");
-    		swerveController.update(false);
+    	if(controlType.getVisionButton()) {
+    		swerveController.slide(fbValue, rlValue);
+    		if(fieldTransform.targetHistory.getLatestTarget() != null) {
+        		swerveController.setPose(fieldTransform.targetHistory.getSmoothTarget().dir());
+
+    		}
     	} else {
-    		swerveController.update(true);
+    		swerveController.move(fbValue, rlValue, rotValue);
     	}
+    	
+    	swerveController.update(true);
     	
     }
 

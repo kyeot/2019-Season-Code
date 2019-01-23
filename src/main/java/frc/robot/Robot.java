@@ -15,24 +15,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
+import frc.loops.VisionProcessor;
 import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
   NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
-  NetworkTable table = ntinst.getTable("Vision");
-  NetworkTableEntry entry = table.getEntry("angle");
 
   public static OI oi;
 
@@ -41,6 +38,8 @@ public class Robot extends TimedRobot {
   private static AHRS navSensor;
 
   public Looper looper = new Looper(Constants.kPeriod);
+  public VisionProcessor visionProcessor = VisionProcessor.getInstance();
+
   public static ActionScheduler actionScheduler = new ActionScheduler();
 
   Command m_autonomousCommand;
@@ -50,11 +49,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     oi = new OI();
 
+    looper.addLoop(visionProcessor);
     looper.startLoops();
 
     String[] autonomousList = {"hello"};
-
-    NetworkTable table = ntinst.getTable("Vision");
 
     SmartDashboard.putString("DB/String 0", "value");
 		SmartDashboard.putStringArray("Auto List", autonomousList);
@@ -72,8 +70,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putString("DB/String 0", "" + entry.getDouble(10));
-    SmartDashboard.putNumber("foo", entry.getDouble(10));
   }
 
   @Override
