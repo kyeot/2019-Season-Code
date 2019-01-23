@@ -18,7 +18,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.org.apache.bcel.internal.generic.IMPDEP1;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -26,6 +25,8 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.vision.VisionThread;
@@ -34,7 +35,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.RotatedRect;
+import org.opencv.core.*;
 
 /*
    JSON format:
@@ -210,6 +211,7 @@ public final class Main {
    */
   public static class MyPipeline implements VisionPipeline {
     // Outputs
+    private Mat resizeImageOutput = new Mat();
     private Mat hsvThresholdOutput = new Mat();
     private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
     private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
@@ -223,10 +225,11 @@ public final class Main {
      * outputs.
      */
     public void process(Mat source0) {
+
       // Step HSV_Threshold0:
       Mat hsvThresholdInput = source0;
       double[] hsvThresholdHue = { 50.17985611510791, 86.31399317406142 };
-      double[] hsvThresholdSaturation = { 0.0, 255.0 };
+      double[] hsvThresholdSaturation = { 100.0, 255.0 };
       double[] hsvThresholdValue = { 98.60611510791367, 255.0 };
       hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
@@ -237,7 +240,7 @@ public final class Main {
 
       // Step Filter_Contours0:
       ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-      double filterContoursMinArea = 400.0;
+      double filterContoursMinArea = 30;
       double filterContoursMinPerimeter = 0;
       double filterContoursMinWidth = 0;
       double filterContoursMaxWidth = 1000;
@@ -252,7 +255,17 @@ public final class Main {
           filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity,
           filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio,
           filterContoursOutput);
+      
 
+    }
+
+    /**
+     * This method is a generated getter for the output of a Resize_Image.
+     * 
+     * @return Mat output from Resize_Image.
+     */
+    public Mat resizeImageOutput() {
+      return resizeImageOutput;
     }
 
     /**
@@ -282,20 +295,33 @@ public final class Main {
       return filterContoursOutput;
     }
 
-    public List<Double> getEllipseAngles() {
+    public List<Double> getRectangleAngles() {
       List<Double> angles = new ArrayList();
-      for(MatOfPoint contour : filterContoursOutput()) {
-        angles.add(Imgproc.fitEllipse(new MatOfPoint2f(contour.toArray())).clone().angle);
+      for (MatOfPoint contour : filterContoursOutput()) {
+        angles.add(Imgproc.minAreaRect(new MatOfPoint2f(contour.toArray())).angle);
       }
       return angles;
     }
 
-    public List<RotatedRect> getEllipsesFromContours() {
-      List<RotatedRect> ellipses = new ArrayList();
-      for(MatOfPoint contour : filterContoursOutput()) {
-        ellipses.add(Imgproc.fitEllipse(new MatOfPoint2f(contour.toArray())));
+    public List<RotatedRect> getRectanglesFromContours() {
+      List<RotatedRect> rectangles = new ArrayList();
+      for (MatOfPoint contour : filterContoursOutput()) {
+        rectangles.add(Imgproc.minAreaRect(new MatOfPoint2f(contour.toArray())));
       }
-      return ellipses;
+      return rectangles;
+    }
+
+    /**
+     * Scales and image to an exact size.
+     * 
+     * @param input         The image on which to perform the Resize.
+     * @param width         The width of the output in pixels.
+     * @param height        The height of the output in pixels.
+     * @param interpolation The type of interpolation.
+     * @param output        The image in which to store the output.
+     */
+    private void resizeImage(Mat input, double width, double height, int interpolation, Mat output) {
+      Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
     }
 
     /**
@@ -391,10 +417,12 @@ public final class Main {
 
   }
 
-  public static Mat drawEllipses(Mat image, List<RotatedRect> ellipses) {
+  public static Mat drawRectangles(Mat image, List<RotatedRect> rectangles) {
 
-    for(RotatedRect ellipse : ellipses) {
-      image = Imgproc.ellipse(image, ellipse, color);
+    for (RotatedRect rectangle : rectangles) {
+      Point[] vertices = new Point[4];
+      rectangle.points(vertices);
+      Imgproc.fillConvexPoly(image, new MatOfPoint(vertices), new Scalar(0, 0, 255));
     }
 
     return image;
@@ -427,7 +455,7 @@ public final class Main {
     // start cameras
     List<VideoSource> cameras = new ArrayList<>();
     for (CameraConfig cameraConfig : cameraConfigs) {
-      cameras.add(pack.camera);
+      cameras.add(startCamera(cameraConfig));
     }
 
     CameraServer camServer = CameraServer.getInstance();
@@ -439,8 +467,16 @@ public final class Main {
     // start image processing on camera 0 if present
     if (cameras.size() >= 1) {
       VisionThread visionThread = new VisionThread(cameras.get(0), new MyPipeline(), pipeline -> {
+        if(pipeline.getRectangleAngles().size() > 0) {
+          System.out.println(pipeline.getRectangleAngles().get(0));
+        } else {
+          System.out.println("no contours found");
+        }
+        
         sink.grabFrame(frame);
-        output.putFrame(drawEllipses(frame, pipeline.getEllipsesFromContours()));
+        output.putFrame(drawRectangles(frame, pipeline.getRectanglesFromContours()));
+        
+
       });
       /*
        * something like this for GRIP: VisionThread visionThread = new
