@@ -458,6 +458,11 @@ public final class Main {
       cameras.add(startCamera(cameraConfig));
     }
 
+    NetworkTable table = ntinst.getTable("Vision");
+    NetworkTableEntry entry = table.getEntry("angle");
+    entry.setDouble(12);
+
+
     CameraServer camServer = CameraServer.getInstance();
     CvSink sink = camServer.getVideo();
     CvSource output = camServer.putVideo("stream", 160, 120);
@@ -469,6 +474,7 @@ public final class Main {
       VisionThread visionThread = new VisionThread(cameras.get(0), new MyPipeline(), pipeline -> {
         if(pipeline.getRectangleAngles().size() > 0) {
           System.out.println(pipeline.getRectangleAngles().get(0));
+          entry.setDouble(pipeline.getRectangleAngles().get(0));
         } else {
           System.out.println("no contours found");
         }
