@@ -85,6 +85,8 @@ public class SwerveDriveBase extends Subsystem {
 		public double pidGet() {
 			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
 
+			//angle = enc.getValue();
+
 			if(angle > 360){
 				angle %= 360;
 			}
@@ -164,7 +166,6 @@ public class SwerveDriveBase extends Subsystem {
 	    		speed = -speed;
 	    	}
 	    	
-	    	//
 	    	if(Math.abs(angle - curAngle) > 180) {
     			angle -= 360;
     		}
@@ -179,8 +180,6 @@ public class SwerveDriveBase extends Subsystem {
 	    		
 	    		lastAngle = angle;
 			}
-			
-			SmartDashboard.putString("DB/String 0", "" + Math.floor(enc.pidGet()));
 	    	
 		}
 		
@@ -360,8 +359,15 @@ public class SwerveDriveBase extends Subsystem {
     	frMod.setModule(frAng, frSpd);
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
-    	rlMod.setModule(rlAng, rlSpd);
-    	
+		rlMod.setModule(rlAng, rlSpd);
+		
+		SmartDashboard.putString("DB/String 0", "" + flMod.getAngle());
+		SmartDashboard.putString("DB/String 1", "" + frMod.getAngle());
+		SmartDashboard.putString("DB/String 2", "" + rlMod.getAngle());
+		SmartDashboard.putString("DB/String 3", "" + rrMod.getAngle());
+
+		SmartDashboard.putString("DB/String 5", "" + );
+
     }
     
     /**

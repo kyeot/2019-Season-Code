@@ -12,36 +12,36 @@ public class Constants {
 	//public static final double kSwerveP = 0.022;
 	//public static final double kSwerveI = 0.04; 
 	//public static final double kSwerveD = 0.025;
-	public static final double kSwerveP = 0.01;
+	public static final double kSwerveP = 0.02;
 	public static final double kSwerveI = 0.0; 
-	public static final double kSwerveD = 0.02;
+	public static final double kSwerveD = 0.001;
 	
 	public static final double kAngleToEncoderTick = 0.875;
 	
 	public static final int kDriverControllerId = 0;
 	public static final int kManipulatorControllerId = 1;
+
+	public static final int kFrontLeftWheelId = 1;
+	public static final int kFrontRightWheelId = 14;
+	public static final int kRearLeftWheelId = 3;
+	public static final int kRearRightWheelId = 13;
 	
-	public static final int kFrontLeftWheelId = 862;
-	public static final int kFrontRightWheelId = 2;
-	public static final int kRearLeftWheelId = 118;
-	public static final int kRearRightWheelId = 148;
-	
-	public static final int kFrontLeftSwivelId = 2783;
-	public static final int kFrontRightSwivelId = 0;
-	public static final int kRearLeftSwivelId = 16;
-	public static final int kRearRightSwivelId = 254;
+	public static final int kFrontLeftSwivelId = 0;
+	public static final int kFrontRightSwivelId = 15;
+	public static final int kRearLeftSwivelId = 2;
+	public static final int kRearRightSwivelId = 12;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
-	public static final double kFrontLeftAngleOffset = 0;
-	public static final double kFrontRightAngleOffset = 345;
-	public static final double kRearLeftAngleOffset = 0;
-	public static final double kRearRightAngleOffset = 0;
+	public static final double kFrontLeftAngleOffset = 360-90.8;
+	public static final double kFrontRightAngleOffset = 360-19;
+	public static final double kRearLeftAngleOffset = 360-7.2;
+	public static final double kRearRightAngleOffset = 360-69.3;
 	
 	public static final int kFrontLeftAbsoluteEncoder = 0;
 	public static final int kFrontRightAbsoluteEncoder = 1;
-	public static final int kRearLeftAbsoluteEncoder = 2;
-	public static final int kRearRightAbsoluteEncoder = 3;
+	public static final int kRearLeftAbsoluteEncoder = 3;
+	public static final int kRearRightAbsoluteEncoder = 2;
 
 	public static final int kFrontLeftEncoderA = 4;
 	public static final int kFrontLeftEncoderB = 5;
