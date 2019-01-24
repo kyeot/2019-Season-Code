@@ -35,10 +35,10 @@ public class Constants {
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
-	public static final double kFrontLeftAngleOffset = 360-90.8;
-	public static final double kFrontRightAngleOffset = 360-19;
-	public static final double kRearLeftAngleOffset = 360-7.2;
-	public static final double kRearRightAngleOffset = 360-69.3;
+	public static final double kFrontLeftAngleOffset = 360-91.9;
+	public static final double kFrontRightAngleOffset = 360-18.0;
+	public static final double kRearLeftAngleOffset = 360-8.6;
+	public static final double kRearRightAngleOffset = 360-67.8;
 	
 	public static final int kFrontLeftAbsoluteEncoder = 0;
 	public static final int kFrontRightAbsoluteEncoder = 1;
