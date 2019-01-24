@@ -7,13 +7,9 @@ import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -84,8 +80,6 @@ public class SwerveDriveBase extends Subsystem {
 		@Override
 		public double pidGet() {
 			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
-
-			//angle = enc.getValue();
 
 			if(angle > 360){
 				angle %= 360;
@@ -356,17 +350,15 @@ public class SwerveDriveBase extends Subsystem {
     	}
     	
     	//Set Wheel Speeds and Angles
-    	frMod.setModule(frAng, frSpd);
+    	 frMod.setModule(frAng, frSpd);
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);
-		
+
 		SmartDashboard.putString("DB/String 0", "" + flMod.getAngle());
 		SmartDashboard.putString("DB/String 1", "" + frMod.getAngle());
 		SmartDashboard.putString("DB/String 2", "" + rlMod.getAngle());
 		SmartDashboard.putString("DB/String 3", "" + rrMod.getAngle());
-
-		SmartDashboard.putString("DB/String 5", "" + );
 
     }
     
