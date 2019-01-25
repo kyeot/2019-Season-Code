@@ -6,6 +6,7 @@ import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -142,7 +143,7 @@ public class SwerveDrive extends Command {
 		swerveController.rotate(rotValue);
     	
     	if(controlType.getVisionButton()) {
-    		swerveController.slide(fbValue, rlValue);
+			swerveController.slide(fbValue, rlValue);
     		if(fieldTransform.targetHistory.getLatestTarget() != null) {
         		swerveController.setPose(fieldTransform.targetHistory.getSmoothTarget().dir());
 

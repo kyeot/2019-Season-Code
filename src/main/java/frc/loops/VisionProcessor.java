@@ -21,13 +21,16 @@ public class VisionProcessor implements Loop {
     static VisionProcessor instance_ = new VisionProcessor();
     FieldTransform fieldTransform = FieldTransform.getInstance();
 
-    NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
-    NetworkTable visionTable = ntinst.getTable("Vision");
-    NetworkTableEntry xEntry = visionTable.getEntry("x");
-    NetworkTableEntry yEntry = visionTable.getEntry("y");
-    NetworkTableEntry zEntry = visionTable.getEntry("z");
-    NetworkTableEntry timeEntry = visionTable.getEntry("timestamp");
-    NetworkTableEntry emptyEntry = visionTable.getEntry("empty");
+    NetworkTableInstance ntinst;
+    NetworkTable visionTable;
+    NetworkTableEntry xEntry;
+    NetworkTableEntry yEntry;
+    NetworkTableEntry zEntry;
+    NetworkTableEntry timeEntry;
+    NetworkTableEntry emptyEntry;
+
+    double time0;
+    boolean firstTime = true;
 
     public static VisionProcessor getInstance() {
         return instance_;
@@ -38,19 +41,35 @@ public class VisionProcessor implements Loop {
 
     @Override
     public void onStart() {
+        ntinst = NetworkTableInstance.getDefault();
+        visionTable = ntinst.getTable("Vision");
+
+        xEntry = visionTable.getEntry("x");
+        yEntry = visionTable.getEntry("y");
+        zEntry = visionTable.getEntry("z");
+        timeEntry = visionTable.getEntry("timestamp");
+        emptyEntry = visionTable.getEntry("empty");
     }
 
     @Override
-    public void onLoop() {
+    public void onLoop() { 
         
         NavSensor.getInstance().updateHistory();
 
-        SmartDashboard.putString("DB/String 9", "Gyro Angle: " + Math.floor(NavSensor.getInstance().getAngle(false)));
-        SmartDashboard.putString("DB/String 5", "Raw Gyro Angle: " + Math.floor(NavSensor.getInstance().getRawAngle()));
-
+        if(firstTime) {
+            if(timeEntry.getDouble(-1) == -1) {
+                return;
+            } else {
+                time0 = timeEntry.getDouble(-1);
+                SmartDashboard.putString("DB/String 4", "" + time0);
+                firstTime = false;
+            }
+        }
+        
         if(emptyEntry.getBoolean(false)) {
             return;
         }
+       
         
         TargetInfo newTarget = new TargetInfo(
                                         xEntry.getDouble(0), 
@@ -58,8 +77,10 @@ public class VisionProcessor implements Loop {
                                         zEntry.getDouble(0),
                                         emptyEntry.getBoolean(true));
 
-        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(RobotController.getFPGATime()));
+        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(RobotController.getFPGATime()) - time0);
         fieldTransform.trackLatestTarget();
+
+        
     }
 
     @Override
@@ -68,6 +89,7 @@ public class VisionProcessor implements Loop {
     }
 
     @Override
+    
     public void onLoop(double timestamp) {
 
     }

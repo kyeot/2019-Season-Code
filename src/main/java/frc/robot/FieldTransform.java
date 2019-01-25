@@ -53,7 +53,10 @@ public class FieldTransform {
 	}
 	
 	public Transform getFieldToCamera(Timestamp t) {
-		return getRobotPose(t).transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
+		Transform foo2 = getRobotPose(t);
+		Transform foo = foo2.transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
+		return foo;
+		
 	}
 	
 	/**
@@ -69,23 +72,18 @@ public class FieldTransform {
 			//Rotate target direction to compensate for camera pitch (rotation matrix)
 			double xr = z * camPitch.sin() + x * camPitch.cos();
             double yr = y;
-            double zr = z * camPitch.cos() - x * camPitch.sin();
-            
-            SmartDashboard.putString("DB/String 2", "zr: " + zr);
-            
+			double zr = z * camPitch.cos() - x * camPitch.sin();
             
             if(zr > 0) {
             	double s = camToGoal / zr;
             	double dist = Math.hypot(xr, yr) * s;
             	Bearing angle = new Bearing(new Vector(xr, yr));
             	Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
-            	
-            	Timestamp time = new Timestamp(targetsTimestamp);
+				
+				Timestamp time = new Timestamp(targetsTimestamp);
             	targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
-            	
-            	SmartDashboard.putString("DB/String 0", "Angle to Robot: " + Math.floor(targetHistory.getLatestTarget().dir().getTheta()));
-            	SmartDashboard.putString("DB/String 1", "" + gyro.history.size());
-            }
+			}
+			
 		}
 	}
 	

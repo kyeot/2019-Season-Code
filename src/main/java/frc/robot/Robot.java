@@ -12,17 +12,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
 import frc.loops.VisionProcessor;
 import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
+import frc.util.NavSensor;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
@@ -70,6 +69,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putString("DB/String 7", "" + NavSensor.getInstance().history.size());
   }
 
   @Override

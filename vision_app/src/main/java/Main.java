@@ -30,6 +30,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.vision.VisionThread;
+import edu.wpi.first.wpilibj.RobotController;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -94,7 +95,7 @@ public final class Main {
   public static final double horizFov = 57.15;
   public static final double vertFov = 44.44;
 
-  public static final double focalLength = imageWidth / (2 * Math.tan(horizFov / 2));
+  public static final double focalLength = width / (2 * Math.tan(horizFov / 2));
 
   private Main() {
   }
@@ -480,13 +481,11 @@ public final class Main {
     NetworkTableEntry timeEntry = table.getEntry("timestamp");
     NetworkTableEntry emptyEntry = table.getEntry("empty");
 
-    double x;
-    double y;
-    double z;
-
     CameraServer camServer = CameraServer.getInstance();
     CvSink sink = camServer.getVideo();
     CvSource output = camServer.putVideo("stream", 160, 120);
+
+    double time0 = RobotController.getFPGATime()*10E-7;
 
     Mat frame = new Mat();
 
@@ -494,11 +493,11 @@ public final class Main {
     if (cameras.size() >= 1) {
       VisionThread visionThread = new VisionThread(cameras.get(0), new MyPipeline(), pipeline -> {
         if(pipeline.filterContoursOutput.size() > 0) {
-
+          pipeline
           // Convert to a homogeneous 3d vector with x = 1
-          x = 1;
-          y = -(pipeline.findBestTarget().center.x - (width / 2)) / focalLength;
-          z = (pipeline.findBestTarget().center.y - (width / 2)) / focalLength;
+          double x = 1;
+          double y = -(pipeline.findBestTarget().center.x - (width / 2)) / focalLength;
+          double z = (pipeline.findBestTarget().center.y - (width / 2)) / focalLength;
 
           System.out.println("x:  1; y: " + y + "z: " + z);
           xEntry.setDouble(x);
@@ -512,8 +511,9 @@ public final class Main {
           emptyEntry.setBoolean(true);
         }
 
-        emptyEntry.setBoolean(true);
-        System.out.println(timeEntry.setDouble(sink.grabFrame(frame)));
+        double timestamp = sink.grabFrame(frame)*10E-7 - time0;
+       // System.out.println("timestamp: " + timestamp);
+        timeEntry.setDouble(timestamp);
         //timeEntry.putDouble(sink.grabFrame(frame));
         output.putFrame(drawRectangles(frame, pipeline.getRectanglesFromContours()));
         
