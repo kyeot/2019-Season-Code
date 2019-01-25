@@ -4,6 +4,7 @@ import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.SwerveDrive.ControlType;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.util.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -32,6 +33,11 @@ public class SwerveDriveBase extends Subsystem {
 	public SwerveModule rlMod;
 	
 	private double angleOffset = 0;
+
+	private double rotateOut;
+
+	public static PIDRotateOutput pidRotOut;
+	public static PIDController pidRotCont;
 	
 	/**
 	 * 
@@ -48,6 +54,13 @@ public class SwerveDriveBase extends Subsystem {
 		@Override
 		public void pidWrite(double output) {
 			motor.set(ControlMode.PercentOutput, output);
+		}
+	}
+
+	public class PIDRotateOutput implements PIDOutput {
+		@Override
+		public void pidWrite(double output) {
+			rotateOut = output;
 		}
 	}
 
@@ -133,6 +146,7 @@ public class SwerveDriveBase extends Subsystem {
 			
 			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
+
 		}
 		
 		/**
@@ -261,7 +275,18 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kRearRightWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
 						Constants.kRearRightAngleOffset)
-    				); // ):
+					); // ):
+					
+		pidRotOut = new PIDRotateOutput();
+
+		pidRotCont = new PIDController(
+			Constants.kRotateP, Constants.kRotateI, Constants.kRotateD,
+			new GyroSource(),
+			pidRotOut
+			);
+
+		pidRotCont.setInputRange(0, 360);
+		pidRotCont.setContinuous();
     	
     }
 
@@ -365,6 +390,14 @@ public class SwerveDriveBase extends Subsystem {
      * @param rotation How fast the robot rotates
      * @param fieldOriented Whether or not the robot is field oriented
      */
+
+	public void rotateToAngle(Bearing b){
+		pidRotCont.setSetpoint(b.getTheta());
+		pidRotCont.enable();
+
+		swerveDrive(0, 0, rotateOut, true);
+	} 
+	
     public void polarSwerveDrive(double angle, double speed, double rotation, boolean fieldOriented) {
     	swerveDrive(
     			cosDeg(angle)*speed,

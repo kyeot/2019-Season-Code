@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
   }
 
   @Override
@@ -106,8 +107,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    
-    SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
 
   }
 

@@ -9,6 +9,7 @@ package frc.autonomous.actiongroups;
 
 import frc.autonomous.ActionGroup;
 import frc.autonomous.actions.*;
+import frc.util.Bearing;
 
 /**
  * Add your docs here.
@@ -18,7 +19,7 @@ public class TestGroup extends ActionGroup{
     public TestGroup(){
         super();
 
-        addAction(new AutoDrive(0, 0.5, 0, 3));
+        addAction(new RotateToAngle(new Bearing(0), 5));
 
     }
 

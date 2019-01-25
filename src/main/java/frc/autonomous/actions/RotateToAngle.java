@@ -7,7 +7,6 @@
 
 package frc.autonomous.actions;
 
-import frc.robot.subsystems.*;
 import frc.robot.*;
 import frc.autonomous.*;
 import frc.util.*;
@@ -27,6 +26,7 @@ public class RotateToAngle extends Action{
 	
 	@Override
 	public void perform(){
-		
+        Robot.swerveBase.rotateToAngle(b);
+        
 	}
 }
