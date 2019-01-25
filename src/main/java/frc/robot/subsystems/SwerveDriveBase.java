@@ -131,7 +131,7 @@ public class SwerveDriveBase extends Subsystem {
 						);
 			
 			
-			pidCont.setInputRange(-360, 360);
+			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
 		}
 		
@@ -159,11 +159,7 @@ public class SwerveDriveBase extends Subsystem {
 	    		angle = (angle +180)%360;
 	    		speed = -speed;
 	    	}
-	    	
-	    	if(Math.abs(angle - curAngle) > 180) {
-    			angle -= 360;
-    		}
-	    	
+
 	    	//Makes it so when you stop moving it doesn't reset the angle to 0, but leaves it where it was
 		    if(speed == 0) {
 	    		setAngle(lastAngle);
@@ -350,7 +346,7 @@ public class SwerveDriveBase extends Subsystem {
     	}
     	
     	//Set Wheel Speeds and Angles
-    	 frMod.setModule(frAng, frSpd);
+    	frMod.setModule(frAng, frSpd);
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);

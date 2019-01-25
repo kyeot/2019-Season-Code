@@ -124,7 +124,11 @@ public class SwerveDrive extends Command {
 			Robot.swerveBase.setZero();
     	}
     	
-    	//If Y is pressed resets the field orientation
+		//If Y is pressed resets the field orientation
+		
+
+
+		
     	if(controlType.getCenterGyroButton()) {
     		Robot.swerveBase.resetGyroNorth(180, 0);
 		}
