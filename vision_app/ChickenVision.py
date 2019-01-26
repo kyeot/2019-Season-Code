@@ -91,7 +91,7 @@ class WebcamVideoStream:
 
         #Automatically sets exposure to 0 to track tape
         self.webcam = camera
-        self.webcam.setExposureManual(21)
+        self.webcam.setExposureManual(5)
         #Some booleans so that we don't keep setting exposure over and over to the same value
         self.autoExpose = False
         self.prevValue = self.autoExpose
@@ -129,7 +129,7 @@ class WebcamVideoStream:
             else:
                 if (self.autoExpose != self.prevValue):
                     self.prevValue = self.autoExpose
-                    self.webcam.setExposureManual(21)
+                    self.webcam.setExposureManual(5)
             #gets the image and timestamp from cameraserver
             (self.timestamp, self.img) = self.stream.grabFrame(self.img)
 
