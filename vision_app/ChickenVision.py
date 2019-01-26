@@ -481,7 +481,8 @@ def findTape(contours, image, centerX, centerY):
         currentAngleError = finalTarget[1]
         # pushes vision target angle to network tables
         networkTable.putNumber("tapeY", finalTarget[2])
-        networkTable.putNumber("tapeX", finalTarget[3])
+        networkTable.putNumber("tapeX", finalTarget[1])
+        networkTable.putNumber("tapeZ", finalTarget[3])
     else:
         # pushes that it deosn't see vision target to network tables
         networkTable.putBoolean("tapeDetected", False)
@@ -553,7 +554,8 @@ def calculatePitch(pixelY, centerY, vFocalLength):
 def calculateVector(pixelY, centerY, pixelX, centerX):
     x = 1.0
     y = -(pixelX - centerX) / focal_pixels
-    z = (pixelY - centerY) / focal_pixels
+    z = -(pixelY - centerY) / focal_pixels
+    print(horizontalView)
     return x, y, z
 
 
