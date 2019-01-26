@@ -22,7 +22,7 @@ public class VisionProcessor implements Loop {
     FieldTransform fieldTransform = FieldTransform.getInstance();
 
     NetworkTableInstance ntinst;
-    NetworkTable visionTable;
+    NetworkTable chickenTable;
     NetworkTableEntry xEntry;
     NetworkTableEntry yEntry;
     NetworkTableEntry zEntry;
@@ -42,13 +42,13 @@ public class VisionProcessor implements Loop {
     @Override
     public void onStart() {
         ntinst = NetworkTableInstance.getDefault();
-        visionTable = ntinst.getTable("Vision");
+        chickenTable = ntinst.getTable("ChickenVision");
 
-        xEntry = visionTable.getEntry("x");
-        yEntry = visionTable.getEntry("y");
-        zEntry = visionTable.getEntry("z");
-        timeEntry = visionTable.getEntry("timestamp");
-        emptyEntry = visionTable.getEntry("empty");
+        xEntry = chickenTable.getEntry("tapeX");
+        yEntry = chickenTable.getEntry("tapeY");
+        zEntry = chickenTable.getEntry("tapeZ");
+        timeEntry = chickenTable.getEntry("VideoTimestamp");
+        emptyEntry = chickenTable.getEntry("tapeDetected");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class VisionProcessor implements Loop {
             if(timeEntry.getDouble(-1) == -1) {
                 return;
             } else {
-                time0 = timeEntry.getDouble(-1);
+                time0 = timeEntry.getDouble(-1)*10E-7;
                 SmartDashboard.putString("DB/String 4", "" + time0);
                 firstTime = false;
             }
@@ -77,7 +77,7 @@ public class VisionProcessor implements Loop {
                                         zEntry.getDouble(0),
                                         emptyEntry.getBoolean(true));
 
-        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(RobotController.getFPGATime()) - time0);
+        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(-1) - time0);
         fieldTransform.trackLatestTarget();
 
         
