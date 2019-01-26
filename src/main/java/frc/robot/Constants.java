@@ -18,7 +18,8 @@ public class Constants {
 	public static final double kGyroMaxAge = 0.6;
 	
 	public static final int kDriverControllerId = 0;
-	
+	public static final int kManipulatorControllerId = 1;
+
 	public static final int kFrontLeftWheelId = 2;
 	public static final int kFrontRightWheelId = 0;
 	public static final int kRearLeftWheelId = 3;
