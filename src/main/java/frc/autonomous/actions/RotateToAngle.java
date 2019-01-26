@@ -7,7 +7,7 @@
 
 package frc.autonomous.actions;
 
-import frc.robot.*;
+import frc.robot.subsystems.SwerveController;
 import frc.autonomous.*;
 import frc.util.*;
 
@@ -26,7 +26,7 @@ public class RotateToAngle extends Action{
 	
 	@Override
 	public void perform(){
-        Robot.swerveBase.rotateToAngle(b);
+        SwerveController.getInstance().setPose(new Bearing(0));
         
 	}
 }

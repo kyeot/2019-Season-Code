@@ -9,16 +9,13 @@ public class Constants {
 	
 	public static final double kPeriod = 0.01;
 	
-	//public static final double kSwerveP = 0.022;
-	//public static final double kSwerveI = 0.04; 
-	//public static final double kSwerveD = 0.025;
 	public static final double kSwerveP = 0.02;
 	public static final double kSwerveI = 0.0; 
 	public static final double kSwerveD = 0.005;
 
-	public static final double kRotateP = 0.015;
-	public static final double kRotateI = 0.001;
-	public static final double kRotateD = 0.03;
+	public static final double kSwerveRotP = 0.04;
+	public static final double kSwerveRotI = 0.0; 
+	public static final double kSwerveRotD = 0.15;
 	
 	public static final double kAngleToEncoderTick = 0.875;
 

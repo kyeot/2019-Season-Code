@@ -67,7 +67,7 @@ public class SwerveController {
 	SwerveController(){
 		posePidOut = new SwervePoseOut();
 		posePidSource = new GyroSource();
-		posePid = new PIDController(Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD, 
+		posePid = new PIDController(Constants.kSwerveRotP, Constants.kSwerveRotI, Constants.kSwerveRotD, 
 										posePidSource, 
 										posePidOut);
 		posePid.setInputRange(0, 360);

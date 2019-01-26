@@ -33,11 +33,6 @@ public class SwerveDriveBase extends Subsystem {
 	public SwerveModule rlMod;
 	
 	private double angleOffset = 0;
-
-	private double rotateOut;
-
-	public static PIDRotateOutput pidRotOut;
-	public static PIDController pidRotCont;
 	
 	/**
 	 * 
@@ -57,12 +52,6 @@ public class SwerveDriveBase extends Subsystem {
 		}
 	}
 
-	public class PIDRotateOutput implements PIDOutput {
-		@Override
-		public void pidWrite(double output) {
-			rotateOut = output;
-		}
-	}
 
 	public class PIDAnalogInput implements PIDSource {
 		PIDSourceType sourceType;
@@ -276,17 +265,6 @@ public class SwerveDriveBase extends Subsystem {
 						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
 						Constants.kRearRightAngleOffset)
 					); // ):
-					
-		pidRotOut = new PIDRotateOutput();
-
-		pidRotCont = new PIDController(
-			Constants.kRotateP, Constants.kRotateI, Constants.kRotateD,
-			new GyroSource(),
-			pidRotOut
-			);
-
-		pidRotCont.setInputRange(0, 360);
-		pidRotCont.setContinuous();
     	
     }
 
@@ -390,13 +368,6 @@ public class SwerveDriveBase extends Subsystem {
      * @param rotation How fast the robot rotates
      * @param fieldOriented Whether or not the robot is field oriented
      */
-
-	public void rotateToAngle(Bearing b){
-		pidRotCont.setSetpoint(b.getTheta());
-		pidRotCont.enable();
-
-		swerveDrive(0, 0, rotateOut, true);
-	} 
 	
     public void polarSwerveDrive(double angle, double speed, double rotation, boolean fieldOriented) {
     	swerveDrive(
