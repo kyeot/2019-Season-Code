@@ -77,7 +77,7 @@ public class VisionProcessor implements Loop {
                                         zEntry.getDouble(0),
                                         !emptyEntry.getBoolean(false));
 
-        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(-1) - time0);
+        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(-1)*10E-7 - time0);
         fieldTransform.trackLatestTarget();
 
         
