@@ -164,9 +164,9 @@ verticalAspect = 9
 diagonalAspect = math.hypot(horizontalAspect, verticalAspect)
 #Calculations: http://vrguy.blogspot.com/2013/04/converting-diagonal-field-of-view-and.html
 #61.37
-horizontalView = math.atan(math.tan(diagonalView/2) * (horizontalAspect / diagonalAspect)) * 2
+horizontalView = math.degrees(math.atan(math.tan(diagonalView/2) * (horizontalAspect / diagonalAspect)) * 2)
 #36.92
-verticalView = math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAspect)) * 2
+verticalView = math.degrees(math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAspect)) * 2)
 
 #Focal Length calculations: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_165
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
