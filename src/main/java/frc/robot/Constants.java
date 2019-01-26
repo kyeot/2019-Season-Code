@@ -13,9 +13,9 @@ public class Constants {
 	public static final double kSwerveI = 0.0; 
 	public static final double kSwerveD = 0.005;
 
-	public static final double kSwerveRotP = 0.04;
+	public static final double kSwerveRotP = 0.0015;
 	public static final double kSwerveRotI = 0.0; 
-	public static final double kSwerveRotD = 0.15;
+	public static final double kSwerveRotD = 0.001;
 	
 	public static final double kAngleToEncoderTick = 0.875;
 

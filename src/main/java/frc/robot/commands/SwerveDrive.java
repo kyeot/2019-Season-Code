@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
+import frc.util.Bearing;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -49,7 +50,7 @@ public class SwerveDrive extends Command {
 			this.zeroModules = zeroModules;
 			this.dockingMode = dockingMode;
 		}
-		
+
 		public double getFBAxis() {
 			return OI.driver.getRawAxis(fbAxis);
 		}
@@ -128,10 +129,15 @@ public class SwerveDrive extends Command {
     	if(controlType.getCenterGyroButton()) {
     		Robot.swerveBase.resetGyroNorth(180, 0);
 		}
-		
-		swerveController.slide(fbValue, rlValue);
-		swerveController.rotate(-rotValue);
-    	
+
+		if(OI.driver.getPOV() != -1){
+			swerveController.setPose(new Bearing(OI.driver.getPOV()));
+		}
+		else{
+			swerveController.slide(fbValue, rlValue);
+			swerveController.rotate(-rotValue);
+		}
+
     	if(controlType.getDockingModeButton()) {
     		System.out.println("Docking Mode");
     		swerveController.update(false);

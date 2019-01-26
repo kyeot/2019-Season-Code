@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import frc.robot.subsystems.SwerveDriveBase;
 import frc.robot.subsystems.ManipulatorBase;
-
+import frc.robot.subsystems.SwerveController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
    Robot.swerveBase.resetGyroNorth(180, 0);
   }
   
+  
 	public static void setGroup(ActionGroup group) {
 		actionScheduler.setGroup(group);
 	}
@@ -66,6 +67,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
+    SmartDashboard.putString("DB/String 6", "" + OI.driver.getPOV());
   }
 
   @Override
