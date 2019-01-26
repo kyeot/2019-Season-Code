@@ -66,7 +66,7 @@ public class VisionProcessor implements Loop {
             }
         }
         
-        if(emptyEntry.getBoolean(false)) {
+        if(!emptyEntry.getBoolean(false)) {
             return;
         }
        
@@ -75,7 +75,7 @@ public class VisionProcessor implements Loop {
                                         xEntry.getDouble(0), 
                                         yEntry.getDouble(0), 
                                         zEntry.getDouble(0),
-                                        emptyEntry.getBoolean(true));
+                                        !emptyEntry.getBoolean(false));
 
         fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(-1) - time0);
         fieldTransform.trackLatestTarget();
