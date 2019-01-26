@@ -4,7 +4,6 @@ import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.SwerveDrive.ControlType;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.util.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -52,7 +51,6 @@ public class SwerveDriveBase extends Subsystem {
 		}
 	}
 
-
 	public class PIDAnalogInput implements PIDSource {
 		PIDSourceType sourceType;
 
@@ -66,7 +64,6 @@ public class SwerveDriveBase extends Subsystem {
 
 			this.enc = enc;
 			this.angleOffset = angleOffset;
-
 		}
 
 		@Override
@@ -135,7 +132,6 @@ public class SwerveDriveBase extends Subsystem {
 			
 			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
-
 		}
 		
 		/**
@@ -215,7 +211,6 @@ public class SwerveDriveBase extends Subsystem {
 				driveMot.setNeutralMode(NeutralMode.Coast);
 			}
 		}
-		
 	}
 	
 	//Returns the cosine of an angle in radians
@@ -265,7 +260,6 @@ public class SwerveDriveBase extends Subsystem {
 						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
 						Constants.kRearRightAngleOffset)
 					); // ):
-    	
     }
 
     //Initiates SwerveDrive as the Default Command
@@ -358,7 +352,6 @@ public class SwerveDriveBase extends Subsystem {
 		SmartDashboard.putString("DB/String 1", "" + frMod.getAngle());
 		SmartDashboard.putString("DB/String 2", "" + rlMod.getAngle());
 		SmartDashboard.putString("DB/String 3", "" + rrMod.getAngle());
-
     }
     
     /**
@@ -375,7 +368,6 @@ public class SwerveDriveBase extends Subsystem {
     			sinDeg(angle)*speed,
     			rotation,
     			fieldOriented);
-    	
     }
     
     //Returns the Gyro Angle

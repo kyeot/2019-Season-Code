@@ -78,7 +78,6 @@ public class SwerveDrive extends Command {
 		public boolean getDockingModeButton() {
 			return OI.driver.getRawButton(dockingMode);
 		}
-		
 	}
 
 	private ControlType controlType;
@@ -144,7 +143,6 @@ public class SwerveDrive extends Command {
     	} else {
     		swerveController.update(true);
     	}
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -9,7 +9,6 @@ package frc.autonomous;
 
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
