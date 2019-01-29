@@ -29,7 +29,7 @@ public class LinearActuator extends Command {
     		Robot.linearActuatorBase.linearActuator(0.25);
     	}
     	else{
-    		Robot.linearActuatorBase.linearActuator(-0.25);
+    		Robot.linearActuatorBase.linearActuator(0);
     	}
     }
 
