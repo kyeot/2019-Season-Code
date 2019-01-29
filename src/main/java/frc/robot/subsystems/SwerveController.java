@@ -51,7 +51,6 @@ public class SwerveController {
 		public double pidGet() {
 			return gyro.getAngle(false);
 		}
-		
 	}
 	
 	NavSensor gyro = NavSensor.getInstance();

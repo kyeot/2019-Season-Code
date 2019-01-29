@@ -2,7 +2,6 @@ package frc.util;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import frc.robot.Robot;
 
 public class GyroSource implements PIDSource {
 	PIDSourceType sourceType;

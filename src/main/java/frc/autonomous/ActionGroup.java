@@ -9,7 +9,6 @@ package frc.autonomous;
 
 import java.util.ArrayList;
 
-
 /**
  * Add your docs here.
  */
