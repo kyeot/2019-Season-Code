@@ -35,6 +35,11 @@ public class LinearActuatorBase extends Subsystem {
 		front.set(ControlMode.PercentOutput, speed);
 		back.set(ControlMode.PercentOutput, -speed);
 		
+  }
+  
+  public void spinAdjust(double speed){
+		front.set(ControlMode.PercentOutput, -.8*speed);
+		back.set(ControlMode.PercentOutput, speed);
 	}
 	
 	

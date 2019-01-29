@@ -20,6 +20,8 @@ public class Constants {
 	public static final int kDriverControllerId = 0;
 	public static final int kManipulatorControllerId = 1;
 
+	public static final int kLinearActuatorID = 5;
+	
 	public static final int kFrontLeftWheelId = 2;
 	public static final int kFrontRightWheelId = 0;
 	public static final int kRearLeftWheelId = 3;
@@ -30,8 +32,8 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 3;
 	public static final int kRearRightSwivelId = 1;
 	
-	public static final int kFrontLinearActuatorId = 4;
-	public static final int kBackLinearActuatorId = 11;
+	public static final int kFrontLinearActuatorId = 14;
+	public static final int kBackLinearActuatorId = 15;
 
 	public static final int kFrontLeftEncoderA = 4;
 	public static final int kFrontLeftEncoderB = 5;
