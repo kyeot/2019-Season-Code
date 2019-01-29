@@ -26,10 +26,10 @@ public class LinearActuator extends Command {
     protected void execute() {    	
       
     	if(OI.manipulator.getRawButton(Constants.kLinearActuatorID)) {
-    		Robot.linearActuatorBase.spinAdjust(1);
+    		Robot.linearActuatorBase.linearActuator(0.25);
     	}
     	else{
-    		Robot.linearActuatorBase.linearActuator(-1);
+    		Robot.linearActuatorBase.linearActuator(-0.25);
     	}
     }
 
