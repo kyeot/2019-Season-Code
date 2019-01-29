@@ -5,7 +5,7 @@ import frc.robot.commands.LinearActuator;
  * @author Liam Shearin
  * @version 1/28/2019
  */
-import org.usfirst.frc2783.robot.Constants;
+import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -45,7 +45,7 @@ public class LinearActuatorBase extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new linearActuator());
+		setDefaultCommand(new LinearActuator());
 		
 	}
 

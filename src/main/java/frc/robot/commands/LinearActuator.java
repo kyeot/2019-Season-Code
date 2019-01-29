@@ -1,8 +1,8 @@
 package frc.robot.commands;
 
-import org.usfirst.frc2783.robot.Constants;
-import org.usfirst.frc2783.robot.OI;
-import org.usfirst.frc2783.robot.Robot;
+import frc.robot.Constants;
+import frc.robot.OI;
+import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,7 +15,7 @@ public class LinearActuator extends Command {
 	
     public LinearActuator() {
     	//Sets the required Subsystem
-        requires(Robot.LinearActuatorBase);
+        requires(Robot.linearActuatorBase);
     }
 
     // Called just before this Command runs the first time
@@ -24,15 +24,12 @@ public class LinearActuator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	
-    	double speed = OI.manipulator.getRawButton(4);
-    	
-    	
-    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorId)){
-    		Robot.linearActuator.spinAdjust(speed);
+      
+    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorID)) {
+    		Robot.linearActuatorBase.spinAdjust(1);
     	}
     	else{
-    		Robot.linearActuator.linearActuator(-speed);
+    		Robot.linearActuatorBase.linearActuator(-1);
     	}
     }
 
