@@ -30,6 +30,9 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 3;
 	public static final int kRearRightSwivelId = 1;
 	
+	public static final int kFrontLinearActuatorId = 4;
+	public static final int kBackLinearActuatorId = 11;
+
 	public static final int kFrontLeftEncoderA = 4;
 	public static final int kFrontLeftEncoderB = 5;
 	public static final int kFrontRightEncoderA = 0;
