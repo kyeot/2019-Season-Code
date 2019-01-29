@@ -26,12 +26,18 @@ public class LinearActuator extends Command {
     protected void execute() {    	
       
     	if(OI.manipulator.getRawButton(Constants.kLinearActuatorID)) {
-    		Robot.linearActuatorBase.linearActuator(0.25);
+    		Robot.linearActuatorBase.linearActuator(1);
     	}
     	else{
-    		Robot.linearActuatorBase.linearActuator(0);
-    	}
+    		Robot.linearActuatorBase.linearActuator(.25);
+        
+        if(OI.manipulator.getRawButton(6)) {
+                Robot.linearActuatorBase.linearActuator(-.5); }}
+            
+    
+    
     }
+
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

@@ -32,7 +32,7 @@ public class LinearActuatorBase extends Subsystem {
 	
 	//Method to use Linear Actuator base
 	public void linearActuator(double speed) {
-		front.set(ControlMode.PercentOutput, -speed);
+		front.set(ControlMode.PercentOutput, speed);
 		back.set(ControlMode.PercentOutput, -speed);
 		
   }
@@ -50,3 +50,5 @@ public class LinearActuatorBase extends Subsystem {
 	}
 
 }
+
+
