@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class NavSensor {
 	static NavSensor gyro = new NavSensor();
+
+	Object lock;
 	
 	public static NavSensor getInstance() {
 		return gyro;
@@ -84,11 +86,7 @@ public class NavSensor {
 		double index = Double.MAX_VALUE;
 		int low = 0;
 		int high = history.keySet().size() - 1;
-
-		SmartDashboard.putString("DB/String 0", "" + high);
-		SmartDashboard.putString("DB/String 1", "" + findTerm(low));
-		SmartDashboard.putString("DB/String 2", "" + findTerm(high));
-		SmartDashboard.putString("DB/String 3", "" + time.getTime());
+		SmartDashboard.putString("DB/String 1", "" + (findTerm(high) - time.getTime()));
 
 		if(time.getTime() < findTerm(low)) {
 			return history.get(findTerm(low));
@@ -98,7 +96,6 @@ public class NavSensor {
 			 int mid = (low + high) / 2;
 			 //If the middle term is less than the desired value
 			if (findTerm(mid) < time.getTime()) {
-				System.out.println("hello");
 				 //If the desired term is in between the middle term and the next term above
 				 if (findTerm(mid + 1) > time.getTime() || findTerm(mid + 1) == -1) {
 					 //If desired term is closer to middle term
@@ -130,7 +127,7 @@ public class NavSensor {
 				 return history.get(findTerm(mid));
 			 }
 		}
-		System.out.println(history.get(index));
+		SmartDashboard.putString("DB/String 4", "" + history.get(findTerm((int) index)).getTheta());
 		return history.get(findTerm((int) index));
 	 }
 

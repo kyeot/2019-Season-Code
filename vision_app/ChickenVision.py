@@ -171,7 +171,8 @@ verticalView = math.degrees(math.atan(math.tan(diagonalView/2) * (verticalAspect
 #Focal Length calculations: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_165
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
 V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
-focal_pixels = (image_width * 0.5) / math.tan(horizontalView * 0.5 * math.pi/180)
+#(image_width / 2) / math.tan(math.radians(horizontalView / 2))
+focal_pixels = (image_width / 2) / math.tan(math.radians(horizontalView / 2))
 
 #blurs have to be odd
 green_blur = 7
@@ -555,7 +556,7 @@ def calculateVector(pixelY, centerY, pixelX, centerX):
     x = 1.0
     y = -(pixelX - centerX) / focal_pixels
     z = -(pixelY - centerY) / focal_pixels
-    print(horizontalView)
+    print(focal_pixels)
     return x, y, z
 
 

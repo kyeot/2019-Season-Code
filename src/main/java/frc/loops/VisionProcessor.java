@@ -61,7 +61,6 @@ public class VisionProcessor implements Loop {
                 return;
             } else {
                 time0 = timeEntry.getDouble(-1)*10E-7;
-                SmartDashboard.putString("DB/String 4", "" + time0);
                 firstTime = false;
             }
         }

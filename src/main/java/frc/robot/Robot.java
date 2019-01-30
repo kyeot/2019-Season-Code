@@ -53,7 +53,6 @@ public class Robot extends TimedRobot {
 
     String[] autonomousList = {"hello"};
 
-    SmartDashboard.putString("DB/String 0", "value");
 		SmartDashboard.putStringArray("Auto List", autonomousList);
     
     try {
@@ -69,7 +68,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putString("DB/String 7", "" + NavSensor.getInstance().history.size());
   }
 
   @Override

@@ -53,9 +53,7 @@ public class FieldTransform {
 	}
 	
 	public Transform getFieldToCamera(Timestamp t) {
-		Transform foo2 = getRobotPose(t);
-		Transform foo = foo2.transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
-		return foo;
+		return getRobotPose(t).transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
 		
 	}
 	
@@ -78,8 +76,10 @@ public class FieldTransform {
             	double s = camToGoal / zr;
             	double dist = Math.hypot(xr, yr) * s;
             	Bearing angle = new Bearing(new Vector(xr, yr));
-            	Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
-				
+				Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
+				SmartDashboard.putString("DB/String 2", "dist: " + dist);
+				SmartDashboard.putString("DB/String 3", "angle: " + Math.floor(angle.getTheta()));
+
 				Timestamp time = new Timestamp(targetsTimestamp);
             	targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
 			}

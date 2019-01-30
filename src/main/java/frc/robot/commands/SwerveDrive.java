@@ -141,12 +141,13 @@ public class SwerveDrive extends Command {
 		
 		swerveController.slide(fbValue, rlValue);
 		swerveController.rotate(rotValue);
-    	
+		
+		SmartDashboard.putString("DB/String 0", "" + fieldTransform.targetHistory.getLatestTarget().dir().getTheta());
+
     	if(controlType.getVisionButton()) {
 			swerveController.slide(fbValue, rlValue);
     		if(fieldTransform.targetHistory.getLatestTarget() != null) {
         		swerveController.setPose(fieldTransform.targetHistory.getSmoothTarget().dir());
-
     		}
     	} else {
     		swerveController.move(fbValue, rlValue, rotValue);
