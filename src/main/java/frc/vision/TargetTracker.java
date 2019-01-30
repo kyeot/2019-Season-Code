@@ -12,11 +12,13 @@ import edu.wpi.first.wpilibj.RobotController;
 public class TargetTracker {
 
 	Map<Double, Vector> history = new TreeMap<>();
+
+	Object lock = new Object();
 	
 	public TargetTracker() {
 	}
 	
-	public void register(Timestamp timestamp, Vector target) {
+	public synchronized void register(Timestamp timestamp, Vector target) {
 		history.put(timestamp.getTime(), target);
 		update();
 	}
@@ -26,7 +28,7 @@ public class TargetTracker {
 	 * 
 	 * @see Constants.java
 	 */
-	public void update() {
+	public synchronized void update() {
 		if(isAlive()) {
 			ArrayList<Double> toRemove = new ArrayList<Double>();
 			for(Double t : history.keySet()) {
@@ -42,18 +44,20 @@ public class TargetTracker {
 	/** 
 	 * Returns the most recently registered target to the history.
 	 */
-	public Vector getLatestTarget() {
+	public synchronized Vector getLatestTarget() {
 		if(!history.isEmpty()) {
 			return history.get(history.keySet().toArray()[history.size()-1]);
 		} else {
 			return null;
 		}
+		
+		
 	}
 	
 	/**
 	 * Averages the entire history of Targets to get a single, smoother target (interpolation)
 	 */
-	public Vector getSmoothTarget() {
+	public synchronized Vector getSmoothTarget() {
 		double x = 0;
 		double y = 0;
 		for(Vector v : history.values()) {
@@ -71,11 +75,11 @@ public class TargetTracker {
 	 * 
 	 * @see Constants.java
 	 */
-	public double getStability() {
+	public synchronized double getStability() {
 		return Math.min(1, history.size() / (Constants.kCameraFrameRate * Constants.kTargetMaxAge)); //if theres more frames than targets in the history, its not a stable target
 	}
 	
-	public boolean isAlive() {
+	public synchronized boolean isAlive() {
 		return !history.isEmpty();
 	}
 	
