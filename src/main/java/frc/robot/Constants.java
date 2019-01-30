@@ -13,9 +13,9 @@ public class Constants {
 	public static final double kSwerveModI = 0.04; 
 	public static final double kSwerveModD = 0.025;
 	
-	public static final double kSwerveP = 0.04;
+	public static final double kSwerveP = 1;
 	public static final double kSwerveI = 0.00;
-	public static final double kSwerveD = 0.15;
+	public static final double kSwerveD = 0.0;
 	
 	public static final double kAngleToEncoderTick = 0.875;
 		
@@ -28,14 +28,14 @@ public class Constants {
 	
 	public static final double kGyroMaxAge = 3;
 	
-	public static final double kCameraXOffset = 9;
-	public static final double kCameraYOffset = 0.0;
-	public static final double kCameraZOffset = 24.75;
-	public static final double kCameraPitchOffset = 12.58;
+	public static final double kCameraXOffset = 9.5;
+	public static final double kCameraYOffset = 0.18;
+	public static final double kCameraZOffset = 26.25;
+	public static final double kCameraPitchOffset = 24.27;
 	public static final double kCameraRollOffset = 0.0;
 	public static final double kCameraYawOffset = 0.0;
 	
-	public static final double kGoalHeight = 26.75;
+	public static final double kGoalHeight = 45.25;
 	
 	public static final double kRobotFront = 90;
 	
