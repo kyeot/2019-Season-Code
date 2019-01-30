@@ -24,6 +24,8 @@ public class Constants {
 	public static final int kDriverControllerId = 0;
 	public static final int kManipulatorControllerId = 1;
 
+	public static final int kLinearActuatorID = 5;
+
 	public static final int kFrontLeftWheelId = 1;
 	public static final int kFrontRightWheelId = 14;
 	public static final int kRearLeftWheelId = 3;
@@ -33,6 +35,9 @@ public class Constants {
 	public static final int kFrontRightSwivelId = 15;
 	public static final int kRearLeftSwivelId = 2;
 	public static final int kRearRightSwivelId = 12;
+
+	public static final int kFrontLinearActuatorId = 16;
+	public static final int kBackLinearActuatorId = 17;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 

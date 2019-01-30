@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
+import frc.robot.subsystems.LinearActuatorBase;
 import frc.util.Logger;
 import frc.util.NavSensor;
 import frc.autonomous.*;
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
+  public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
 
   private static AHRS navSensor;
 
