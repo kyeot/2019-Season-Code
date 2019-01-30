@@ -24,20 +24,18 @@ public class LinearActuator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-      
-    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorID)) {
+    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorOut)) {
     		Robot.linearActuatorBase.linearActuator(1);
-    	}
+        }
+        else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
+            Robot.linearActuatorBase.linearActuator(-.5);
+        }
     	else{
-    		Robot.linearActuatorBase.linearActuator(.25);
-        
-        if(OI.manipulator.getRawButton(6)) {
-                Robot.linearActuatorBase.linearActuator(-.5); }}
+    		Robot.linearActuatorBase.linearActuator(.1);
+ 
+        }
             
-    
-    
     }
-
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

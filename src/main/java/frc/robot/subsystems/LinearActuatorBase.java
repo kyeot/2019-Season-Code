@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LinearActuatorBase extends Subsystem {
 	
 	//Creates Victor object
-	VictorSPX front = new VictorSPX(frc.robot.Constants.kFrontLinearActuatorId);
-	VictorSPX back = new VictorSPX(frc.robot.Constants.kBackLinearActuatorId);
+	VictorSPX front;
+	VictorSPX back;
 	
 	public LinearActuatorBase(){
 		
@@ -33,14 +33,10 @@ public class LinearActuatorBase extends Subsystem {
 	//Method to use Linear Actuator base
 	public void linearActuator(double speed) {
 		front.set(ControlMode.PercentOutput, speed);
-		back.set(ControlMode.PercentOutput, -speed);
+		back.set(ControlMode.PercentOutput, speed);
 		
   }
-  
-  public void spinAdjust(double speed){
-		front.set(ControlMode.PercentOutput, -.8*speed);
-		back.set(ControlMode.PercentOutput, speed);
-	}
+
 	
 	
 	@Override
