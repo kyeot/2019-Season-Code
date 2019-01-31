@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     String[] autonomousList = {"Test"};
     
 		SmartDashboard.putStringArray("Auto List", autonomousList);
-  
+    
     try {
        navSensor = new AHRS(SPI.Port.kMXP);
    } catch (RuntimeException ex ) {
