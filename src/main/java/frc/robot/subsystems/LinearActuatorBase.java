@@ -9,6 +9,7 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.RobotController;
@@ -17,14 +18,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LinearActuatorBase extends Subsystem {
 	
 	//Creates Victor object
-	VictorSPX front;
-	VictorSPX back;
+//	VictorSPX front;
+//	VictorSPX back;
 	
+	TalonSRX front;
+	TalonSRX back;
+
 	public LinearActuatorBase(){
 		
-		front = new VictorSPX(frc.robot.Constants.kFrontLinearActuatorId);
-		back = new VictorSPX(frc.robot.Constants.kBackLinearActuatorId);
-		
+	//	front = new VictorSPX(frc.robot.Constants.kFrontLinearActuatorId);
+	//	back = new VictorSPX(frc.robot.Constants.kBackLinearActuatorId);
+	
+	front = new TalonSRX(frc.robot.Constants.kFrontLinearActuatorId);
+	back = new TalonSRX(frc.robot.Constants.kBackLinearActuatorId);
+	
+
 		front.setNeutralMode(NeutralMode.Brake);
 	  back.setNeutralMode(NeutralMode.Brake);
 		
