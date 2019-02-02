@@ -22,7 +22,9 @@ public class Constants {
 
 	public static final int kLinearActuatorOut = 5;
 	public static final int kLinearActuatorIn = 6;
-
+	public static final int kLinearActuatorDriveForward = 4;
+	public static final int kLinearActuatorDriveBackward = 1;
+	
 	public static final int kFrontLeftWheelId = 2;
 	public static final int kFrontRightWheelId = 0;
 	public static final int kRearLeftWheelId = 3;
@@ -33,6 +35,7 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 3;
 	public static final int kRearRightSwivelId = 1;
 	
+	public static final int kDriveLinearActuatorId = 1;
 	public static final int kFrontLinearActuatorId = 3;
 	public static final int kBackLinearActuatorId = 2;
 

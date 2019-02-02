@@ -28,7 +28,8 @@ public class LinearActuatorGroup extends ActionGroup {
         addAction(new AutoLaUP(1, 2));
         addAction(new ParallelAction((Arrays.asList(new Action[] {
             new AutoLaUP(.15, 5),	
-            new SwerveAlign(90, 2)
+            new SwerveAlign(90, 2),
+            new AutoLaDrive(1,5)
         }))));;
         
 
