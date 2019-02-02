@@ -21,6 +21,7 @@ public class LinearActuatorGroup extends ActionGroup {
         // addAction(new AutoLinearActuator(speed, time));
         addAction(new AutoLaUP(1, 2));
         addAction(new AutoLaHold(.15,5));
+        
 
     
     }
