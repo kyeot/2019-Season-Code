@@ -5,24 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous.actiongroups;
+package frc.autonomous.actions;
 
-import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
+import frc.autonomous.Action;
+import frc.robot.subsystems.SwerveController;
+import frc.util.Bearing;
 
 /**
  * Add your docs here.
  */
-public class LinearActuatorGroup extends ActionGroup {
+public class SwerveAlign extends Action {
 
-    public LinearActuatorGroup(){
-        super();
+    double angle;
 
-        // addAction(new AutoLinearActuator(speed, time));
-        addAction(new AutoLaUP(1, 2));
-        addAction(new AutoLaHold(.15,5));
-
+    public SwerveAlign(double angle, double time){
+        super("SwerveAlign", time);
+    
+        this.angle = angle;
     
     }
 
+    @Override 
+    public void perform(){
+        SwerveController.getInstance().setPose(new Bearing(angle));
+    }
+
+
+    
+
+
+
+
+
 }
+

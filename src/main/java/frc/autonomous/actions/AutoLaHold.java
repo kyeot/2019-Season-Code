@@ -9,14 +9,14 @@ import frc.autonomous.Action;
  * @author 2783 Liam Shearin
  *
  */
-public class AutoLinearActuator extends Action {
+public class AutoLaHold extends Action {
 	
-	double angle;
+	
 	double speed;
-	double rotation;
+	
 
-	public AutoLinearActuator( double speed, double time) {
-		super("AutoLinearActuator", time);
+	public AutoLaHold( double speed, double time) {
+		super("AutoLaHold", time);
 		
 	
 		this.speed = speed;

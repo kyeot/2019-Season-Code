@@ -31,13 +31,15 @@ public class LinearActuator extends Command {
         else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
             Robot.linearActuatorBase.linearActuator(-.5);
         }
-        else if (OI.manipulator.getRawButton(2)) {
-            Robot.actionScheduler.start();
+        else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
             Robot.actionScheduler.setGroup(new LinearActuatorGroup());
+            Robot.actionScheduler.start();
         }
-       
-
-        
+   /*     else{
+    		Robot.linearActuatorBase.linearActuator(.1);
+ 
+        }
+     */   
     }
 
     // Make this return true when this Command no longer needs to run execute()

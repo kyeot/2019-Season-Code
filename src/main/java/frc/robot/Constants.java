@@ -36,6 +36,8 @@ public class Constants {
 	public static final int kFrontLinearActuatorId = 3;
 	public static final int kBackLinearActuatorId = 2;
 
+	public static final int kAutoLinearActuator =2;
+
 	public static final int kFrontLeftEncoderA = 4;
 	public static final int kFrontLeftEncoderB = 5;
 	public static final int kFrontRightEncoderA = 0;
