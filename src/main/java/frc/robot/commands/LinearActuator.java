@@ -5,6 +5,7 @@ import frc.robot.OI;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.autonomous.actiongroups.*;
 
 /**
  * @purpose Command class for Linear Actuators
@@ -30,11 +31,13 @@ public class LinearActuator extends Command {
         else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
             Robot.linearActuatorBase.linearActuator(-.5);
         }
-    	else{
-    		Robot.linearActuatorBase.linearActuator(.1);
- 
+        else if (OI.manipulator.getRawButton(2)) {
+            Robot.actionScheduler.start();
+            Robot.actionScheduler.setGroup(new LinearActuatorGroup());
         }
-            
+       
+
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
