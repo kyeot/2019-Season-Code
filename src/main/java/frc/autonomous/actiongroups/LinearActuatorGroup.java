@@ -9,6 +9,12 @@ package frc.autonomous.actiongroups;
 
 import frc.autonomous.ActionGroup;
 import frc.autonomous.actions.*;
+import java.util.Arrays;
+
+import frc.autonomous.ActionGroup;
+import frc.autonomous.ParallelAction;
+import frc.autonomous.actions.*;
+import frc.autonomous.*;
 
 /**
  * Add your docs here.
@@ -20,7 +26,10 @@ public class LinearActuatorGroup extends ActionGroup {
 
         // addAction(new AutoLinearActuator(speed, time));
         addAction(new AutoLaUP(1, 2));
-        addAction(new AutoLaHold(.15,5));
+        addAction(new ParallelAction((Arrays.asList(new Action[] {
+            new AutoLaUP(.15, 5),	
+            new SwerveAlign(90, 2)
+        }))));;
         
 
     

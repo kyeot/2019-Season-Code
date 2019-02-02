@@ -32,6 +32,7 @@ public class LinearActuator extends Command {
             Robot.linearActuatorBase.linearActuator(-.5);
         }
         else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
+            Robot.actionScheduler.wipe();
             Robot.actionScheduler.setGroup(new LinearActuatorGroup());
             Robot.actionScheduler.start();
         }

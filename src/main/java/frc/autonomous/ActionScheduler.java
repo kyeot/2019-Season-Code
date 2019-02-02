@@ -93,6 +93,10 @@ public class ActionScheduler {
 	public void queue(Action action) {
 		queue.add(action);
 	}
+
+	public void wipe(){
+		queue.clear();
+	}
 	
 	//Method to start a given Action
 	public void start() {
