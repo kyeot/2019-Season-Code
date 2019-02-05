@@ -25,7 +25,6 @@ public class Timestamp implements Comparable<Timestamp>{
 
 	@Override
 	public int compareTo(Timestamp o) {
-		// TODO Auto-generated method stub
 		return o.getAge().compareTo(this.t);
 	}
 	

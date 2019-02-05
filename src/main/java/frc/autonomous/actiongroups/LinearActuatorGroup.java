@@ -24,16 +24,12 @@ public class LinearActuatorGroup extends ActionGroup {
     public LinearActuatorGroup(){
         super();
 
-        // addAction(new AutoLinearActuator(speed, time));
-        addAction(new AutoLaUP(1, 2));
+        addAction(new AutoLA(1, 1, 0, 2));
         addAction(new ParallelAction((Arrays.asList(new Action[] {
-            new AutoLaUP(.15, 5),	
-            new SwerveAlign(90, 2),
-            new AutoLaDrive(1,5)
+            new AutoLA(0.15, 0.15, 1, 5),
+            new SwerveAlign(90, 2)
         }))));;
         
-
-    
     }
 
 }

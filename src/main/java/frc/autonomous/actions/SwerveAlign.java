@@ -22,20 +22,12 @@ public class SwerveAlign extends Action {
         super("SwerveAlign", time);
     
         this.angle = angle;
-    
     }
 
     @Override 
     public void perform(){
         SwerveController.getInstance().setPose(new Bearing(angle));
     }
-
-
-    
-
-
-
-
 
 }
 

@@ -1,10 +1,10 @@
 package frc.robot.commands;
 
-import frc.robot.Constants;
-import frc.robot.OI;
-import frc.robot.Robot;
+import frc.robot.*;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.autonomous.Action;
+import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.*;
 
 /**
@@ -13,10 +13,18 @@ import frc.autonomous.actiongroups.*;
  * @version 1/28/2019
  */
 public class LinearActuator extends Command {
-	
+    
+    double liftFrontSpeed;
+    double liftBackSpeed;
+    double driveSpeed;
+
     public LinearActuator() {
     	//Sets the required Subsystem
         requires(Robot.linearActuatorBase);
+
+        liftFrontSpeed = 0;
+        liftBackSpeed = 0;
+        driveSpeed = 0;
     }
 
     // Called just before this Command runs the first time
@@ -25,22 +33,34 @@ public class LinearActuator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorOut)) {
-    		Robot.linearActuatorBase.linearActuator(1);
+        
+        liftFrontSpeed = 0;
+        liftBackSpeed = 0;
+        driveSpeed = 0;
+        
+    	if(OI.manipulator.getRawButton(Constants.kLAOutButtonId)) {
+            liftFrontSpeed = 1;
+            liftBackSpeed = 1;
         }
-        else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
-            Robot.linearActuatorBase.linearActuator(-.5);
+        else if(OI.manipulator.getRawButton(Constants.kLAInButtonId)) {
+            liftFrontSpeed = -.5;
+            liftBackSpeed = -.5;
         }
-        else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
-            Robot.actionScheduler.wipe();
-            Robot.actionScheduler.setGroup(new LinearActuatorGroup());
-            Robot.actionScheduler.start();
+
+        if(OI.manipulator.getRawButton(Constants.kLADriveForwardButtonId)) {
+    		driveSpeed = 1;
         }
-   /*     else{
-    		Robot.linearActuatorBase.linearActuator(.1);
- 
+        else if(OI.manipulator.getRawButton(Constants.kLADriveBackwardButtonId)) {
+            driveSpeed = -1;
         }
-     */   
+
+        if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
+            ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
+            ActionScheduler.getInstance().start();
+        }
+        else{
+            Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
