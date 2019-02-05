@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.autonomous.actiongroups.*;
 
 /**
- * @purpose Command class for Linear Actuators
+ * @purpose Command class for Linear Actuator Drive Motor
  * @author Liam Shearin
  * @version 1/28/2019
  */
-public class LinearActuator extends Command {
+public class LaDrive extends Command {
 	
-    public LinearActuator() {
+    public LaDrive() {
     	//Sets the required Subsystem
-        requires(Robot.linearActuatorBase);
+        requires(Robot.laDriveBase);
     }
 
     // Called just before this Command runs the first time
@@ -25,11 +25,11 @@ public class LinearActuator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorOut)) {
-    		Robot.linearActuatorBase.linearActuator(1);
+    	if(OI.manipulator.getRawButton(Constants.kLinearActuatorDriveForward)) {
+    		Robot.laDriveBase.laDrive(1);
         }
-        else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
-            Robot.linearActuatorBase.linearActuator(-.5);
+        else if(OI.manipulator.getRawButton(Constants.kLinearActuatorDriveBackward)) {
+            Robot.laDriveBase.laDrive(-1);
         }
         else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
             Robot.actionScheduler.wipe();
