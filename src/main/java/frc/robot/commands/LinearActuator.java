@@ -16,7 +16,7 @@ public class LinearActuator extends Command {
 	
     public LinearActuator() {
     	//Sets the required Subsystem
-        requires(Robot.linearActuatorBase);
+        requires(Robot.bothLa);
     }
 
     // Called just before this Command runs the first time
@@ -26,10 +26,10 @@ public class LinearActuator extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
     	if(OI.manipulator.getRawButton(Constants.kLinearActuatorOut)) {
-    		Robot.linearActuatorBase.linearActuator(1);
+    		Robot.bothLa.linearActuator(1);
         }
         else if(OI.manipulator.getRawButton(Constants.kLinearActuatorIn)) {
-            Robot.linearActuatorBase.linearActuator(-.5);
+            Robot.bothLa.linearActuator(-.5);
         }
         else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
             Robot.actionScheduler.wipe();

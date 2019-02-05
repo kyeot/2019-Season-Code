@@ -9,14 +9,14 @@ import frc.autonomous.Action;
  * @author 2783 Liam Shearin
  *
  */
-public class AutoLaHold extends Action {
+public class AutoLaBack extends Action {
 	
 	
 	double speed;
 	
 
-	public AutoLaHold( double speed, double time) {
-		super("AutoLaHold", time);
+	public AutoLaBack( double speed, double time) {
+		super("AutoLaBack", time);
 		
 	
 		this.speed = speed;

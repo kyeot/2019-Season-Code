@@ -25,7 +25,7 @@ public class AutoLaUP extends Action {
 	
 	@Override
 	public void perform() {
-		Robot.linearActuatorBase.linearActuator( speed );
+		Robot.bothLa.linearActuator( speed );
 	}
 	
 }

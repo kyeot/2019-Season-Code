@@ -29,7 +29,7 @@ public class LaDrive extends Command {
     		Robot.laDriveBase.laDrive(1);
         }
         else if(OI.manipulator.getRawButton(Constants.kLinearActuatorDriveBackward)) {
-            Robot.laDriveBase.laDrive(-1);
+            Robot.laDriveBase.laDrive(1);
         }
         else if (OI.manipulator.getRawButton(Constants.kAutoLinearActuator)) {
             Robot.actionScheduler.wipe();

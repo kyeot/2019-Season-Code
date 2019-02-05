@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
+import frc.robot.subsystems.BothLa;
 import frc.robot.subsystems.LaDriveBase;
-import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
 import frc.autonomous.*;
@@ -30,11 +30,15 @@ import java.io.IOException;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
-  public static OI oi;
+
+
+public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
-  public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
+  //public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
   public static LaDriveBase laDriveBase = new LaDriveBase();
+  public static BothLa bothLa = new BothLa();
+
 
   private static AHRS navSensor;
 

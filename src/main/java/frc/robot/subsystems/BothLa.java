@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class LinearActuatorBase extends Subsystem {
+public class BothLa extends Subsystem {
 	
 	//Creates Victor object
 //	VictorSPX front;
@@ -24,7 +24,7 @@ public class LinearActuatorBase extends Subsystem {
 	TalonSRX front;
 	TalonSRX back;
 
-	public LinearActuatorBase(){
+	public BothLa(){
 		
 	//	front = new VictorSPX(frc.robot.Constants.kFrontLinearActuatorId);
 	//	back = new VictorSPX(frc.robot.Constants.kBackLinearActuatorId);
