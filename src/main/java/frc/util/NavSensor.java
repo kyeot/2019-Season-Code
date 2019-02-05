@@ -25,7 +25,6 @@ public class NavSensor {
 		return gyro;
 	}
 	
-	
 	private boolean isNegative(double possibleNegativeValue) {
 		return possibleNegativeValue < 0;
 	}

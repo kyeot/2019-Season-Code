@@ -7,16 +7,15 @@ import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * Subsystem used to control the Swerve Drive
@@ -39,15 +38,52 @@ public class SwerveDriveBase extends Subsystem {
 	 *
 	 */
 	public class PIDOutputClass implements PIDOutput {
-		private VictorSP motor;
+		private VictorSPX motor;
 		
-		public PIDOutputClass(VictorSP swivelMot) {
+		public PIDOutputClass(VictorSPX swivelMot) {
 			this.motor = swivelMot;
 		}
 		
 		@Override
 		public void pidWrite(double output) {
-			motor.set(output);
+			motor.set(ControlMode.PercentOutput, output);
+		}
+	}
+
+	public class PIDAnalogInput implements PIDSource {
+		PIDSourceType sourceType;
+
+		AnalogInput enc;
+		double angleOffset;
+
+		double angle;
+
+		public PIDAnalogInput(AnalogInput enc, double angleOffset) {
+			setPIDSourceType(PIDSourceType.kDisplacement);
+
+			this.enc = enc;
+			this.angleOffset = angleOffset;
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			sourceType = pidSource;
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			return sourceType;
+		}
+
+		@Override
+		public double pidGet() {
+			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
+
+			if(angle > 360){
+				angle %= 360;
+			}
+
+			return angle;
 		}
 	}
 	
@@ -57,13 +93,12 @@ public class SwerveDriveBase extends Subsystem {
 	 *
 	 */
 	public class SwerveModule {
-		TalonSRX driveMot;
-		VictorSP swivelMot;
-		Encoder enc;
+		VictorSPX driveMot;
+		VictorSPX swivelMot;
+		PIDAnalogInput enc;
 		
 		PIDOutputClass pidOut;
 		PIDController pidCont;
-		
 		
 		double lastAngle;
 		
@@ -74,15 +109,14 @@ public class SwerveDriveBase extends Subsystem {
 		 * @param enc Encoder that tracks the angle of the swivel motor
 		 */
 		public SwerveModule(
-				VictorSP swivelMot,
-				TalonSRX driveMot,
-				Encoder enc
+				VictorSPX swivelMot,
+				VictorSPX driveMot,
+				PIDAnalogInput enc
 				) {
 			
 			this.driveMot = driveMot;
 			this.swivelMot = swivelMot;
 			this.enc = enc;
-			
 			
 			pidOut = new PIDOutputClass(
 							swivelMot
@@ -95,11 +129,8 @@ public class SwerveDriveBase extends Subsystem {
 						);
 			
 			
-			pidCont.setInputRange(-360, 360);
+			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
-			
-			enc.setDistancePerPulse(Constants.kAngleToEncoderTick);
-			enc.setSamplesToAverage(127);
 		}
 		
 		/**
@@ -117,21 +148,16 @@ public class SwerveDriveBase extends Subsystem {
 			
 			//Resets the encoder if it gets too high or low
 			double curAngle = getAngle();
-			if(curAngle >= 360 || curAngle <= -360) {
-				enc.reset();
-			}
+			//if(curAngle >= 360 || curAngle <= -360) {
+			//	enc.reset();
+			//}
 			
 			//Makes the module go to the opposite angle and go backwards when it's quicker than turning all the way around
 	    	if(Math.abs(angle - curAngle) > 90 && Math.abs(angle - curAngle) < 270 && angle != 0) {
 	    		angle = (angle +180)%360;
 	    		speed = -speed;
 	    	}
-	    	
-	    	//
-	    	if(Math.abs(angle - curAngle) > 180) {
-    			angle -= 360;
-    		}
-	    	
+
 	    	//Makes it so when you stop moving it doesn't reset the angle to 0, but leaves it where it was
 		    if(speed == 0) {
 	    		setAngle(lastAngle);
@@ -141,7 +167,7 @@ public class SwerveDriveBase extends Subsystem {
 	    		setSpeed(speed);
 	    		
 	    		lastAngle = angle;
-	    	}
+			}
 	    	
 		}
 		
@@ -158,18 +184,18 @@ public class SwerveDriveBase extends Subsystem {
 		
 		//Sets the Swivel Motor's speed
 		public void setSwivel(double speed) {
-			swivelMot.set(speed);
+			swivelMot.set(ControlMode.PercentOutput, speed);
 		}
 
 		//Returns where the Encoder is
-		public double getEncPercent() {
-			return enc.getDistance();
-		}
+		//public double getEncPercent() {
+		//	return enc.getDistance();
+		//}
 		
 		//Gets the current angle of the module
 		public double getAngle() {
 			if (enc != null) {
-				return (getEncPercent());
+				return enc.pidGet();
 			} else {
 				return -1.0;
 			}
@@ -184,7 +210,6 @@ public class SwerveDriveBase extends Subsystem {
 				driveMot.setNeutralMode(NeutralMode.Coast);
 			}
 		}
-		
 	}
 	
 	//Returns the cosine of an angle in radians
@@ -205,44 +230,35 @@ public class SwerveDriveBase extends Subsystem {
     	
     	//Creates the front right Swerve Module
     	flMod = new SwerveModule(
-    					new VictorSP(Constants.kFrontLeftSwivelId),
-    					new TalonSRX(Constants.kFrontLeftWheelId),
-    					new Encoder(new DigitalInput(Constants.kFrontLeftEncoderA), 
-    								new DigitalInput(Constants.kFrontLeftEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new VictorSPX(Constants.kFrontLeftSwivelId),
+    					new VictorSPX(Constants.kFrontLeftWheelId),
+						new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder), 
+						Constants.kFrontLeftAngleOffset)
     				);
     	
     	//Creates the front left Swerve Module
     	rlMod = new SwerveModule(
-    					new VictorSP(Constants.kRearLeftSwivelId),
-    					new TalonSRX(Constants.kRearLeftWheelId),
-    					new Encoder(new DigitalInput(Constants.kRearLeftEncoderA), 
-    								new DigitalInput(Constants.kRearLeftEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new VictorSPX(Constants.kRearLeftSwivelId),
+    					new VictorSPX(Constants.kRearLeftWheelId),
+						new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder), 
+						Constants.kRearLeftAngleOffset)
     				);
     	
     	//Creates the rear right Swerve Module
     	frMod = new SwerveModule(
-    					new VictorSP(Constants.kFrontRightSwivelId),
-    					new TalonSRX(Constants.kFrontRightWheelId),
-    					new Encoder(new DigitalInput(Constants.kFrontRightEncoderA), 
-    								new DigitalInput(Constants.kFrontRightEncoderB),
-    								false,
-    								EncodingType.k4X)
+    					new VictorSPX(Constants.kFrontRightSwivelId),
+    					new VictorSPX(Constants.kFrontRightWheelId),
+						new PIDAnalogInput(new AnalogInput(Constants.kFrontRightAbsoluteEncoder),
+						Constants.kFrontRightAngleOffset)
     				);
     			
     	//Creates the rear left Swerve Module
     	rrMod = new SwerveModule(
-    					new VictorSP(Constants.kRearRightSwivelId),
-    					new TalonSRX(Constants.kRearRightWheelId),
-    					new Encoder(new DigitalInput(Constants.kRearRightEncoderA), 
-    								new DigitalInput(Constants.kRearRightEncoderB),
-    								false,
-    								EncodingType.k4X)
-    				); // ):
-    	
+    					new VictorSPX(Constants.kRearRightSwivelId),
+    					new VictorSPX(Constants.kRearRightWheelId),
+						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
+						Constants.kRearRightAngleOffset)
+					); // ):
     }
 
     //Initiates SwerveDrive as the Default Command
@@ -329,8 +345,8 @@ public class SwerveDriveBase extends Subsystem {
     	frMod.setModule(frAng, frSpd);
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
-    	rlMod.setModule(rlAng, rlSpd);
-    	
+		rlMod.setModule(rlAng, rlSpd);
+
     }
     
     /**
@@ -340,13 +356,13 @@ public class SwerveDriveBase extends Subsystem {
      * @param rotation How fast the robot rotates
      * @param fieldOriented Whether or not the robot is field oriented
      */
+	
     public void polarSwerveDrive(double angle, double speed, double rotation, boolean fieldOriented) {
     	swerveDrive(
     			cosDeg(angle)*speed,
     			sinDeg(angle)*speed,
     			rotation,
     			fieldOriented);
-    	
     }
     
     //Returns the Gyro Angle

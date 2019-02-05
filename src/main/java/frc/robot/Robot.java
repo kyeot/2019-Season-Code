@@ -11,14 +11,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
+import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
 import frc.robot.subsystems.LinearActuatorBase;
-import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
+import frc.util.NavSensor;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
@@ -53,7 +55,9 @@ public class Robot extends TimedRobot {
    } catch (RuntimeException ex ) {
        DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
    }
+   Robot.swerveBase.resetGyroNorth(180, 0);
   }
+  
   
 	public static void setGroup(ActionGroup group) {
 		actionScheduler.setGroup(group);
@@ -61,6 +65,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
+    SmartDashboard.putString("DB/String 6", "" + OI.driver.getPOV());
   }
 
   @Override
@@ -102,6 +108,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
   }
 
   @Override
