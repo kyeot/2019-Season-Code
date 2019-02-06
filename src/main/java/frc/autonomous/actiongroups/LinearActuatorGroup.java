@@ -27,7 +27,11 @@ public class LinearActuatorGroup extends ActionGroup {
             new AutoLA(0.15, 0.15, 1, 5),
             new SwerveAlign(90, 2)
         }))));;
-        
+        addAction(new AutoLA(-1, 0.15, 0, 1.8));
+        addAction(new AutoDrive(0, .5, 0, 3));
+        addAction(new AutoLA (0, -1, 0, 1.8));
+    
     }
+
 
 }

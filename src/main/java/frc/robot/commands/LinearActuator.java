@@ -12,10 +12,10 @@ import frc.autonomous.actiongroups.*;
  * @version 1/28/2019
  */
 public class LinearActuator extends Command {
-    
-    double liftFrontSpeed;
-    double liftBackSpeed;
-    double driveSpeed;
+
+    public static double liftFrontSpeed;
+    public static double liftBackSpeed;
+    public static double driveSpeed;
 
     public LinearActuator() {
     	//Sets the required Subsystem
@@ -38,12 +38,13 @@ public class LinearActuator extends Command {
         driveSpeed = 0;
         
     	if(OI.manipulator.getRawButton(Constants.kLAOutButtonId)) {
-            liftFrontSpeed = 1;
-            liftBackSpeed = 1;
+            liftFrontSpeed = .5;
+            liftBackSpeed = 0;
         }
         else if(OI.manipulator.getRawButton(Constants.kLAInButtonId)) {
             liftFrontSpeed = -.5;
-            liftBackSpeed = -.5;
+            liftBackSpeed = -.5
+            ;
         }
 
         if(OI.manipulator.getRawButton(Constants.kLADriveForwardButtonId)) {
@@ -58,11 +59,13 @@ public class LinearActuator extends Command {
             ActionScheduler.getInstance().start();
         }
         else{
-            Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
+            if(!ActionScheduler.getInstance().isActive()){
+                Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
+            }
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    // Make this return true when this Command no
     protected boolean isFinished() {
         return false;
     }
