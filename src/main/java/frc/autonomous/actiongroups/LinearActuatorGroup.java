@@ -11,9 +11,7 @@ import frc.autonomous.ActionGroup;
 import frc.autonomous.actions.*;
 import java.util.Arrays;
 
-import frc.autonomous.ActionGroup;
 import frc.autonomous.ParallelAction;
-import frc.autonomous.actions.*;
 import frc.autonomous.*;
 
 /**
