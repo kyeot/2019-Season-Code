@@ -16,8 +16,14 @@ public class ActionScheduler {
 	Action action;
 	
 	boolean active = false;
-	
+	 
 	ArrayList<Action> queue;
+
+	static ActionScheduler actionScheduler = new ActionScheduler();
+
+	public static ActionScheduler getInstance(){
+		return actionScheduler;
+	}
 	
 	public ActionScheduler() {
 		//The list of actions in a queue
@@ -84,6 +90,7 @@ public class ActionScheduler {
 	
 	//Sets the running group to a given Action Group
 	public void setGroup(ActionGroup group) {
+		wipe();
 		//Queues every action of the set action group, in order
 		for(Action a : group.getActions()) {
 			queue(a);

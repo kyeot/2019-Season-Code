@@ -24,11 +24,8 @@ public class TestGroup extends ActionGroup{
 
         addAction(new AutoDrive(0, 0.5, 0, 3));
         addAction(new ParallelAction((Arrays.asList(new Action[] {
-            new AutoLaUP(6, 7),	
-            new AutoLaHold(-0.8, 2.5)
+            new AutoLA(0.5, 0.5, 0, 3)	
         }))));;
     }
-
-
 
 }
