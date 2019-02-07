@@ -32,6 +32,8 @@ public class Constants {
 	public static final int kAutoLinearActuatorButtonId = 2; 
 	public static final int kElevatorDown = 5;
 	public static final int kElevatorUp = 6;
+	public static final int kIntakeIn = 1;
+	public static final int kIntakeOut = 4;
 
 	public static final int kFrontLeftWheelId = 24241;
 	public static final int kFrontRightWheelId = 124244;

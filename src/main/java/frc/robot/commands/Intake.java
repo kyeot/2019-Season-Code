@@ -7,18 +7,18 @@ import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.*;
 
 /**
- * @purpose Command class for Elevator
+ * @purpose Command class for Intake
  * @author Liam Shearin
  * @version 2/7/2019
  */
-public class Elevator extends Command {
+public class Intake extends Command {
 
     public static double speed;
 
 
-    public Elevator() {
+    public Intake() {
     	//Sets the required Subsystem
-        requires(Robot.elevatorBase);
+        requires(Robot.intakeBase);
 
         speed = 0;
   
@@ -33,12 +33,12 @@ public class Elevator extends Command {
         
         speed = 0;
    
-    	if(OI.manipulator.getRawButton(Constants.kElevatorUp)) {
-            speed = 1;
+    	if(OI.manipulator.getRawButton(Constants.kIntakeIn)) {
+            speed = -1;
        
         }
-        else if(OI.manipulator.getRawButton(Constants.kElevatorDown)) {
-           speed = -1;
+        else if(OI.manipulator.getRawButton(Constants.kIntakeOut)) {
+           speed = 1;
           
             
         }
@@ -49,7 +49,7 @@ public class Elevator extends Command {
         }
         else{
             if(!ActionScheduler.getInstance().isActive()){
-                Robot.elevatorBase.elevator(speed);
+                Robot.intakeBase.intake(speed);
             }
           }      
     }

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.SPI;
 import frc.loops.Looper;
 import frc.robot.commands.Elevator;
 import frc.robot.subsystems.ElevatorBase;
+import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.util.Logger;
 import frc.util.NavSensor;
@@ -37,6 +38,7 @@ public static OI oi;
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
   public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
   public static ElevatorBase elevatorBase = new ElevatorBase();
+  public static IntakeBase intakeBase = new IntakeBase();
 
   private static AHRS navSensor;
 
