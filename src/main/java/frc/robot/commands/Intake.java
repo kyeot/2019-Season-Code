@@ -30,8 +30,20 @@ public class Intake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-        
-        speed = 0;
+     // Trigger and Joystick Controls
+
+      double speed = OI.manipulator.getRawAxis(5);
+    	
+    	if(OI.manipulator.getRawAxis(2) > 0.1){
+    		speed = OI.manipulator.getRawAxis(2);
+    	}
+    	
+    	else if(OI.manipulator.getRawAxis(3) > 0.05){
+    		speed = -OI.manipulator.getRawAxis(3);
+    	}
+    
+      //Button Controls
+      /*      speed = 0;
    
     	if(OI.manipulator.getRawButton(Constants.kIntakeIn)) {
             speed = -1;
@@ -42,7 +54,7 @@ public class Intake extends Command {
           
             
         }
-            
+  */          
        if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
             ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
             ActionScheduler.getInstance().start();
