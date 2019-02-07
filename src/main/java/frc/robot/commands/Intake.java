@@ -35,11 +35,11 @@ public class Intake extends Command {
       double speed = OI.manipulator.getRawAxis(5);
     	
     	if(OI.manipulator.getRawAxis(2) > 0.1){
-    		speed = OI.manipulator.getRawAxis(2);
+    		speed = -OI.manipulator.getRawAxis(2);
     	}
     	
     	else if(OI.manipulator.getRawAxis(3) > 0.05){
-    		speed = -OI.manipulator.getRawAxis(3);
+    		speed = OI.manipulator.getRawAxis(3);
     	}
     
       //Button Controls
