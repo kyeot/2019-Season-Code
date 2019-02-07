@@ -348,6 +348,7 @@ def findBall(contours, image, centerX, centerY):
             currentAngleError = finalTarget
             #pushes cargo angle to network tables
             networkTable.putNumber("cargoYaw", currentAngleError)
+            ntinst.flush()
 
         else:
             #pushes that it doesn't see cargo to network tables
@@ -484,6 +485,7 @@ def findTape(contours, image, centerX, centerY):
         networkTable.putNumber("tapeY", finalTarget[2])
         networkTable.putNumber("tapeX", finalTarget[1])
         networkTable.putNumber("tapeZ", finalTarget[3])
+        ntinst.flush()
     else:
         # pushes that it deosn't see vision target to network tables
         networkTable.putBoolean("tapeDetected", False)
@@ -556,7 +558,6 @@ def calculateVector(pixelY, centerY, pixelX, centerX):
     x = 1.0
     y = -(pixelX - centerX) / focal_pixels
     z = -(pixelY - centerY) / focal_pixels
-    print(focal_pixels)
     return x, y, z
 
 
@@ -686,6 +687,12 @@ def startCamera(config):
 
     return cs, camera
 
+def gotSynchronize(table, key, value, isNew):
+    if(key == "doSynchronize"):
+        networkTable.putNumber("gotSynchronized", time.time())
+        ntinst.flush()
+        print('synchronize')
+
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         configFile = sys.argv[1]
@@ -705,6 +712,7 @@ if __name__ == "__main__":
         print("Setting up NetworkTables client for team {}".format(team))
         ntinst.startClientTeam(team)
 
+    networkTable.addEntryListener(gotSynchronize)
 
     # start cameras
     cameras = []
@@ -763,11 +771,12 @@ if __name__ == "__main__":
                 processed = findCargo(frame, threshold)
         #Puts timestamp of camera on netowrk tables
         networkTable.putNumber("VideoTimestamp", timestamp)
+        ntinst.flush()
         streamViewer.frame = processed
         # update the FPS counter
         fps.update()
         #Flushes camera values to reduce latency
-        ntinst.flush()
+        
     #Doesn't do anything at the moment. You can easily get this working by indenting these three lines
     # and setting while loop to: while fps._numFrames < TOTAL_FRAMES
     fps.stop()

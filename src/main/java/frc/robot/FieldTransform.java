@@ -10,8 +10,6 @@ import frc.util.Vector;
 import frc.vision.TargetInfo;
 import frc.vision.TargetTracker;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * Singleton class used to get useful Transformations of things tracked on the field,
  *  i.e. the robot or vision targets
@@ -49,7 +47,8 @@ public class FieldTransform {
 	}
 	
 	public Transform getRobotPose(Timestamp t) {
-		return new Transform(0.0,0.0,gyro.getAngleAtTime(t).getTheta());
+		Bearing foo = gyro.getAngleAtTime(t);
+		return new Transform(0.0,0.0,foo.getTheta());
 	}
 	
 	public Transform getFieldToCamera(Timestamp t) {
@@ -61,35 +60,27 @@ public class FieldTransform {
 	 * Updates the target history stored 
 	 */
 	public void trackLatestTarget() {
-		if(!target.isEmpty()) {
-			TargetInfo t = target;
-			double x = t.getX();
-			double y = t.getY();
-			double z = t.getZ();
-			
-			//Rotate target direction to compensate for camera pitch (rotation matrix)
-			double xr = z * camPitch.sin() + x * camPitch.cos();
-            double yr = y;
-			double zr = z * camPitch.cos() - x * camPitch.sin();
-            
-            if(zr > 0) {
-            	double s = camToGoal / zr;
-            	double dist = Math.hypot(xr, yr) * s;
-            	Bearing angle = new Bearing(new Vector(xr, yr));
-				Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
-				SmartDashboard.putString("DB/String 2", "dist: " + dist);
-				SmartDashboard.putString("DB/String 3", "angle: " + Math.floor(angle.getTheta()));
+		TargetInfo t = target;
+		double x = t.getX();
+		double y = t.getY();
+		double z = t.getZ();
+		
+		//Rotate target direction to compensate for camera pitch (rotation matrix)
+		double xr = z * camPitch.sin() + x * camPitch.cos();
+		double yr = y;
+		double zr = z * camPitch.cos() - x * camPitch.sin();
+		
+		double s = camToGoal / zr;
+		double dist = Math.hypot(xr, yr) * s;
+		Bearing angle = new Bearing(new Vector(xr, yr));
+		Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
 
-				Timestamp time = new Timestamp(targetsTimestamp);
-            	targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
-			}
-			
-		}
+		Timestamp time = new Timestamp(target.getTime());
+		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
 	}
 	
-	public void addVisionTarget(TargetInfo target, double time) {
+	public void addVisionTarget(TargetInfo target) {
 		this.target = target;
-		this.targetsTimestamp = time;
 	}
 
 }

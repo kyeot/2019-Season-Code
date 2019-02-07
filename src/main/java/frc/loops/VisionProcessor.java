@@ -3,6 +3,7 @@ package frc.loops;
 import frc.robot.FieldTransform;
 import frc.util.NavSensor;
 import frc.vision.TargetInfo;
+import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -27,10 +28,14 @@ public class VisionProcessor implements Loop {
     NetworkTableEntry yEntry;
     NetworkTableEntry zEntry;
     NetworkTableEntry timeEntry;
-    NetworkTableEntry emptyEntry;
+    NetworkTableEntry detectedEntry;
+    NetworkTableEntry doSynchronize;
+    NetworkTableEntry gotSynchronize;
 
-    double time0;
-    boolean firstTime = true;
+    double time0 = 0;
+    double offset = 0;
+
+    boolean firstTime;
 
     public static VisionProcessor getInstance() {
         return instance_;
@@ -41,6 +46,7 @@ public class VisionProcessor implements Loop {
 
     @Override
     public void onStart() {
+        firstTime = true;
         ntinst = NetworkTableInstance.getDefault();
         chickenTable = ntinst.getTable("ChickenVision");
 
@@ -48,24 +54,37 @@ public class VisionProcessor implements Loop {
         yEntry = chickenTable.getEntry("tapeY");
         zEntry = chickenTable.getEntry("tapeZ");
         timeEntry = chickenTable.getEntry("VideoTimestamp");
-        emptyEntry = chickenTable.getEntry("tapeDetected");
+        detectedEntry = chickenTable.getEntry("tapeDetected");
+        doSynchronize = chickenTable.getEntry("doSynchronize");
+
+        chickenTable.addEntryListener("gotSynchronized", (table, key, entry, value, flags) -> {
+            offset = (((time0 + (RobotController.getFPGATime()*10E-7)) / 2) - value.getDouble());
+        }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+
+        
     }
 
     @Override
-    public void onLoop() { 
-        
+    public void onLoop() {
+
         NavSensor.getInstance().updateHistory();
 
-        if(firstTime) {
-            if(timeEntry.getDouble(-1) == -1) {
-                return;
-            } else {
-                time0 = timeEntry.getDouble(-1)*10E-7;
-                firstTime = false;
-            }
+        //wait 3 seconds, then synchronize clocks
+        if(firstTime && (RobotController.getFPGATime()*10E-7 > 3)) {
+            time0 = RobotController.getFPGATime()*10E-7;
+            doSynchronize.setDouble(time0);
+            ntinst.flush();
+            firstTime = false;
+            return;
+        }
+
+        if(offset == 0)  {
+            SmartDashboard.putString("DB/String 0", "Synchronizing clocks...");
+            return;
         }
         
-        if(!emptyEntry.getBoolean(false)) {
+        if(!isTargetDetected()) {
+            SmartDashboard.putString("DB/String 0", "NO TARGETS FOUND");
             return;
         }
        
@@ -74,10 +93,12 @@ public class VisionProcessor implements Loop {
                                         xEntry.getDouble(0), 
                                         yEntry.getDouble(0), 
                                         zEntry.getDouble(0),
-                                        !emptyEntry.getBoolean(false));
+                                        timeEntry.getDouble(-1)*10E-7 + offset);
 
-        fieldTransform.addVisionTarget(newTarget, timeEntry.getDouble(-1)*10E-7 - time0);
+        fieldTransform.addVisionTarget(newTarget);
         fieldTransform.trackLatestTarget();
+
+        SmartDashboard.putString("DB/String 0", "Angle to Target: " + Math.floor(fieldTransform.targetHistory.getSmoothTarget().dir().getTheta()));
 
         
     }
@@ -88,9 +109,12 @@ public class VisionProcessor implements Loop {
     }
 
     @Override
-    
     public void onLoop(double timestamp) {
 
+    }
+
+    public boolean isTargetDetected() {
+        return detectedEntry.getBoolean(false);
     }
 
 }

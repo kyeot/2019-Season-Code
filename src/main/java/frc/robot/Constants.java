@@ -13,7 +13,7 @@ public class Constants {
 	public static final double kSwerveModI = 0.04; 
 	public static final double kSwerveModD = 0.025;
 	
-	public static final double kSwerveP = 1;
+	public static final double kSwerveP = 0.02;
 	public static final double kSwerveI = 0.00;
 	public static final double kSwerveD = 0.0;
 	
@@ -24,18 +24,18 @@ public class Constants {
 	public static final int kAndroidAppTcpPort = 8254;
 	
 	public static final double kCameraFrameRate = 30;
-	public static final double kTargetMaxAge = 3; //seconds
+	public static final double kTargetMaxAge = 0.4; //seconds
 	
-	public static final double kGyroMaxAge = 3;
+	public static final double kGyroMaxAge = 0.3;
 	
 	public static final double kCameraXOffset = 9.5;
 	public static final double kCameraYOffset = 0.18;
-	public static final double kCameraZOffset = 26.25;
-	public static final double kCameraPitchOffset = 24.27;
+	public static final double kCameraZOffset = 4.25;
+	public static final double kCameraPitchOffset = 29.82;
 	public static final double kCameraRollOffset = 0.0;
 	public static final double kCameraYawOffset = 0.0;
 	
-	public static final double kGoalHeight = 45.25;
+	public static final double kGoalHeight = 26.75;
 	
 	public static final double kRobotFront = 90;
 	

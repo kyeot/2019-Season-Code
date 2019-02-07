@@ -10,13 +10,13 @@ public class TargetInfo {
     protected double x;
     protected double y;
     protected double z;
-    protected boolean empty;
+    protected double time;
 
-    public TargetInfo(double x, double y, double z, boolean empty) {
+    public TargetInfo(double x, double y, double z, double time) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.empty = empty;
+        this.time = time;
     }
 
     public double getX() {
@@ -31,7 +31,7 @@ public class TargetInfo {
         return z;
     }
 
-    public boolean isEmpty() {
-        return empty;
+    public double getTime() {
+        return time;
     }
 }
