@@ -42,9 +42,9 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 22424;
 	public static final int kRearRightSwivelId = 12424;
 
-	public static final int kFrontLinearActuatorId = 2;
-	public static final int kBackLinearActuatorId = 3;
-	public static final int kDriveLinearActuatorId = 1;
+	public static final int kFrontLinearActuatorId = 7;
+	public static final int kBackLinearActuatorId = 8;
+	public static final int kDriveLinearActuatorId = 4;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
