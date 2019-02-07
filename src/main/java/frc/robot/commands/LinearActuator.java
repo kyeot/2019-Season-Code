@@ -37,20 +37,20 @@ public class LinearActuator extends Command {
         liftBackSpeed = 0;
         driveSpeed = 0;
         
-    	if(OI.manipulator.getRawButton(Constants.kLAOutButtonId)) {
-            liftFrontSpeed = .5;
-            liftBackSpeed = 0;
+    	if(OI.manipulator.getPOV() == Constants.kLAOutButtonId) {
+            liftFrontSpeed = 1;
+            liftBackSpeed = 1;
         }
-        else if(OI.manipulator.getRawButton(Constants.kLAInButtonId)) {
-            liftFrontSpeed = -.5;
-            liftBackSpeed = -.5
-            ;
+        else if(OI.manipulator.getPOV() == Constants.kLAInButtonId) {
+           liftFrontSpeed = -1;
+           liftBackSpeed = -1;
+            
         }
-
-        if(OI.manipulator.getRawButton(Constants.kLADriveForwardButtonId)) {
+            
+        if(OI.manipulator.getPOV() == Constants.kLADriveForwardButtonId) {
     		driveSpeed = 1;
         }
-        else if(OI.manipulator.getRawButton(Constants.kLADriveBackwardButtonId)) {
+        else if(OI.manipulator.getPOV() == Constants.kLADriveBackwardButtonId) {
             driveSpeed = -1;
         }
 

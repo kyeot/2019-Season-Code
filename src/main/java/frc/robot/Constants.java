@@ -24,13 +24,12 @@ public class Constants {
 	public static final int kDriverControllerId = 0;
 	public static final int kManipulatorControllerId = 1;
 
-	public static final int kLAOutButtonId = 5;
-	public static final int kLAInButtonId = 6;
-	
-	public static final int kLADriveForwardButtonId = 4;
-	public static final int kLADriveBackwardButtonId = 1;
-	
-	public static final int kAutoLinearActuatorButtonId = 2;
+	//Linear Actuator Buttons 
+	public static final int kLAOutButtonId = 0;
+	public static final int kLAInButtonId = 180;
+	public static final int kLADriveForwardButtonId = 90;
+	public static final int kLADriveBackwardButtonId = 270;
+	public static final int kAutoLinearActuatorButtonId = 2; 
 
 	public static final int kFrontLeftWheelId = 24241;
 	public static final int kFrontRightWheelId = 124244;
