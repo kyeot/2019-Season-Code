@@ -19,7 +19,7 @@ public class ElevatorBase extends Subsystem {
 	//Creates Victor object
 	VictorSPX elevator;
 
-
+     // converts victor elevator into an integer or sets it to an integer
 	public ElevatorBase(){
 		elevator = new VictorSPX(Constants.kElevatorId);
 

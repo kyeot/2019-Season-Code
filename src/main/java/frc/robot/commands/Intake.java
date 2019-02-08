@@ -31,7 +31,7 @@ public class Intake extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
      // Trigger and Joystick Controls
-
+      
       double speed = OI.manipulator.getRawAxis(5);
     	
     	if(OI.manipulator.getRawAxis(2) > 0.1){
@@ -54,11 +54,13 @@ public class Intake extends Command {
           
             
         }
-  */          
+  */
+  //if linear actuator button is pressed,the motors connected to it starts to turn         
        if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
             ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
             ActionScheduler.getInstance().start();
         }
+         
         else{
             if(!ActionScheduler.getInstance().isActive()){
                 Robot.intakeBase.intake(speed);
