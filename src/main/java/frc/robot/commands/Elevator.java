@@ -34,7 +34,7 @@ public class Elevator extends Command {
         speed = 0;
    
     	if(OI.manipulator.getRawButton(Constants.kElevatorUp)) {
-            speed = 1;
+           speed = 1;
        
         }
         else if(OI.manipulator.getRawButton(Constants.kElevatorDown)) {
@@ -43,16 +43,19 @@ public class Elevator extends Command {
             
         }
             
-       if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
-            ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
+        if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId)) {
+            ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
             ActionScheduler.getInstance().start();
         }
         else{
             if(!ActionScheduler.getInstance().isActive()){
                 Robot.elevatorBase.elevator(speed);
             }
-          }      
-    }
+
+          } 
+    
+    
+        }
 
     // Make this return true when this Command no
     protected boolean isFinished() {

@@ -32,8 +32,7 @@ public class IntakeBase extends Subsystem {
 	//Method to use Intake base
 	public void intake(double speed) {
 		intake.set(ControlMode.PercentOutput, speed);
-
-  }
+  	}
 
   @Override
 	protected void initDefaultCommand() {

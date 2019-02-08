@@ -19,10 +19,8 @@ public class ElevatorBase extends Subsystem {
 	//Creates Victor object
 	VictorSPX elevator;
 
-
 	public ElevatorBase(){
 		elevator = new VictorSPX(Constants.kElevatorId);
-
 	
 		elevator.setNeutralMode(NeutralMode.Brake);
 

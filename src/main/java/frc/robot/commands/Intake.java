@@ -32,16 +32,20 @@ public class Intake extends Command {
     protected void execute() {    	
      // Trigger and Joystick Controls
 
-      double speed = OI.manipulator.getRawAxis(5);
+      speed = 0;
     	
     	if(OI.manipulator.getRawAxis(2) > 0.1){
     		speed = -OI.manipulator.getRawAxis(2);
     	}
     	
-    	else if(OI.manipulator.getRawAxis(3) > 0.05){
+    	else if(OI.manipulator.getRawAxis(3) > 0.1){
     		speed = OI.manipulator.getRawAxis(3);
-    	}
-    
+      }
+      
+      else if(OI.manipulator.getRawAxis(5) > 0.1 || OI.manipulator.getRawAxis(5) < -0.3){
+        speed = OI.manipulator.getRawAxis(5);
+      }
+
       //Button Controls
       /*      speed = 0;
    
@@ -55,15 +59,10 @@ public class Intake extends Command {
             
         }
   */          
-       if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
-            ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
-            ActionScheduler.getInstance().start();
-        }
-        else{
-            if(!ActionScheduler.getInstance().isActive()){
-                Robot.intakeBase.intake(speed);
-            }
-          }      
+          if(!ActionScheduler.getInstance().isActive()){
+               Robot.intakeBase.intake(speed);
+           }
+              
     }
 
     // Make this return true when this Command no
