@@ -21,6 +21,7 @@ public class LinearActuatorBase extends Subsystem {
 	VictorSPX back;
 	VictorSPX driveMot;
 
+	//makes linear actuators stop
 	public LinearActuatorBase(){
 		front = new VictorSPX(Constants.kFrontLinearActuatorId);
 		back = new VictorSPX(Constants.kBackLinearActuatorId);

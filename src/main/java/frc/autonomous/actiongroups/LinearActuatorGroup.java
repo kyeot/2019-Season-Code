@@ -15,7 +15,7 @@ import frc.autonomous.ParallelAction;
 import frc.autonomous.*;
 
 /**
- * Add your docs here.
+ * linerar actuator climb auto
  */
 public class LinearActuatorGroup extends ActionGroup {
 

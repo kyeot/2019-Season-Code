@@ -128,7 +128,7 @@ public class SwerveDrive extends Command {
     	if(controlType.getCenterGyroButton()) {
     		Robot.swerveBase.resetGyroNorth(180, 0);
 		}
-
+		
 		if(OI.driver.getPOV() != -1){
 			swerveController.setPose(new Bearing(OI.driver.getPOV()));
 		}
@@ -136,7 +136,7 @@ public class SwerveDrive extends Command {
 			swerveController.slide(fbValue, rlValue);
 			swerveController.rotate(-rotValue);
 		}
-
+		//goes into docking mode
     	if(controlType.getDockingModeButton()) {
     		System.out.println("Docking Mode");
     		swerveController.update(false);
