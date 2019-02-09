@@ -21,10 +21,11 @@ public class LinearActuatorBase extends Subsystem {
 	VictorSPX back;
 	VictorSPX driveMot;
 
+	//makes linear actuators stop
 	public LinearActuatorBase(){
 		front = new VictorSPX(Constants.kFrontLinearActuatorId);
 		back = new VictorSPX(Constants.kBackLinearActuatorId);
-		driveMot = new VictorSPX(Constants.kDriveLinearActuatorId);
+		driveMot = new VictorSPX(Constants.kLinearActuatorDriveMotId);
 	
 		front.setNeutralMode(NeutralMode.Brake);
 		back.setNeutralMode(NeutralMode.Brake);
@@ -33,8 +34,8 @@ public class LinearActuatorBase extends Subsystem {
 	
 	//Method to use Linear Actuator base
 	public void linearActuator(double liftFrontSpeed, double liftBackSpeed, double driveSpeed) {
-		front.set(ControlMode.PercentOutput, liftFrontSpeed);
-		back.set(ControlMode.PercentOutput, liftBackSpeed);
+		front.set(ControlMode.PercentOutput, liftFrontSpeed*0.5);
+		back.set(ControlMode.PercentOutput, liftBackSpeed*0.5);
 		driveMot.set(ControlMode.PercentOutput, driveSpeed);
   	}
 	

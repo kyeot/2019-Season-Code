@@ -42,7 +42,7 @@ public class Intake extends Command {
     		speed = OI.manipulator.getRawAxis(3);
       }
       
-      else if(OI.manipulator.getRawAxis(5) > 0.1 || OI.manipulator.getRawAxis(5) < -0.3){
+      else if(OI.manipulator.getRawAxis(5) > 0.3 || OI.manipulator.getRawAxis(5) < -0.3){
         speed = OI.manipulator.getRawAxis(5);
       }
 

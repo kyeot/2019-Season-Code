@@ -37,35 +37,36 @@ public class LinearActuator extends Command {
         liftBackSpeed = 0;
         driveSpeed = 0;
         
+        //LA goes up
     	if(OI.manipulator.getPOV() == Constants.kLAOutButtonId) {
             liftFrontSpeed = 1;
             liftBackSpeed = 1;
         }
+        //LA goes down
         else if(OI.manipulator.getPOV() == Constants.kLAInButtonId) {
            liftFrontSpeed = -1;
            liftBackSpeed = -1;
             
         }
-            
+        //drive forward    
         if(OI.manipulator.getPOV() == Constants.kLADriveForwardButtonId) {
     		driveSpeed = 1;
         }
+        //drive backwards
         else if(OI.manipulator.getPOV() == Constants.kLADriveBackwardButtonId) {
             driveSpeed = -1;
         }
-
+        //climbs when button is pressed
         if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
             ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
             ActionScheduler.getInstance().start();
         }
-        else{
-            if(!ActionScheduler.getInstance().isActive()){
+        else if(!ActionScheduler.getInstance().isActive()){
                 Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
-            }
         }
     }
-
-    // Make this return true when this Command no
+    //liam code bad
+    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }

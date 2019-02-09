@@ -15,6 +15,7 @@ public class AutoLA extends Action {
 	double liftBackSpeed;
 	double driveSpeed;
 
+	// controls the linear actuators autonomusly 
 	public AutoLA(double liftFrontSpeed, double liftBackSpeed, double driveSpeed, double time) {
 		super("AutoLA", time);
 		
