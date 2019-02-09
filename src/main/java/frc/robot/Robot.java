@@ -77,6 +77,8 @@ public static Subsystem elevator;
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putString("DB/String 1", "v" + intakeBase.getServo());
+
     SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
     SmartDashboard.putString("DB/String 6", "" + OI.driver.getPOV());
   }
@@ -120,7 +122,6 @@ public static Subsystem elevator;
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
   }
 
   @Override

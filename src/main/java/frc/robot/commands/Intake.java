@@ -5,6 +5,7 @@ import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.*;
+import frc.autonomous.actions.TestServo;
 
 /**
  * @purpose Command class for Intake
@@ -34,16 +35,21 @@ public class Intake extends Command {
 
       speed = 0;
     	
-    	if(OI.manipulator.getRawAxis(2) > 0.1){
-    		speed = -OI.manipulator.getRawAxis(2);
-    	}
+      if(OI.manipulator.getRawAxis(2) > 0.1){
+    	speed = -OI.manipulator.getRawAxis(2);
+      }
     	
-    	else if(OI.manipulator.getRawAxis(3) > 0.1){
-    		speed = OI.manipulator.getRawAxis(3);
+      else if(OI.manipulator.getRawAxis(3) > 0.1){
+    	speed = OI.manipulator.getRawAxis(3);
       }
       
       else if(OI.manipulator.getRawAxis(5) > 0.3 || OI.manipulator.getRawAxis(5) < -0.3){
         speed = OI.manipulator.getRawAxis(5);
+      }
+
+      else if(OI.manipulator.getRawButton(3)){
+        ActionScheduler.getInstance().setGroup(new ServoGroup());
+        ActionScheduler.getInstance().start();
       }
 
       //Button Controls

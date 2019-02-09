@@ -5,27 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous.actiongroups;
+package frc.autonomous.actions;
 
-import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
 import frc.autonomous.*;
+import frc.robot.*;
 
 /**
  * Add your docs here.
  */
-public class ElevateAndSpitGroup extends ActionGroup {
-
-    public ElevateAndSpitGroup(){
-        super();
-    
-        addAction(new AutoSpit(-.9, 1));
-
-    
+public class TestServo extends Action {
+	
+	double angle;
+	
+	//drives autonomously
+	public TestServo(double angle, double time) {
+		super("AutoDrive", time);
+		
+		this.angle = angle;
+	}
+	
+	@Override
+	public void perform() {
+		Robot.intakeBase.testServo(angle);
     }
-
-
+    
 }

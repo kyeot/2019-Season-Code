@@ -7,25 +7,18 @@
 
 package frc.autonomous.actiongroups;
 
-import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
+import frc.autonomous.actions.TestServo;
 import frc.autonomous.*;
 
 /**
  * Add your docs here.
  */
-public class ElevateAndSpitGroup extends ActionGroup {
+public class ServoGroup extends ActionGroup{
 
-    public ElevateAndSpitGroup(){
+    public ServoGroup(){
         super();
-    
-        addAction(new AutoSpit(-.9, 1));
 
-    
+        addAction(new TestServo(140, 1));
+        addAction(new TestServo(0, 1));
     }
-
-
 }

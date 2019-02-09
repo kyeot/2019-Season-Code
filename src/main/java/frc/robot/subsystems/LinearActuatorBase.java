@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @purpose: Controlling the Linear Actuator Subsystem
@@ -45,9 +46,25 @@ public class LinearActuatorBase extends Subsystem {
 	
 	//Method to use Linear Actuator base
 	public void linearActuator(double liftFrontSpeed, double liftBackSpeed, double driveSpeed) {
-		front.set(ControlMode.PercentOutput, liftFrontSpeed*0.5);
-		back.set(ControlMode.PercentOutput, liftBackSpeed*0.5);
-		driveMot.set(ControlMode.PercentOutput, driveSpeed);
+		if (!frontDigitalInputBot.get() && liftFrontSpeed < -0.1) {
+			front.set(ControlMode.PercentOutput, liftFrontSpeed*0.5);
+		} 
+		else if(!frontDigitalInputTop.get() && liftFrontSpeed > 0.1){
+			front.set(ControlMode.PercentOutput, liftFrontSpeed*0.5);
+		}
+		else{
+			front.set(ControlMode.PercentOutput, 0);
+		}
+
+		SmartDashboard.putString("DB/String 3", "BOT: " + frontDigitalInputBot.get());
+		SmartDashboard.putString("DB/String 4", "TOP: " + frontDigitalInputTop.get());
+
+		if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
+			back.set(ControlMode.PercentOutput, liftBackSpeed*0.5);
+		} 
+		else if(!backDigitalInputTop.get() && liftBackSpeed > 0.1){
+			back.set(ControlMode.PercentOutput, liftBackSpeed*0.5);
+		}
   	}
 	
 	@Override

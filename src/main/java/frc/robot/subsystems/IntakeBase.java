@@ -28,13 +28,16 @@ public class IntakeBase extends Subsystem {
 		testServo = new Servo(1);
 
 		intake.setNeutralMode(NeutralMode.Brake);
-
 	}
+
 	public void testServo(double angle) {
-
 		testServo.setAngle(angle);
-
 	}
+
+	public double getServo(){
+		return testServo.getAngle();
+	}
+
 	//Method to use Intake base
 	public void intake(double speed) {
 		intake.set(ControlMode.PercentOutput, speed);
