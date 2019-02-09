@@ -1,6 +1,7 @@
 package frc.autonomous.actions;
 
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.Action;
 /**
  * 
@@ -23,9 +24,12 @@ public class AutoSpit extends Action {
 	
 	@Override
 	public void perform() {
-		Robot.intakeBase.intake(speed);
+        Robot.intakeBase.intake(speed);
 	}
-	
+	@Override 
+	public void finish(){
+		Robot.intakeBase.intake(0);
+	}
 }
 
  

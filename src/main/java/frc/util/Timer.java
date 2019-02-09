@@ -1,6 +1,7 @@
 package frc.util;
 
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Timer {
 
@@ -20,7 +21,9 @@ public class Timer {
 	}
 	
 	public boolean ring() {
+		SmartDashboard.putString("DB/String 0", "" + ((RobotController.getFPGATime() - endTime) * 10E-7));
 		return RobotController.getFPGATime() >= endTime;
+		
 	}
 	
 }

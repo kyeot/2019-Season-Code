@@ -23,7 +23,7 @@ public class ElevateAndSpitGroup extends ActionGroup {
         super();
 
        // addAction(new AutoElevate(1, 1));
-        addAction(new AutoSpit(-1, 1));
+        addAction(new AutoSpit(-.1, 5));
        // addAction(new AutoElevate(-1, 1.9)); 
     
     }

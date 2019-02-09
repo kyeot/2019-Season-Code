@@ -14,13 +14,14 @@ import frc.autonomous.actiongroups.*;
 public class Elevator extends Command {
 
     public static double speed;
-
+    public boolean foo;
 
     public Elevator() {
     	//Sets the required Subsystem
         requires(Robot.elevatorBase);
 
         speed = 0;
+        foo = false;
   
     }
 
@@ -43,13 +44,19 @@ public class Elevator extends Command {
             
         }
             
-        if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId)) {
+        if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId) && (!foo)) {
             ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
             ActionScheduler.getInstance().start();
+            foo = true; 
         }
+        else if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId)) {
+            foo = true;
+        }
+        
         else{
             if(!ActionScheduler.getInstance().isActive()){
                 Robot.elevatorBase.elevator(speed);
+                foo = false;
             }
 
           } 
