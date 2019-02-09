@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,16 +20,21 @@ public class IntakeBase extends Subsystem {
 	
 	//Creates Victor object
 	VictorSPX intake;
+	Servo testServo;
 
 
 	public IntakeBase(){
 		intake = new VictorSPX(Constants.kIntakeId);
+		testServo = new Servo(1);
 
-	
 		intake.setNeutralMode(NeutralMode.Brake);
 
 	}
-	
+	public void testServo(double angle) {
+
+		testServo.setAngle(angle);
+
+	}
 	//Method to use Intake base
 	public void intake(double speed) {
 		intake.set(ControlMode.PercentOutput, speed);

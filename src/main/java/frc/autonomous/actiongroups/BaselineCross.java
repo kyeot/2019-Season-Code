@@ -21,7 +21,6 @@ public class BaselineCross extends ActionGroup {
     public BaselineCross() {
 
             super();
-
             addAction(new AutoDrive(0, 0.5, 0, 8));
         
     }
