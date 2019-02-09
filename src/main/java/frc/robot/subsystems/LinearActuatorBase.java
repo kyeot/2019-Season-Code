@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,11 +22,21 @@ public class LinearActuatorBase extends Subsystem {
 	VictorSPX back;
 	VictorSPX driveMot;
 
+	DigitalInput backDigitalInputBot;
+	DigitalInput backDigitalInputTop;
+	DigitalInput frontDigitalInputBot;
+	DigitalInput frontDigitalInputTop;
+
 	//makes linear actuators stop
 	public LinearActuatorBase(){
 		front = new VictorSPX(Constants.kFrontLinearActuatorId);
 		back = new VictorSPX(Constants.kBackLinearActuatorId);
 		driveMot = new VictorSPX(Constants.kLinearActuatorDriveMotId);
+
+		backDigitalInputBot = new DigitalInput(0);
+		backDigitalInputTop = new DigitalInput(1);
+		frontDigitalInputBot = new DigitalInput(2);
+		frontDigitalInputTop = new DigitalInput(3);
 	
 		front.setNeutralMode(NeutralMode.Brake);
 		back.setNeutralMode(NeutralMode.Brake);

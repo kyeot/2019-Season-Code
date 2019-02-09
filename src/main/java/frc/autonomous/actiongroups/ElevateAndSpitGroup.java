@@ -22,12 +22,9 @@ public class ElevateAndSpitGroup extends ActionGroup {
     public ElevateAndSpitGroup(){
         super();
 
-        addAction(new AutoElevate(1, 2));
-       // addAction(new ParallelAction((Arrays.asList(new Action[] {
-         //   new AutoLA(0.15, 0.15, 1, 5),
-           // new SwerveAlign(90, 2)
-       // }))));;
-       
+       // addAction(new AutoElevate(1, 1));
+        addAction(new AutoSpit(-1, 1));
+       // addAction(new AutoElevate(-1, 1.9)); 
     
     }
 

@@ -50,11 +50,11 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 22424;
 	public static final int kRearRightSwivelId = 12424;
 
-	public static final int kLinearActuatorDriveMotId = 4;
+	public static final int kLinearActuatorDriveMotId = 10;
 	public static final int kFrontLinearActuatorId = 7;
-	public static final int kBackLinearActuatorId = 9;
-	public static final int kElevatorId = 8;
-	public static final int kIntakeId = 10;
+	public static final int kBackLinearActuatorId = 8;
+	public static final int kElevatorId = 9;
+	public static final int kIntakeId = 4;
 
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
