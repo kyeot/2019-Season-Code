@@ -36,9 +36,10 @@ public class LinearActuatorBase extends Subsystem {
 
 		backDigitalInputBot = new DigitalInput(0);
 		backDigitalInputTop = new DigitalInput(1);
-		frontDigitalInputBot = new DigitalInput(2);
-		frontDigitalInputTop = new DigitalInput(3);
-	
+		frontDigitalInputTop = new DigitalInput(2);
+		frontDigitalInputBot = new DigitalInput(3);
+
+
 		front.setNeutralMode(NeutralMode.Brake);
 		back.setNeutralMode(NeutralMode.Brake);
 		driveMot.setNeutralMode(NeutralMode.Brake);
