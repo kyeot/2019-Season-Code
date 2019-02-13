@@ -99,7 +99,7 @@ public class VisionProcessor implements Loop {
         fieldTransform.trackLatestTarget();
 
         SmartDashboard.putString("DB/String 0", "Angle to Target: " + Math.floor(fieldTransform.targetHistory.getSmoothTarget().dir().getTheta()));
-
+        SmartDashboard.putString("DB/String 2", "" + (RobotController.getFPGATime()*10E-7 - (timeEntry.getDouble(-1)*10E-7 + offset)));
         
     }
 

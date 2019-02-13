@@ -28,6 +28,8 @@ import math
 # import the necessary packages
 import datetime
 
+exposure = 0
+
 #Class to examine Frames per second of camera stream. Currently not used.
 class FPS:
 	def __init__(self):
@@ -91,7 +93,7 @@ class WebcamVideoStream:
 
         #Automatically sets exposure to 0 to track tape
         self.webcam = camera
-        self.webcam.setExposureManual(5)
+        self.webcam.setExposureManual(exposure)
         #Some booleans so that we don't keep setting exposure over and over to the same value
         self.autoExpose = False
         self.prevValue = self.autoExpose
@@ -129,7 +131,7 @@ class WebcamVideoStream:
             else:
                 if (self.autoExpose != self.prevValue):
                     self.prevValue = self.autoExpose
-                    self.webcam.setExposureManual(5)
+                    self.webcam.setExposureManual(exposure)
             #gets the image and timestamp from cameraserver
             (self.timestamp, self.img) = self.stream.grabFrame(self.img)
 
@@ -148,8 +150,8 @@ class WebcamVideoStream:
 #Angles in radians
 
 #image size ratioed to 16:9
-image_width = 256
-image_height = 144
+image_width = 320
+image_height = 240
 
 #Lifecam 3000 from datasheet
 #Datasheet: https://dl2jx7zfbtwvr.cloudfront.net/specsheets/WEBC1010.pdf
@@ -179,7 +181,7 @@ green_blur = 7
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([0,220,25])
+lower_green = np.array([0,180,25])
 upper_green = np.array([101, 255, 255])
 #define range of orange from cargo ball in HSV
 lower_orange = np.array([0,193,92])
@@ -221,6 +223,8 @@ def threshold_video(lower_color, upper_color, blur):
 
 # Finds the tape targets from the masked image and displays them on original stream + network tales
 def findTargets(frame, mask):
+    print(frame.shape[0])
+    print(frame.shape[1])
     # Finds contours
     _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_TC89_KCOS)
     # Take each frame
@@ -378,6 +382,7 @@ def findTape(contours, image, centerX, centerY):
             hull = cv2.convexHull(cnt)
             # Calculate Contour area
             cntArea = cv2.contourArea(cnt)
+            print(cntArea)
             # calculate area of convex hull
             hullArea = cv2.contourArea(hull)
             # Filters contours based off of size
@@ -497,7 +502,7 @@ def findTape(contours, image, centerX, centerY):
 
 # Checks if tape contours are worthy based off of contour area and (not currently) hull area
 def checkContours(cntSize, hullSize):
-    return cntSize > (image_width / 6)
+    return cntSize > (image_width / 40)
 
 # Checks if ball contours are worthy based off of contour area and (not currently) hull area
 def checkBall(cntSize, cntAspectRatio):
@@ -761,8 +766,8 @@ if __name__ == "__main__":
                 #Lowers exposure to 0
                 cap.autoExpose = False
                 boxBlur = blurImg(frame, green_blur)
-                threshold = threshold_video(lower_green, upper_green, boxBlur)
-                processed = findTargets(frame, threshold)
+                processed = threshold_video(lower_green, upper_green, frame)
+                #processed = findTargets(frame, threshold)
             else:
                 # Checks if you just want camera for Cargo processing, by dent of everything else being false, true by default
                 cap.autoExpose = True
