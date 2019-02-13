@@ -36,6 +36,7 @@ public class VisionProcessor implements Loop {
     double offset = 0;
 
     boolean firstTime;
+    int foo = 0;
 
     public static VisionProcessor getInstance() {
         return instance_;
@@ -70,11 +71,11 @@ public class VisionProcessor implements Loop {
         NavSensor.getInstance().updateHistory();
 
         //wait 3 seconds, then synchronize clocks
-        if(firstTime && (RobotController.getFPGATime()*10E-7 > 3)) {
+        if(firstTime && (RobotController.getFPGATime()*10E-7 > (3 * foo))) {
             time0 = RobotController.getFPGATime()*10E-7;
             doSynchronize.setDouble(time0);
             ntinst.flush();
-            firstTime = false;
+            foo++;
             return;
         }
 

@@ -124,9 +124,9 @@ public class SwerveDrive extends Command {
     	
     	//While the left bumper is held go full speed
     	if(controlType.getDoubleSpeedButton()) {
-    		fbValue *= 2;
-    		rlValue *= 2;
-    		rotValue *= 2;
+    		fbValue /= 2;
+    		rlValue /= 2;
+    		rotValue /= 2;
     	}
     	
     	//If the X button is pressed resets the Swerve Modules

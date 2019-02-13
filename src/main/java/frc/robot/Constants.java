@@ -14,8 +14,8 @@ public class Constants {
 	public static final double kSwerveModD = 0.025;
 	
 	public static final double kSwerveP = 0.02;
-	public static final double kSwerveI = 0.001;
-	public static final double kSwerveD = 0.01;
+	public static final double kSwerveI = 0.000;
+	public static final double kSwerveD = 0.00;
 
 	public static final double kSwerveAlignP = 2;
 	public static final double kSwerveAlignI = 0.0;
