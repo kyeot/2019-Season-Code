@@ -150,15 +150,15 @@ class WebcamVideoStream:
 #Angles in radians
 
 #image size ratioed to 16:9
-image_width = 320
-image_height = 240
+image_width = 176
+image_height = 144
 
 #Lifecam 3000 from datasheet
 #Datasheet: https://dl2jx7zfbtwvr.cloudfront.net/specsheets/WEBC1010.pdf
-diagonalView = math.radians(68.5)
+diagonalView = math.radians(120)
 
 #16:9 aspect ratio
-horizontalAspect = 16
+horizontalAspect = 11
 verticalAspect = 9
 
 #Reasons for using diagonal aspect is to calculate horizontal field of view.
@@ -174,15 +174,15 @@ verticalView = math.degrees(math.atan(math.tan(diagonalView/2) * (verticalAspect
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
 V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
 #(image_width / 2) / math.tan(math.radians(horizontalView / 2))
-focal_pixels = (image_width / 2) / math.tan(math.radians(horizontalView / 2))
+focal_pixels = 110.62
 
 #blurs have to be odd
-green_blur = 7
+green_blur = 2
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([0,180,25])
-upper_green = np.array([101, 255, 255])
+lower_green = np.array([57,32,73])
+upper_green = np.array([100, 255, 255])
 #define range of orange from cargo ball in HSV
 lower_orange = np.array([0,193,92])
 upper_orange = np.array([23, 255, 255])
@@ -219,12 +219,17 @@ def threshold_video(lower_color, upper_color, blur):
 
     return mask
 
+def adjust_gamma(image, gamma=0.5):
+
+   invGamma = 1.0 / gamma
+   table = np.array([((i / 255.0) ** invGamma) * 255
+      for i in np.arange(0, 256)]).astype("uint8")
+
+   return cv2.LUT(image, table)
 
 
 # Finds the tape targets from the masked image and displays them on original stream + network tales
 def findTargets(frame, mask):
-    print(frame.shape[0])
-    print(frame.shape[1])
     # Finds contours
     _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_TC89_KCOS)
     # Take each frame
@@ -382,7 +387,6 @@ def findTape(contours, image, centerX, centerY):
             hull = cv2.convexHull(cnt)
             # Calculate Contour area
             cntArea = cv2.contourArea(cnt)
-            print(cntArea)
             # calculate area of convex hull
             hullArea = cv2.contourArea(hull)
             # Filters contours based off of size
@@ -502,7 +506,7 @@ def findTape(contours, image, centerX, centerY):
 
 # Checks if tape contours are worthy based off of contour area and (not currently) hull area
 def checkContours(cntSize, hullSize):
-    return cntSize > (image_width / 40)
+    return cntSize > 1
 
 # Checks if ball contours are worthy based off of contour area and (not currently) hull area
 def checkBall(cntSize, cntAspectRatio):
@@ -561,6 +565,7 @@ def calculatePitch(pixelY, centerY, vFocalLength):
 # Return 3d vector from pixel offset
 def calculateVector(pixelY, centerY, pixelX, centerX):
     x = 1.0
+    print(-(pixelX - centerX))
     y = -(pixelX - centerX) / focal_pixels
     z = -(pixelY - centerY) / focal_pixels
     return x, y, z
@@ -765,9 +770,10 @@ if __name__ == "__main__":
             if(networkTable.getBoolean("Tape", True)):
                 #Lowers exposure to 0
                 cap.autoExpose = False
-                boxBlur = blurImg(frame, green_blur)
-                processed = threshold_video(lower_green, upper_green, frame)
-                #processed = findTargets(frame, threshold)
+                gamma_adjusted = adjust_gamma(frame)
+                boxBlur = blurImg(gamma_adjusted, green_blur)
+                threshold = threshold_video(lower_green, upper_green, boxBlur)
+                processed = findTargets(frame, threshold)
             else:
                 # Checks if you just want camera for Cargo processing, by dent of everything else being false, true by default
                 cap.autoExpose = True

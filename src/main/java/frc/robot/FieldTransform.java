@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.util.List;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.util.Bearing;
 import frc.util.NavSensor;
 import frc.util.Timestamp;
@@ -74,6 +75,7 @@ public class FieldTransform {
 		double dist = Math.hypot(xr, yr) * s;
 		Bearing angle = new Bearing(new Vector(xr, yr));
 		Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
+		SmartDashboard.putString("DB/String 6", "" + angle.getTheta());
 
 		Timestamp time = new Timestamp(target.getTime());
 		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));

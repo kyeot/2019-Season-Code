@@ -34,10 +34,10 @@ public class Constants {
 	
 	public static final double kGyroMaxAge = 0.3;
 	
-	public static final double kCameraXOffset = 9.875;
-	public static final double kCameraYOffset = 0.18;
-	public static final double kCameraZOffset = 25.5;
-	public static final double kCameraPitchOffset = 3.61;
+	public static final double kCameraXOffset = 10.75;
+	public static final double kCameraYOffset = -16.25;
+	public static final double kCameraZOffset = 23.5;
+	public static final double kCameraPitchOffset = 0;
 	public static final double kCameraRollOffset = 0.0;
 	public static final double kCameraYawOffset = 0.0;
 	

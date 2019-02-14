@@ -26,6 +26,7 @@ public class SwerveController {
 	class SwervePoseOut implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {
+			SmartDashboard.putString("DB/String 7", "" + output);
 			rot = -output;
 		}
 	}
@@ -93,7 +94,8 @@ public class SwerveController {
 		posePid.setSetpoint(b.getTheta());
 		posePid.enable();
 
-		SmartDashboard.putString("DB/String 8", "" + b.getTheta());
+
+		SmartDashboard.putString("DB/String 8", "" + NavSensor.getInstance().getAngle(false));
 		SmartDashboard.putString("DB/String 9", "" + posePid.getError());
 	}
 	
