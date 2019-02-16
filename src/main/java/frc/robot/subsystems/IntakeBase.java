@@ -6,6 +6,7 @@ import frc.robot.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Servo;
@@ -19,12 +20,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class IntakeBase extends Subsystem {
 	
 	//Creates Victor object
-	VictorSPX intake;
+	TalonSRX intake;
 	Servo testServo;
 
 
 	public IntakeBase(){
-		intake = new VictorSPX(Constants.kIntakeId);
+		intake = new TalonSRX(Constants.kIntakeId);
 		testServo = new Servo(1);
 
 		intake.setNeutralMode(NeutralMode.Brake);

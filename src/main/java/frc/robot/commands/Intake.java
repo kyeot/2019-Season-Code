@@ -65,9 +65,9 @@ public class Intake extends Command {
             
         }
   */          
-          if(!ActionScheduler.getInstance().isActive()){
-               Robot.intakeBase.intake(speed);
-           }
+        if(!ActionScheduler.getInstance().isActive()){
+              Robot.intakeBase.intake(speed);
+        }
               
     }
 

@@ -5,6 +5,7 @@ import frc.robot.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -17,10 +18,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElevatorBase extends Subsystem {
 	
 	//Creates Victor object
-	VictorSPX elevator;
+	TalonSRX elevator;
 
 	public ElevatorBase(){
-		elevator = new VictorSPX(Constants.kElevatorId);
+		elevator = new TalonSRX(Constants.kElevatorId);
 	
 		elevator.setNeutralMode(NeutralMode.Brake);
 

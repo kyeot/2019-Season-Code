@@ -40,20 +40,20 @@ public class Constants {
 
 
 	//Motor Controller IDs
-	public static final int kFrontLeftWheelId = 24241;
-	public static final int kFrontRightWheelId = 124244;
-	public static final int kRearLeftWheelId = 342424;
-	public static final int kRearRightWheelId = 124243;
+	public static final int kFrontLeftWheelId = 10;
+	public static final int kFrontRightWheelId = 11;
+	public static final int kRearLeftWheelId = 12;
+	public static final int kRearRightWheelId = 13;
 	
-	public static final int kFrontLeftSwivelId = 02424;
-	public static final int kFrontRightSwivelId = 15242;
-	public static final int kRearLeftSwivelId = 22424;
-	public static final int kRearRightSwivelId = 12424;
+	public static final int kFrontLeftSwivelId = 15;
+	public static final int kFrontRightSwivelId = 6;
+	public static final int kRearLeftSwivelId = 7;
+	public static final int kRearRightSwivelId = 9;
 
-	public static final int kLinearActuatorDriveMotId = 10;
-	public static final int kFrontLinearActuatorId = 7;
-	public static final int kBackLinearActuatorId = 8;
-	public static final int kElevatorId = 9;
+	public static final int kLinearActuatorDriveMotId = 0;
+	public static final int kFrontLinearActuatorId = 1;
+	public static final int kBackLinearActuatorId = 2;
+	public static final int kElevatorId = 3;
 	public static final int kIntakeId = 4;
 
 
