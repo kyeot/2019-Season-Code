@@ -29,6 +29,12 @@ public class Constants {
 	public static final int kLADriveForwardButtonId = 4;
 	public static final int kLADriveBackwardButtonId = 1;
 	public static final int kAutoLinearActuatorButtonId = 2;
+	public static final int kElevatorDown = 5;
+	public static final int kElevatorUp = 6;
+	public static final int kAutoElevateAndSpitButtonId = 1;
+
+	public static final int kElevatorId = 3;
+	public static final int kIntakeId = 4;
 
 	public static final int kFrontLeftWheelId = 1;
 	public static final int kFrontRightWheelId = 4;
@@ -42,6 +48,7 @@ public class Constants {
 
 	public static final int kFrontLinearActuatorId = 6;
 	public static final int kBackLinearActuatorId = 7;
+	public static final int kLinearActuatorDriveId = 1;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
@@ -50,7 +57,6 @@ public class Constants {
 	public static final double kRearLeftAngleOffset = 360 - 8.6;
 	public static final double kRearRightAngleOffset = 360 - 69.3;
 	
-	public static final int kDriveLinearActuatorId = 1;
 	public static final int kFrontLeftAbsoluteEncoder = 0;
 	public static final int kFrontRightAbsoluteEncoder = 1;
 	public static final int kRearLeftAbsoluteEncoder = 3;
