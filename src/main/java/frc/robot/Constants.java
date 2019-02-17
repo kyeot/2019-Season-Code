@@ -24,17 +24,17 @@ public class Constants {
 	public static final int kDriverControllerId = 0;
 	public static final int kManipulatorControllerId = 1;
 
-	public static final int kLAOutButtonId = 5;
-	public static final int kLAInButtonId = 6;
-	public static final int kLADriveForwardButtonId = 4;
-	public static final int kLADriveBackwardButtonId = 1;
+	public static final int kLAOutButtonId = 0;
+	public static final int kLAInButtonId = 180;
+	public static final int kLADriveForwardButtonId = 90;
+	public static final int kLADriveBackwardButtonId = 270;
 	public static final int kAutoLinearActuatorButtonId = 2;
 	public static final int kElevatorDown = 5;
 	public static final int kElevatorUp = 6;
 	public static final int kAutoElevateAndSpitButtonId = 1;
 
-	public static final int kElevatorId = 3;
-	public static final int kIntakeId = 4;
+	public static final int kElevatorId = 9;
+	public static final int kIntakeId = 11;
 
 	public static final int kFrontLeftWheelId = 1;
 	public static final int kFrontRightWheelId = 4;
@@ -46,9 +46,9 @@ public class Constants {
 	public static final int kRearLeftSwivelId = 2;
 	public static final int kRearRightSwivelId = 12;
 
-	public static final int kFrontLinearActuatorId = 6;
+	public static final int kFrontLinearActuatorId = 10;
 	public static final int kBackLinearActuatorId = 7;
-	public static final int kLinearActuatorDriveId = 1;
+	public static final int kLinearActuatorDriveId = 6;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
@@ -70,7 +70,5 @@ public class Constants {
 	public static final int kRearLeftEncoderB = 7;
 	public static final int kRearRightEncoderA = 2;
 	public static final int kRearRightEncoderB = 3;
-
-	public static int kLinearActuatorID;
 
 }
