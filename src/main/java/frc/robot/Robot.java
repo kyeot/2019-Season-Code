@@ -50,6 +50,13 @@ public class Robot extends TimedRobot {
     
 		SmartDashboard.putStringArray("Auto List", autonomousList);
     
+    File logFile = new File("/home/lvuser/log.txt");
+    try {
+			logFile.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
     try {
        navSensor = new AHRS(SPI.Port.kMXP);
    } catch (RuntimeException ex ) {
