@@ -38,22 +38,22 @@ public class LinearActuator extends Command {
         driveSpeed = 0;
         
         //LA goes up
-    	if(OI.manipulator.getPOV() == Constants.kLAOutButtonId) {
+    	if(OI.manipulator.getPOV() == Constants.kLAOutDpadId) {
             liftFrontSpeed = 1;
             liftBackSpeed = 1;
         }
         //LA goes down
-        else if(OI.manipulator.getPOV() == Constants.kLAInButtonId) {
+        else if(OI.manipulator.getPOV() == Constants.kLAInDpadId) {
            liftFrontSpeed = -1;
            liftBackSpeed = -1;
             
         }
         //drive forward    
-        if(OI.manipulator.getPOV() == Constants.kLADriveForwardButtonId) {
+        if(OI.manipulator.getPOV() == Constants.kLADriveForwardDpadId) {
     		driveSpeed = 1;
         }
         //drive backwards
-        else if(OI.manipulator.getPOV() == Constants.kLADriveBackwardButtonId) {
+        else if(OI.manipulator.getPOV() == Constants.kLADriveBackwardDpadId) {
             driveSpeed = -1;
         }
         //climbs when button is pressed

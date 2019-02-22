@@ -33,11 +33,11 @@ public class Elevator extends Command {
     protected void execute() {    	
         
         speed = 0;
-        if (OI.manipulator.getRawAxis(Constants.kElevatorUpAxis) > 0.1) {
-           speed = OI.manipulator.getRawAxis(Constants.kElevatorUpAxis);
+        if (OI.manipulator.getRawAxis(Constants.kElevatorUpAxisId) > 0.1) {
+           speed = OI.manipulator.getRawAxis(Constants.kElevatorUpAxisId);
         }
-        else if(OI.manipulator.getRawAxis(Constants.kElevatorDownAxis) > 0.1) {
-           speed = -OI.manipulator.getRawAxis(Constants.kElevatorDownAxis)*0.5;
+        else if(OI.manipulator.getRawAxis(Constants.kElevatorDownAxisId) > 0.1) {
+           speed = -OI.manipulator.getRawAxis(Constants.kElevatorDownAxisId)*0.5;
         }
 
         if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId) && (!foo)) {

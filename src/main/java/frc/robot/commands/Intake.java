@@ -34,11 +34,11 @@ public class Intake extends Command {
 
       speed = 0;
     	
-      if(OI.manipulator.getRawButton(Constants.kIntakeIn)){
+      if(OI.manipulator.getRawButton(Constants.kIntakeInButtonId)){
     	  speed = -1;
       }
     	
-      else if(OI.manipulator.getRawButton(Constants.kIntakeOut)){
+      else if(OI.manipulator.getRawButton(Constants.kIntakeOutButtonId)){
     	  speed = 1;
       }
       

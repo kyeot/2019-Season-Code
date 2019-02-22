@@ -40,16 +40,16 @@ public class Constants {
 	public static final int kDockingModeButtonId = 6;
 
 	// Manipulator
-	public static final int kLAOutButtonId = 0;
-	public static final int kLAInButtonId = 180;
-	public static final int kLADriveForwardButtonId = 90;
-	public static final int kLADriveBackwardButtonId = 270;
-	public static final int kAutoLinearActuatorButtonId = 2;
-	public static final int kIntakeIn = 5;
-	public static final int kIntakeOut = 6;
+	public static final int kElevatorUpAxisId = 3;
+	public static final int kElevatorDownAxisId = 2;
 	public static final int kAutoElevateAndSpitButtonId = 1;
-	public static final int kElevatorUpAxis = 3;
-	public static final int kElevatorDownAxis = 2;
+	public static final int kAutoLinearActuatorButtonId = 2;
+	public static final int kIntakeInButtonId = 5;
+	public static final int kIntakeOutButtonId = 6;
+	public static final int kLAOutDpadId = 0;
+	public static final int kLAInDpadId = 180;
+	public static final int kLADriveForwardDpadId = 90;
+	public static final int kLADriveBackwardDpadId = 270;
 
 
 	/*

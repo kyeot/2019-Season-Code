@@ -13,16 +13,16 @@ public enum Controls {
     ZERO_MODULES_BUTTON(Constants.kZeroModulesButtonId, Controller.DRIVER, ControlType.BUTTON),
     DOCKING_MODE_BUTTON(Constants.kDockingModeButtonId, Controller.DRIVER, ControlType.BUTTON),
 
-    LA_OUT_DPAD(Constants.kLAOutButtonId, Controller.MANIPULATOR, ControlType.DPAD),
-    LA_IN_DPAD(Constants.kLAInButtonId, Controller.MANIPULATOR, ControlType.DPAD),
-    LA_DRIVE_FORWARD_DPAD(Constants.kLADriveForwardButtonId, Controller.MANIPULATOR, ControlType.DPAD),
-    LA_DRIVE_BACKWARD_DPAD(Constants.kLADriveBackwardButtonId, Controller.MANIPULATOR, ControlType.DPAD),
+    LA_OUT_DPAD(Constants.kLAOutDpadId, Controller.MANIPULATOR, ControlType.DPAD),
+    LA_IN_DPAD(Constants.kLAInDpadId, Controller.MANIPULATOR, ControlType.DPAD),
+    LA_DRIVE_FORWARD_DPAD(Constants.kLADriveForwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
+    LA_DRIVE_BACKWARD_DPAD(Constants.kLADriveBackwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
     LA_AUTO_BUTTON(Constants.kAutoLinearActuatorButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-    INTAKE_IN_BUTTON(Constants.kIntakeIn, Controller.MANIPULATOR, ControlType.BUTTON),
-    INTAKE_OUT_BUTTON(Constants.kIntakeOut, Controller.MANIPULATOR, ControlType.BUTTON),
+    INTAKE_IN_BUTTON(Constants.kIntakeInButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
+    INTAKE_OUT_BUTTON(Constants.kIntakeOutButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
     ELEVATE_AND_SPIT_BUTTON(Constants.kAutoElevateAndSpitButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-    ELEVATOR_UP_AXIS(Constants.kElevatorUpAxis, Controller.MANIPULATOR, ControlType.AXIS),
-    ELEVATOR_DOWN_AXIS(Constants.kElevatorDownAxis, Controller.MANIPULATOR, ControlType.AXIS);
+    ELEVATOR_UP_AXIS(Constants.kElevatorUpAxisId, Controller.MANIPULATOR, ControlType.AXIS),
+    ELEVATOR_DOWN_AXIS(Constants.kElevatorDownAxisId, Controller.MANIPULATOR, ControlType.AXIS);
     
     public enum Controller {
         DRIVER(OI.driver),
