@@ -1,27 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 public enum Controls {
-    
-    enum Controller {
-        DRIVER(OI.driver),
-        MANIPULATOR(OI.manipulator);
-
-        Joystick joystick;
-        
-        public Controller(Joystick joystick) {
-            this.joystick = joystick;
-        }
-
-        public Joystick getJoystick() {
-            return joystick;
-        }
-    }
-
-    enum ControlType {
-        BUTTON,
-        AXIS,
-        DPAD;
-    }
 
     FB_AXIS(Constants.kFBAxisId, Controller.DRIVER, ControlType.AXIS),
     RL_AXIS(Constants.kRLAxisId, Controller.DRIVER, ControlType.AXIS),
@@ -42,12 +23,33 @@ public enum Controls {
     ELEVATE_AND_SPIT_BUTTON(Constants.kAutoElevateAndSpitButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
     ELEVATOR_UP_AXIS(Constants.kElevatorUpAxis, Controller.MANIPULATOR, ControlType.AXIS),
     ELEVATOR_DOWN_AXIS(Constants.kElevatorDownAxis, Controller.MANIPULATOR, ControlType.AXIS);
+    
+    public enum Controller {
+        DRIVER(OI.driver),
+        MANIPULATOR(OI.manipulator);
+
+        Joystick joystick;
+        
+        private Controller(Joystick joystick) {
+            this.joystick = joystick;
+        }
+
+        public Joystick getJoystick() {
+            return joystick;
+        }
+    }
+
+    public enum ControlType {
+        BUTTON,
+        AXIS,
+        DPAD;
+    }
 
     int id;
     Controller controller;
     ControlType type;
 
-    public Controls(int id, Controller controller, ControlType type) {
+    private Controls(int id, Controller controller, ControlType type) {
         this.id = id;
         this.controller = controller;
         this.type = type;
@@ -65,7 +67,12 @@ public enum Controls {
         return type;
     }
 
-    public static boolean getButton(DriverControls control, double deadband = 0.0) {
+
+    public static boolean getButton(Controls control) {
+        return getButton(control, 0.0);
+    }
+
+    public static boolean getButton(Controls control, double deadband) {
         if(control.getType() == ControlType.BUTTON) {
             return control.getController().getJoystick().getRawButton(control.getId());
         } else if(control.getType() == ControlType.DPAD) {
@@ -73,9 +80,14 @@ public enum Controls {
         } else if(control.getType() == ControlType.AXIS) {
             return Math.abs(control.getController().getJoystick().getRawAxis(control.getId())) > deadband;
         }
+        return false;
     }
 
-    public static double getAxis(DriverControls control, double deadband = 0.0) {
+    public static double getAxis(Controls control) {
+        return getAxis(control, 0.0);
+    }
+
+    public static double getAxis(Controls control, double deadband) {
         if(control.getType() == ControlType.BUTTON) {
             return control.getController().getJoystick().getRawButton(control.getId()) ? 1.0 : 0.0;
         } else if(control.getType() == ControlType.DPAD) {
@@ -83,6 +95,7 @@ public enum Controls {
         } else if(control.getType() == ControlType.AXIS) {
             return Math.abs(control.getController().getJoystick().getRawAxis(control.getId())) > deadband ? control.getController().getJoystick().getRawAxis(control.getId()) : 0.0;
         }
+        return 0.0;
     }
 
 

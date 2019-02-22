@@ -7,7 +7,6 @@ import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
 import frc.util.NavSensor;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,7 +18,7 @@ public class SwerveDrive extends Command {
 	boolean sprinting;
 
 	//Makes SwerveDrive require the subsystem swerveBase
-    public SwerveDrive(ControlType controlType) {
+    public SwerveDrive() {
     	requires(Robot.swerveBase);
 		sprinting = false;
     }

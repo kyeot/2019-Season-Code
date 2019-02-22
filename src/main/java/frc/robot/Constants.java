@@ -104,7 +104,8 @@ public class Constants {
 		MISC
 	*/
 
-	public static final double kLoopPeriod = 0.01;                   // Amt. of time(s) the loop notifier runs in
+	public static final double kLoopPeriod = 0.01;                   // Amount of time(s) the loop notifier runs in
+	public static final double kActionPeriod = 0.01;                 // Amount of time(s) the action notifier runs in;
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 

@@ -116,7 +116,7 @@ public class ActionScheduler {
 		//Makes sure the action isn't null, starts it
 		if(action != null) {
 			action.start();
-			thread.startPeriodic(Constants.kPeriod);
+			thread.startPeriodic(Constants.kActionPeriod);
 			active = true;
 		}
 		//If the queue was empty or the action was null, logs a warning

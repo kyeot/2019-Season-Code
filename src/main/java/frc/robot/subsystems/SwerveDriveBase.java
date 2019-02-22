@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.commands.SwerveDrive;
-import frc.robot.commands.SwerveDrive.ControlType;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -266,7 +265,7 @@ public class SwerveDriveBase extends Subsystem {
 
     //Initiates SwerveDrive as the Default Command
     public void initDefaultCommand() {
-        setDefaultCommand(new SwerveDrive(ControlType.CONTROLLER));
+        setDefaultCommand(new SwerveDrive());
     }
     
     /**

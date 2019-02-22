@@ -29,12 +29,14 @@ import frc.util.NavSensor;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
 
-
-public static OI oi;
+  public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
   public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
@@ -43,12 +45,10 @@ public static OI oi;
 
   private static AHRS navSensor;
 
-  public Looper looper = new Looper(Constants.kPeriod);
+  public Looper looper = new Looper(Constants.kLoopPeriod);
   private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
 
   public static Subsystem elevator;
-
-
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -59,40 +59,42 @@ public static OI oi;
 
     looper.startLoops();
 
-    String[] autonomousList = {"Test"};
-    
-		SmartDashboard.putStringArray("Auto List", autonomousList);
-    
+    String[] autonomousList = { "Test" };
+
+    SmartDashboard.putStringArray("Auto List", autonomousList);
+
     File logFile = new File("/home/lvuser/log.txt");
     try {
-			logFile.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+      logFile.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
-       navSensor = new AHRS(SPI.Port.kMXP);
-   } catch (RuntimeException ex ) {
-       DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-   }
-   Robot.swerveBase.resetGyroNorth(180, 0);
+      navSensor = new AHRS(SPI.Port.kMXP);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+    }
+    Robot.swerveBase.resetGyroNorth(180, 0);
   }
-  
-  
-	public static void setGroup(ActionGroup group) {
-		actionScheduler.setGroup(group);
-	}
+
+  public static void setGroup(ActionGroup group) {
+    actionScheduler.setGroup(group);
+  }
 
   @Override
   public void robotPeriodic() {
-    
-    /* Prints for the Absolute Encoder Angles, Use to calculate offsets
-		SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle());
-		SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
-		SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
-    SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
-    */
-    
+
+    /*
+     * Prints for the Absolute Encoder Angles, Use to calculate offsets
+     * SmartDashboard.putString("DB/String 0", "fl: " +
+     * swerveBase.flMod.getAngle()); SmartDashboard.putString("DB/String 1", "fr: "
+     * + swerveBase.frMod.getAngle()); SmartDashboard.putString("DB/String 2",
+     * "rl: " + swerveBase.rlMod.getAngle());
+     * SmartDashboard.putString("DB/String 3", "rr: " +
+     * swerveBase.rrMod.getAngle());
+     */
+
   }
 
   @Override
@@ -106,17 +108,17 @@ public static OI oi;
 
   @Override
   public void autonomousInit() {
-		Logger.info("Starting Autonomous");
+    Logger.info("Starting Autonomous");
 
     String autoSelected = SmartDashboard.getString("Auto Selector", "None");
-    
+
     switch (autoSelected) {
-      case "Test":
-        setGroup(new TestGroup());
-        break;
+    case "Test":
+      setGroup(new TestGroup());
+      break;
     }
 
-		actionScheduler.start();
+    actionScheduler.start();
   }
 
   @Override
@@ -141,35 +143,35 @@ public static OI oi;
   }
 
   public static AHRS getNavSensor() {
-		return navSensor;
+    return navSensor;
   }
 
   public static String parseMatchTime() {
-		double s = DriverStation.getInstance().getMatchTime();
+    double s = DriverStation.getInstance().getMatchTime();
 
-		if (s != -1.0) {
-			if (DriverStation.getInstance().isAutonomous()) {
+    if (s != -1.0) {
+      if (DriverStation.getInstance().isAutonomous()) {
 
-				int t = (int) (15 - Math.ceil(s));
-				return ":" + Integer.toString((int) t) + " (Auton)";
+        int t = (int) (15 - Math.ceil(s));
+        return ":" + Integer.toString((int) t) + " (Auton)";
 
-			} else if (DriverStation.getInstance().isOperatorControl()) {
+      } else if (DriverStation.getInstance().isOperatorControl()) {
 
-				int t = (int) (135 - Math.ceil(s));
-				return Integer.toString((int) Math.floor(t / 60)) + ":" + Integer.toString((int) t % 60) + " (TeleOp)";
+        int t = (int) (135 - Math.ceil(s));
+        return Integer.toString((int) Math.floor(t / 60)) + ":" + Integer.toString((int) t % 60) + " (TeleOp)";
 
-			} else {
+      } else {
 
-				return "Disabled";
+        return "Disabled";
 
-			}
+      }
 
-		} else {
+    } else {
 
-			return "Not Practice";
+      return "Not Practice";
 
-		}
+    }
 
-	}
+  }
 
 }
