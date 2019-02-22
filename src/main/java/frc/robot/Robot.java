@@ -84,7 +84,6 @@ public static Subsystem elevator;
 		SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
    // SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
     
-		SmartDashboard.putString("DB/String 9", "" + NavSensor.getInstance().getAngle(false));
   }
 
   @Override
