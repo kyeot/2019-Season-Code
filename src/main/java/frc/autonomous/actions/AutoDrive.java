@@ -15,6 +15,7 @@ public class AutoDrive extends Action {
 	double speed;
 	double rotation;
 	
+	//drives autonomously
 	public AutoDrive(double angle, double speed, double rotation, double time) {
 		super("AutoDrive", time);
 		

@@ -1,6 +1,7 @@
 package frc.util;
 
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Timer {
 

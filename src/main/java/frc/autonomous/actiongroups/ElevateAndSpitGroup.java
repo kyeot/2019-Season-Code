@@ -15,15 +15,15 @@ import frc.autonomous.ParallelAction;
 import frc.autonomous.*;
 
 /**
- * linear actuator climb auto
+ * Add your docs here.
  */
-public class LinearActuatorGroup extends ActionGroup {
+public class ElevateAndSpitGroup extends ActionGroup {
 
-    public LinearActuatorGroup(){
+    public ElevateAndSpitGroup(){
         super();
+    
+        addAction(new AutoSpit(-.9, 1));
 
-        addAction(new AutoLA(0, 0.5, 0, 1));
-        addAction(new AutoLA(0.5, 0.5, 0, 2));
     
     }
 

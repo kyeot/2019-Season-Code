@@ -12,10 +12,10 @@ import frc.autonomous.actiongroups.*;
  * @version 1/28/2019
  */
 public class LinearActuator extends Command {
-    
-    double liftFrontSpeed;
-    double liftBackSpeed;
-    double driveSpeed;
+
+    public static double liftFrontSpeed;
+    public static double liftBackSpeed;
+    public static double driveSpeed;
 
     public LinearActuator() {
     	//Sets the required Subsystem
@@ -37,31 +37,35 @@ public class LinearActuator extends Command {
         liftBackSpeed = 0;
         driveSpeed = 0;
         
-    	if(OI.manipulator.getRawButton(Constants.kLAOutButtonId)) {
+        //LA goes up
+    	if(OI.manipulator.getPOV() == Constants.kLAOutButtonId) {
             liftFrontSpeed = 1;
             liftBackSpeed = 1;
         }
-        else if(OI.manipulator.getRawButton(Constants.kLAInButtonId)) {
-            liftFrontSpeed = -.5;
-            liftBackSpeed = -.5;
+        //LA goes down
+        else if(OI.manipulator.getPOV() == Constants.kLAInButtonId) {
+           liftFrontSpeed = -1;
+           liftBackSpeed = -1;
+            
         }
-
-        if(OI.manipulator.getRawButton(Constants.kLADriveForwardButtonId)) {
+        //drive forward    
+        if(OI.manipulator.getPOV() == Constants.kLADriveForwardButtonId) {
     		driveSpeed = 1;
         }
-        else if(OI.manipulator.getRawButton(Constants.kLADriveBackwardButtonId)) {
+        //drive backwards
+        else if(OI.manipulator.getPOV() == Constants.kLADriveBackwardButtonId) {
             driveSpeed = -1;
         }
-
+        //climbs when button is pressed
         if (OI.manipulator.getRawButton(Constants.kAutoLinearActuatorButtonId)) {
             ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
             ActionScheduler.getInstance().start();
         }
-        else{
-            Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
+        else if(!ActionScheduler.getInstance().isActive()){
+                Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
         }
     }
-
+    //liam code bad
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

@@ -4,7 +4,9 @@ import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
+import frc.util.NavSensor;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,14 +18,16 @@ public class SwerveDrive extends Command {
 	 * 
 	 */
 	public enum ControlType {
-		CONTROLLER(1, 0, 4, 5, 4, 3, 6),
-		JOYSTICK(1, 0, 2, 1, 2, 4, 6);
+		CONTROLLER(1, 0, 4, 5, 9, 10, 4, 3, 6),
+		JOYSTICK(1, 0, 2, 1, 7, 8, 2, 4, 6);
 		
 		int fbAxis;
 		int rlAxis;
 		int rotAxis;
 		
-		int doubleSpeed;
+		int halfSpeed;
+		int sprint1;
+		int sprint2;
 		int centerGyro;
 		int zeroModules;
 		int dockingMode;
@@ -33,19 +37,22 @@ public class SwerveDrive extends Command {
 		 * @param fbAxis Forward/Backward axis
 		 * @param rlAxis Right/Left axis
 		 * @param rotAxis Rotation axis
-		 * @param doubleSpeed Used to double speed if told
+		 * @param halfSpeed Used to half speed if told
+		 * @param sprint Doubles speed, Call of Duty mode
 		 * @param centerGyro Used to reset the gyroscope
 		 * @param zeroModules Zero's all the module's encoders
 		 * @param dockingMode Used to set the robot to docking mode
 		 */
 		private ControlType(
 				int fbAxis, int rlAxis, int rotAxis,
-				int doubleSpeed, int centerGyro, int zeroModules, int dockingMode) {
+				int halfSpeed, int sprint1, int sprint2, int centerGyro, int zeroModules, int dockingMode) {
 			
 			this.fbAxis = fbAxis;
 			this.rlAxis = rlAxis;
 			this.rotAxis = rotAxis;
-			this.doubleSpeed = doubleSpeed;
+			this.halfSpeed = halfSpeed;
+			this.sprint1 = sprint1;
+			this.sprint2 = sprint2;
 			this.centerGyro = centerGyro;
 			this.zeroModules = zeroModules;
 			this.dockingMode = dockingMode;
@@ -63,8 +70,12 @@ public class SwerveDrive extends Command {
 			return OI.driver.getRawAxis(rotAxis);
 		}
 		
-		public boolean getDoubleSpeedButton() {
-			return OI.driver.getRawButton(doubleSpeed);
+		public boolean getHalfSpeedButton() {
+			return OI.driver.getRawButton(halfSpeed);
+		}
+
+		public boolean getSprint() {
+			return OI.driver.getRawButton(sprint1) || OI.driver.getRawButton(sprint2);
 		}
 		
 		public boolean getCenterGyroButton() {
@@ -83,10 +94,13 @@ public class SwerveDrive extends Command {
 	private ControlType controlType;
 	private SwerveController swerveController = SwerveController.getInstance();
 
+	boolean sprinting;
+
 	//Makes SwerveDrive require the subsystem swerveBase
     public SwerveDrive(ControlType controlType) {
     	requires(Robot.swerveBase);
 		this.controlType = controlType;
+		sprinting = false;
     }
 
     // Called just before this Command runs the first time
@@ -99,7 +113,7 @@ public class SwerveDrive extends Command {
     	//Sets input for swerveDrive method as input from controller stick axes. Note: FBValue is negative as required by doc linked to in swerveDrive method
     	Double fbValue = controlType.getFBAxis()/2;
     	Double rlValue = -(controlType.getRLAxis())/2;
-    	Double rotValue = controlType.getRotAxis()/2;
+		Double rotValue = -controlType.getRotAxis()/2;
     	
     	//Makes it so if the left stick is barely moved at all it doesn't move at all
     	if ((fbValue > -.2 && fbValue < .2) && (rlValue > -.2 && rlValue < .2)){
@@ -113,11 +127,24 @@ public class SwerveDrive extends Command {
     	}
     	
     	//While the left bumper is held go full speed
-    	if(controlType.getDoubleSpeedButton()) {
-    		fbValue *= 2;
-    		rlValue *= 2;
-    		rotValue *= 2;
-    	}
+    	if(controlType.getHalfSpeedButton()) {
+    		fbValue *= 0.7;
+    		rlValue *= 0.7;
+    		rotValue *= 0.7;
+		}
+
+		if(controlType.getSprint() && ((fbValue != 0) || (rlValue != 0) || (rotValue != 0))) {
+			sprinting = true;
+		} 
+		if((fbValue == 0) && (rlValue == 0) && (rotValue == 0)) {
+			sprinting = false;
+		}
+		
+		if(sprinting) {
+			fbValue *= 2;
+			rlValue *= 2;
+			rotValue *= 2;
+		}
     	
     	//If the X button is pressed resets the Swerve Modules
     	if(controlType.getZeroModulesButton()) {
@@ -126,9 +153,9 @@ public class SwerveDrive extends Command {
     	
 		//If Y is pressed resets the field orientation
     	if(controlType.getCenterGyroButton()) {
-    		Robot.swerveBase.resetGyroNorth(180, 0);
+    		NavSensor.getInstance().resetGyroNorth(180, 0);
 		}
-
+		
 		if(OI.driver.getPOV() != -1){
 			swerveController.setPose(new Bearing(OI.driver.getPOV()));
 		}
@@ -136,9 +163,10 @@ public class SwerveDrive extends Command {
 			swerveController.slide(fbValue, rlValue);
 			swerveController.rotate(-rotValue);
 		}
-
+		//goes into docking mode
     	if(controlType.getDockingModeButton()) {
-    		System.out.println("Docking Mode");
+			System.out.println("Docking Mode");
+			fbValue = -fbValue;
     		swerveController.update(false);
     	} else {
     		swerveController.update(true);

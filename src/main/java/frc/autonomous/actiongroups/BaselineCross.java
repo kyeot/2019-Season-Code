@@ -8,24 +8,21 @@
 package frc.autonomous.actiongroups;
 
 import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
-import frc.autonomous.*;
+import frc.autonomous.actions.AutoDrive;
 
 /**
- * linear actuator climb auto
+ * 
+ * Auto for a baseline cross
+ * @author Miles Lanham
+ * 
  */
-public class LinearActuatorGroup extends ActionGroup {
+public class BaselineCross extends ActionGroup {
 
-    public LinearActuatorGroup(){
-        super();
+    public BaselineCross() {
 
-        addAction(new AutoLA(0, 0.5, 0, 1));
-        addAction(new AutoLA(0.5, 0.5, 0, 2));
-    
+            super();
+            addAction(new AutoDrive(0, 0.5, 0, 8));
+        
     }
-
 
 }

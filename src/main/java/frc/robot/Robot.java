@@ -10,14 +10,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.loops.Looper;
+import frc.robot.commands.Elevator;
+import frc.robot.subsystems.ElevatorBase;
+import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.util.Logger;
 import frc.util.NavSensor;
@@ -27,15 +32,23 @@ import frc.autonomous.actiongroups.*;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
-  public static OI oi;
+
+
+public static OI oi;
 
   public static SwerveDriveBase swerveBase = new SwerveDriveBase();
   public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
+  public static ElevatorBase elevatorBase = new ElevatorBase();
+  public static IntakeBase intakeBase = new IntakeBase();
 
   private static AHRS navSensor;
 
   public Looper looper = new Looper(Constants.kPeriod);
   private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
+
+public static Subsystem elevator;
+
+
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -72,8 +85,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
-    SmartDashboard.putString("DB/String 6", "" + OI.driver.getPOV());
+    
+    /* Prints for the Absolute Encoder Angles, Use to calculate offsets
+		SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle());
+		SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
+		SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
+    SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
+    */
+    
   }
 
   @Override
@@ -115,7 +134,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
   }
 
   @Override

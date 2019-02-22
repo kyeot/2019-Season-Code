@@ -3,6 +3,7 @@ package frc.autonomous;
 import java.util.ArrayList;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.util.CrashTrackingRunnable;
 import frc.util.Logger;
 

@@ -18,7 +18,7 @@ public class Action {
 	
 	String id;
 	
-	Timer timer;
+	protected Timer timer;
 	boolean timed;
 	
 	public Action(String id, double time) {

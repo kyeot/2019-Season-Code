@@ -7,25 +7,18 @@
 
 package frc.autonomous.actiongroups;
 
-import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
+import frc.autonomous.actions.TestServo;
 import frc.autonomous.*;
 
 /**
- * linear actuator climb auto
+ * Add your docs here.
  */
-public class LinearActuatorGroup extends ActionGroup {
+public class ServoGroup extends ActionGroup{
 
-    public LinearActuatorGroup(){
+    public ServoGroup(){
         super();
 
-        addAction(new AutoLA(0, 0.5, 0, 1));
-        addAction(new AutoLA(0.5, 0.5, 0, 2));
-    
+        addAction(new TestServo(140, 1));
+        addAction(new TestServo(0, 1));
     }
-
-
 }

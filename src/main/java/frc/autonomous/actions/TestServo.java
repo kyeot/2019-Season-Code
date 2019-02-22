@@ -5,27 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous.actiongroups;
+package frc.autonomous.actions;
 
-import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
 import frc.autonomous.*;
+import frc.robot.*;
 
 /**
- * linear actuator climb auto
+ * Add your docs here.
  */
-public class LinearActuatorGroup extends ActionGroup {
-
-    public LinearActuatorGroup(){
-        super();
-
-        addAction(new AutoLA(0, 0.5, 0, 1));
-        addAction(new AutoLA(0.5, 0.5, 0, 2));
-    
+public class TestServo extends Action {
+	
+	double angle;
+	
+	//drives autonomously
+	public TestServo(double angle, double time) {
+		super("AutoDrive", time);
+		
+		this.angle = angle;
+	}
+	
+	@Override
+	public void perform() {
+		Robot.intakeBase.testServo(angle);
     }
-
-
+    
 }
