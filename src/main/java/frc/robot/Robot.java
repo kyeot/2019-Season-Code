@@ -17,6 +17,7 @@ import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.loops.Looper;
 import frc.robot.commands.Elevator;
@@ -77,10 +78,13 @@ public static Subsystem elevator;
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putString("DB/String 1", "v" + intakeBase.getServo());
-
-    SmartDashboard.putString("DB/String 5", "" + NavSensor.getInstance().getAngle(false));
-    SmartDashboard.putString("DB/String 6", "" + OI.driver.getPOV());
+    
+		SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle());
+		SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
+		SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
+   // SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
+    
+		SmartDashboard.putString("DB/String 9", "" + NavSensor.getInstance().getAngle(false));
   }
 
   @Override

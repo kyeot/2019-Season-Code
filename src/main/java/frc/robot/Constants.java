@@ -29,33 +29,46 @@ public class Constants {
 	public static final int kLADriveForwardButtonId = 90;
 	public static final int kLADriveBackwardButtonId = 270;
 	public static final int kAutoLinearActuatorButtonId = 2;
-	public static final int kElevatorDown = 5;
-	public static final int kElevatorUp = 6;
+	public static final int kIntakeIn = 5;
+	public static final int kIntakeOut = 6;
 	public static final int kAutoElevateAndSpitButtonId = 1;
+	public static final int kElevatorUpAxis = 3;
+	public static final int kElevatorDownAxis = 2;
 
-	public static final int kElevatorId = 9;
-	public static final int kIntakeId = 11;
 
-	public static final int kFrontLeftWheelId = 1;
-	public static final int kFrontRightWheelId = 4;
-	public static final int kRearLeftWheelId = 3;
-	public static final int kRearRightWheelId = 13;
+	public static final int kElevatorId = 3;
+	public static final int kIntakeId = 2; 
+
+	public static final int kFrontLeftWheelId = 15;
+	public static final int kFrontRightWheelId = 9;
+	public static final int kRearLeftWheelId = 12;
+	public static final int kRearRightWheelId = 7; 
 	
-	public static final int kFrontLeftSwivelId = 0;
-	public static final int kFrontRightSwivelId = 15;
-	public static final int kRearLeftSwivelId = 2;
-	public static final int kRearRightSwivelId = 12;
+	public static final int kFrontLeftSwivelId = 13;
+	public static final int kFrontRightSwivelId = 10;
+	public static final int kRearLeftSwivelId = 11;
+	public static final int kRearRightSwivelId = 6; 
 
-	public static final int kFrontLinearActuatorId = 10;
-	public static final int kBackLinearActuatorId = 7;
-	public static final int kLinearActuatorDriveId = 6;
+	public static final int kFrontLinearActuatorId = 0;
+	public static final int kBackLinearActuatorId = 4;
+	public static final int kLinearActuatorDriveMotId = 1;
+
+
+	public static final int kServoId = 0;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360;
 
-	public static final double kFrontLeftAngleOffset = 360 - 87.2;
-	public static final double kFrontRightAngleOffset = 360 - 16.8;
-	public static final double kRearLeftAngleOffset = 360 - 8.6;
-	public static final double kRearRightAngleOffset = 360 - 69.3;
+	
+	//practice
+	//35
+	//328
+	//244
+	//136
+
+	public static final double kFrontLeftAngleOffset = 360 - 35;
+	public static final double kFrontRightAngleOffset = 360 - 328;
+	public static final double kRearLeftAngleOffset = 360 - 244;
+	public static final double kRearRightAngleOffset = 360 - 136;
 	
 	public static final int kFrontLeftAbsoluteEncoder = 0;
 	public static final int kFrontRightAbsoluteEncoder = 1;

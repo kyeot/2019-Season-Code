@@ -35,16 +35,16 @@ public class Intake extends Command {
 
       speed = 0;
     	
-      if(OI.manipulator.getRawAxis(2) > 0.1){
-    	speed = -OI.manipulator.getRawAxis(2);
+      if(OI.manipulator.getRawButton(Constants.kIntakeIn)){
+    	  speed = -1;
       }
     	
-      else if(OI.manipulator.getRawAxis(3) > 0.1){
-    	speed = OI.manipulator.getRawAxis(3);
+      else if(OI.manipulator.getRawButton(Constants.kIntakeOut)){
+    	  speed = 1;
       }
       
       else if(OI.manipulator.getRawAxis(5) > 0.3 || OI.manipulator.getRawAxis(5) < -0.3){
-        speed = OI.manipulator.getRawAxis(5);
+        speed = -OI.manipulator.getRawAxis(5);
       }
 
       else if(OI.manipulator.getRawButton(3)){

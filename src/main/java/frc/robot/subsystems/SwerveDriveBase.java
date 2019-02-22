@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -168,7 +169,9 @@ public class SwerveDriveBase extends Subsystem {
 	    		
 	    		lastAngle = angle;
 			}
-	    	
+			
+			
+
 		}
 		
 		//Sets the module to a specific angle
@@ -346,6 +349,8 @@ public class SwerveDriveBase extends Subsystem {
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);
+
+		
 
     }
     

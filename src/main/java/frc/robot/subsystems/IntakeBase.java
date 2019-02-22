@@ -26,7 +26,7 @@ public class IntakeBase extends Subsystem {
 
 	public IntakeBase(){
 		intake = new TalonSRX(Constants.kIntakeId);
-		testServo = new Servo(1);
+		testServo = new Servo(Constants.kServoId);
 
 		intake.setNeutralMode(NeutralMode.Brake);
 	}

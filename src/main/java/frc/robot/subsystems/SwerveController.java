@@ -91,9 +91,6 @@ public class SwerveController {
 	public void setPose(Bearing b) {
 		posePid.setSetpoint(b.getTheta());
 		posePid.enable();
-		
-		SmartDashboard.putString("DB/String 7", "Setpoint: " + Double.toString(Math.floor(b.getTheta())));
-		SmartDashboard.putString("DB/String 8", "Pid Error: " + Double.toString(Math.floor(posePid.getError())));
 	}
 	
 	public boolean poseWithinRange(double range) {

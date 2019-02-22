@@ -39,13 +39,13 @@ public class LinearActuator extends Command {
         
         //LA goes up
     	if(OI.manipulator.getPOV() == Constants.kLAOutButtonId) {
-            liftFrontSpeed = 0.5;
-            liftBackSpeed = 0.5;
+            liftFrontSpeed = 1;
+            liftBackSpeed = 1;
         }
         //LA goes down
         else if(OI.manipulator.getPOV() == Constants.kLAInButtonId) {
-           liftFrontSpeed = -.5;
-           liftBackSpeed = -.5;
+           liftFrontSpeed = -1;
+           liftBackSpeed = -1;
             
         }
         //drive forward    

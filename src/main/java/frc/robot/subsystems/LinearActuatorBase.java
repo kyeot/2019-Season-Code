@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.commands.LinearActuator;
 import frc.robot.*;
+import frc.util.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -18,35 +19,63 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @version 1/28/2019
  */
 public class LinearActuatorBase extends Subsystem {
-	
-	//Creates Victor object
+
+	// Creates Victor object
 	TalonSRX front;
 	TalonSRX back;
 	TalonSRX driveMot;
 
-	//Makes linear actuators stop
-	public LinearActuatorBase(){
+	DigitalInput backDigitalInputBot;
+	DigitalInput backDigitalInputTop;
+	DigitalInput frontDigitalInputBot;
+	DigitalInput frontDigitalInputTop;
+
+	Timer delay;
+
+	// Makes linear actuators stop
+	public LinearActuatorBase() {
 		front = new TalonSRX(Constants.kFrontLinearActuatorId);
 		back = new TalonSRX(Constants.kBackLinearActuatorId);
 		driveMot = new TalonSRX(Constants.kLinearActuatorDriveMotId);
+
+		backDigitalInputBot = new DigitalInput(0);
+		backDigitalInputTop = new DigitalInput(1);
+		frontDigitalInputTop = new DigitalInput(2);
+		frontDigitalInputBot = new DigitalInput(3);
 
 		front.setNeutralMode(NeutralMode.Brake);
 		back.setNeutralMode(NeutralMode.Brake);
 		driveMot.setNeutralMode(NeutralMode.Brake);
 	}
-	
-	//Method to use Linear Actuator base
+
+	// Method to use Linear Actuator base
 	public void linearActuator(double liftFrontSpeed, double liftBackSpeed, double driveSpeed) {
-		front.set(ControlMode.PercentOutput, liftFrontSpeed);
-		back.set(ControlMode.PercentOutput, liftBackSpeed);
-		driveMot.set(ControlMode.PercentOutput, driveSpeed);
-  	}
-	
+		//if (!frontDigitalInputBot.get() && liftFrontSpeed < -0.1) {
+			front.set(ControlMode.PercentOutput, liftFrontSpeed * 0.5);
+		//} else if (!frontDigitalInputTop.get() && liftFrontSpeed > 0.1) {
+		//	front.set(ControlMode.PercentOutput, liftFrontSpeed * 0.5);
+		//} else {
+		//	front.set(ControlMode.PercentOutput, 0);
+		//}
+
+		SmartDashboard.putString("DB/String 5", "FRONT BOT: " + frontDigitalInputBot.get());
+		SmartDashboard.putString("DB/String 6", "FRONT TOP: " + frontDigitalInputTop.get());
+		SmartDashboard.putString("DB/String 7", "Back BOT: " + backDigitalInputBot.get());
+		SmartDashboard.putString("DB/String 8", "Back TOP: " + backDigitalInputTop.get());
+
+		if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
+			back.set(ControlMode.PercentOutput, liftBackSpeed * 0.5);
+		} else if (!backDigitalInputTop.get() && liftBackSpeed > 0.1) {
+			back.set(ControlMode.PercentOutput, liftBackSpeed * 0.5);
+		}
+		else{
+			back.set(ControlMode.PercentOutput, 0);
+		}
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new LinearActuator());
 	}
 
 }
-
-

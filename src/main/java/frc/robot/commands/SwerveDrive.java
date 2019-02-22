@@ -4,6 +4,7 @@ import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
+import frc.util.NavSensor;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -99,7 +100,7 @@ public class SwerveDrive extends Command {
     	//Sets input for swerveDrive method as input from controller stick axes. Note: FBValue is negative as required by doc linked to in swerveDrive method
     	Double fbValue = controlType.getFBAxis()/2;
     	Double rlValue = -(controlType.getRLAxis())/2;
-    	Double rotValue = controlType.getRotAxis()/2;
+    	Double rotValue = -controlType.getRotAxis()/2;
     	
     	//Makes it so if the left stick is barely moved at all it doesn't move at all
     	if ((fbValue > -.2 && fbValue < .2) && (rlValue > -.2 && rlValue < .2)){
@@ -114,9 +115,9 @@ public class SwerveDrive extends Command {
     	
     	//While the left bumper is held go full speed
     	if(controlType.getDoubleSpeedButton()) {
-    		fbValue *= 2;
-    		rlValue *= 2;
-    		rotValue *= 2;
+    		fbValue *= 0.7;
+    		rlValue *= 0.7;
+    		rotValue *= 0.7;
     	}
     	
     	//If the X button is pressed resets the Swerve Modules
@@ -126,7 +127,7 @@ public class SwerveDrive extends Command {
     	
 		//If Y is pressed resets the field orientation
     	if(controlType.getCenterGyroButton()) {
-    		Robot.swerveBase.resetGyroNorth(180, 0);
+    		NavSensor.getInstance().resetGyroNorth(180, 0);
 		}
 		
 		if(OI.driver.getPOV() != -1){
@@ -138,7 +139,8 @@ public class SwerveDrive extends Command {
 		}
 		//goes into docking mode
     	if(controlType.getDockingModeButton()) {
-    		System.out.println("Docking Mode");
+			System.out.println("Docking Mode");
+			fbValue = -fbValue;
     		swerveController.update(false);
     	} else {
     		swerveController.update(true);

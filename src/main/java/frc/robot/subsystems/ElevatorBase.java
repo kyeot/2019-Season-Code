@@ -29,7 +29,7 @@ public class ElevatorBase extends Subsystem {
 	
 	//Method to use Elevator base
 	public void elevator(double speed) {
-		elevator.set(ControlMode.PercentOutput, speed);
+		elevator.set(ControlMode.PercentOutput, -speed);
 
   }
 
