@@ -9,10 +9,6 @@ package frc.autonomous.actiongroups;
 
 import frc.autonomous.ActionGroup;
 import frc.autonomous.actions.*;
-import java.util.Arrays;
-
-import frc.autonomous.ParallelAction;
-import frc.autonomous.*;
 
 /**
  * linear actuator climb auto

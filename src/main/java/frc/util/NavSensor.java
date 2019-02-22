@@ -81,7 +81,6 @@ public class NavSensor {
 		double desiredTime = time.getTime();
 		double numberOfTerms = history.keySet().size();
 		double previousTerm = 0;
-		int counter = 0;
 		
 		//Finding middle of set, rounded down to the nearest term
 		double referenceTerm = (numberOfTerms / 2) - ((numberOfTerms / 2) % 1);
@@ -95,7 +94,6 @@ public class NavSensor {
 			return history.get(desiredTime);
 		} else {
 			//Desired time does not exist, search for closest time
-			boolean comparison = false;
 			
 			//Find closest time by sign changes in halves
 			while(Math.abs(previousTerm - referenceTerm) != 1) {
@@ -103,12 +101,10 @@ public class NavSensor {
 					//Closest time is in upper half of series bounded by relative maxima and minima
 					previousTerm = referenceTerm;
 					referenceTerm = referenceTerm + ((referenceTerm / 2) - ((referenceTerm / 2) % 1));
-					counter++;
 				} else {
 					//Closest time is in lower half of series bounded by relative maxima and minima
 					previousTerm = referenceTerm;
 					referenceTerm = ((referenceTerm / 2) - ((referenceTerm / 2) % 1));
-					counter++;
 				}
 			}
 			//Compare previousTerm and referenceTerm to find the closer time

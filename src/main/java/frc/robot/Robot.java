@@ -17,15 +17,12 @@ import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.loops.Looper;
-import frc.robot.commands.Elevator;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.util.Logger;
-import frc.util.NavSensor;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
