@@ -145,16 +145,6 @@ public class SwerveDrive extends Command {
 			rlValue *= 2;
 			rotValue *= 2;
 		}
-
-		if(sprinting) {
-			SmartDashboard.putString("DB/String 9", "sprinting");
-		} else {
-			SmartDashboard.putString("DB/String 9", "not sprinting");
-		}
-		
-		fbValue = 0.0;
-		rlValue = 0.0;
-		rotValue = 0.0;
     	
     	//If the X button is pressed resets the Swerve Modules
     	if(controlType.getZeroModulesButton()) {

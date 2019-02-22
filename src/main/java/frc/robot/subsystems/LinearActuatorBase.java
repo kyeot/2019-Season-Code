@@ -58,10 +58,12 @@ public class LinearActuatorBase extends Subsystem {
 		//	front.set(ControlMode.PercentOutput, 0);
 		//}
 
+		/* Prints for the Linear Actuator Limit Switches
 		SmartDashboard.putString("DB/String 5", "FRONT BOT: " + frontDigitalInputBot.get());
 		SmartDashboard.putString("DB/String 6", "FRONT TOP: " + frontDigitalInputTop.get());
-		SmartDashboard.putString("DB/String 7", "Back BOT: " + backDigitalInputBot.get());
-		SmartDashboard.putString("DB/String 8", "Back TOP: " + backDigitalInputTop.get());
+		SmartDashboard.putString("DB/String 7", "BACK BOT: " + backDigitalInputBot.get());
+		SmartDashboard.putString("DB/String 8", "BACK TOP: " + backDigitalInputTop.get());
+		*/
 
 		if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
 			back.set(ControlMode.PercentOutput, liftBackSpeed * 0.5);
