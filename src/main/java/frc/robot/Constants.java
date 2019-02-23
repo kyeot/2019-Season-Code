@@ -12,9 +12,9 @@ public class Constants {
 	*/
 
 	// For the swivel part of the swerve modules
-	public static final double kSwerveP = 0.02;
+	public static final double kSwerveP = 0.03;
 	public static final double kSwerveI = 0.0; 
-	public static final double kSwerveD = 0.005;
+	public static final double kSwerveD = 0.007;
 
 	// For setting the pose of the robot (SwerveController)
 	public static final double kSwerveRotP = 0.0015;
