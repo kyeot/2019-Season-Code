@@ -13,16 +13,14 @@ import frc.autonomous.actiongroups.*;
  */
 public class LinearActuator extends Command {
 
-    public static double liftFrontSpeed;
-    public static double liftBackSpeed;
-    public static double driveSpeed;
+    double liftSpeed;
+    double driveSpeed;
 
     public LinearActuator() {
     	//Sets the required Subsystem
         requires(Robot.linearActuatorBase);
 
-        liftFrontSpeed = 0;
-        liftBackSpeed = 0;
+        liftSpeed = 0;
         driveSpeed = 0;
     }
 
@@ -33,36 +31,18 @@ public class LinearActuator extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
         
-        liftFrontSpeed = 0;
-        liftBackSpeed = 0;
-        driveSpeed = 0;
-        
-        //LA goes up
-    	if(Controls.getButton(Controls.LA_OUT_DPAD)) {
-            liftFrontSpeed = 1;
-            liftBackSpeed = 1;
-        }
-        //LA goes down
-        else if(Controls.getButton(Controls.LA_IN_DPAD)) {
-           liftFrontSpeed = -1;
-           liftBackSpeed = -1;
-            
-        }
+        liftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
+
         //drive forward    
-        if(Controls.getButton(Controls.LA_DRIVE_FORWARD_DPAD)) {
-    		driveSpeed = 1;
-        }
-        //drive backwards
-        else if(Controls.getButton(Controls.LA_DRIVE_BACKWARD_DPAD)) {
-            driveSpeed = -1;
-        }
+        driveSpeed = Controls.getAxis(Controls.LA_DRIVE_FORWARD_DPAD) - Controls.getAxis(Controls.LA_DRIVE_BACKWARD_DPAD);
+
         //climbs when button is pressed
         if (Controls.getButton(Controls.LA_AUTO_BUTTON)) {
             ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
             ActionScheduler.getInstance().start();
         }
         else if(!ActionScheduler.getInstance().isActive()){
-                Robot.linearActuatorBase.linearActuator(liftFrontSpeed, liftBackSpeed, driveSpeed);
+                Robot.linearActuatorBase.linearActuator(liftSpeed, liftSpeed, driveSpeed);
         }
     }
     //liam code bad
