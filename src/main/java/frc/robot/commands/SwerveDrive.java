@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
@@ -62,7 +63,7 @@ public class SwerveDrive extends Command {
     	
 		//If Y is pressed resets the field orientation
     	if(Controls.getButton(Controls.CENTER_GYRO_BUTTON)) {
-    		NavSensor.getInstance().resetGyroNorth(180, 0);
+    		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
 		}
 		
 		if(OI.driver.getPOV() != -1){

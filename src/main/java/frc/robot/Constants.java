@@ -107,6 +107,8 @@ public class Constants {
 	public static final double kLoopPeriod = 0.01;                   // Amount of time(s) the loop notifier runs in
 	public static final double kActionPeriod = 0.01;                 // Amount of time(s) the action notifier runs in;
 
+	public static final double kRobotFront = 180;                      // Angle Offset to Front of Robot from NavX
+
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360; // Amount of degrees per tick of an absolute encoder

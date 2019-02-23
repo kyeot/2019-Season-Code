@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import frc.robot.commands.SwerveDrive;
+import frc.util.NavSensor;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -28,8 +28,6 @@ public class SwerveDriveBase extends Subsystem {
 	public SwerveModule flMod;
 	public SwerveModule rrMod;
 	public SwerveModule rlMod;
-	
-	private double angleOffset = 0;
 	
 	/**
 	 * 
@@ -300,7 +298,7 @@ public class SwerveDriveBase extends Subsystem {
     	//Swerve Math Taken from: https://www.chiefdelphi.com/media/papers/2426
     	
     	if(fieldOriented) {
-	    	double curAngle = getGyroAngle(true);
+	    	double curAngle = NavSensor.getInstance().getAngle(false);
 	    	double temp = fbMot*(cosDeg(curAngle)) + rlMot*(sinDeg(curAngle));
 	    	rlMot = fbMot*(sinDeg(curAngle)) + -(rlMot*(cosDeg(curAngle)));
 	    	fbMot = temp;
@@ -366,20 +364,6 @@ public class SwerveDriveBase extends Subsystem {
     			sinDeg(angle)*speed,
     			rotation,
     			fieldOriented);
-    }
-    
-    //Returns the Gyro Angle
-    public double getGyroAngle(boolean reversed) {
-    	if(reversed) {
-    		return ((Robot.getNavSensor().getAngle()+180.0)%360) - angleOffset;
-    	} else {
-    		return Robot.getNavSensor().getAngle()%360 - angleOffset;
-    	}
-    }
-    
-    public void resetGyroNorth(double angle, double north) {
-    	Robot.getNavSensor().reset();
-    	angleOffset = angle - north;
     }
     
     //Sets all module's angles to 0

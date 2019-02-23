@@ -16,20 +16,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
 
 import frc.loops.Looper;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.util.Logger;
+import frc.util.NavSensor;
 import frc.autonomous.*;
 import frc.autonomous.actiongroups.*;
 
 import java.io.File;
 import java.io.IOException;
-
-import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
 
@@ -39,8 +37,6 @@ public class Robot extends TimedRobot {
   public static LinearActuatorBase linearActuatorBase = new LinearActuatorBase();
   public static ElevatorBase elevatorBase = new ElevatorBase();
   public static IntakeBase intakeBase = new IntakeBase();
-
-  private static AHRS navSensor;
 
   public Looper looper = new Looper(Constants.kLoopPeriod);
   private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
@@ -67,12 +63,7 @@ public class Robot extends TimedRobot {
       e.printStackTrace();
     }
 
-    try {
-      navSensor = new AHRS(SPI.Port.kMXP);
-    } catch (RuntimeException ex) {
-      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-    }
-    Robot.swerveBase.resetGyroNorth(180, 0);
+    NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
   }
 
   public static void setGroup(ActionGroup group) {
@@ -137,10 +128,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-  }
-
-  public static AHRS getNavSensor() {
-    return navSensor;
   }
 
   public static String parseMatchTime() {
