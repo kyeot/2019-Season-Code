@@ -42,10 +42,12 @@ public class Constants {
 	// Manipulator
 	public static final int kElevatorUpAxisId = 3;
 	public static final int kElevatorDownAxisId = 2;
+	public static final int kIntakeAxisId = 5;
 	public static final int kAutoElevateAndSpitButtonId = 1;
 	public static final int kAutoLinearActuatorButtonId = 2;
 	public static final int kIntakeInButtonId = 5;
 	public static final int kIntakeOutButtonId = 6;
+	public static final int kServoReleaseButtonId = 3;
 	public static final int kLAOutDpadId = 0;
 	public static final int kLAInDpadId = 180;
 	public static final int kLADriveForwardDpadId = 90;

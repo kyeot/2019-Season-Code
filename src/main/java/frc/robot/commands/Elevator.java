@@ -33,23 +33,16 @@ public class Elevator extends Command {
     protected void execute() {    	
         
         speed = 0;
-        if (OI.manipulator.getRawAxis(Constants.kElevatorUpAxisId) > 0.1) {
-           speed = OI.manipulator.getRawAxis(Constants.kElevatorUpAxisId);
-        }
-        else if(OI.manipulator.getRawAxis(Constants.kElevatorDownAxisId) > 0.1) {
-           speed = -OI.manipulator.getRawAxis(Constants.kElevatorDownAxisId)*0.5;
-        }
+        
+        speed = Controls.getAxis(Controls.ELEVATOR_UP_AXIS, 0.1) - Controls.getAxis(Controls.ELEVATOR_DOWN_AXIS, 0.1)*0.5;
 
-        if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId) && (!foo)) {
+        if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON) && (!foo)) {
             ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
             ActionScheduler.getInstance().start();
             foo = true; 
-        }
-        else if (OI.manipulator.getRawButton(Constants.kAutoElevateAndSpitButtonId)) {
+        } else if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON)) {
             foo = true;
-        }
-        
-        else{
+        } else{
             if(!ActionScheduler.getInstance().isActive()){
                 Robot.elevatorBase.elevator(speed);
                 foo = false;

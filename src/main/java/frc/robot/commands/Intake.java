@@ -34,23 +34,13 @@ public class Intake extends Command {
 
       speed = 0;
     	
-      if(OI.manipulator.getRawButton(Constants.kIntakeInButtonId)){
-    	  speed = -1;
-      }
-    	
-      else if(OI.manipulator.getRawButton(Constants.kIntakeOutButtonId)){
-    	  speed = 1;
-      }
-      
-      else if(OI.manipulator.getRawAxis(5) > 0.3 || OI.manipulator.getRawAxis(5) < -0.3){
-        speed = -OI.manipulator.getRawAxis(5);
-      }
+      speed = Controls.getButton(Controls.INTAKE_AXIS, 0.3) ? Controls.getAxis(Controls.INTAKE_AXIS, 0.3) : Controls.getAxis(Controls.INTAKE_IN_BUTTON) - Controls.getAxis(Controls.INTAKE_OUT_BUTTON);
 
-      else if(OI.manipulator.getRawButton(3)){
+      if(Controls.getButton(Controls.SERVO_RELEASE)) {
         ActionScheduler.getInstance().setGroup(new ServoGroup());
         ActionScheduler.getInstance().start();
       }
-
+      
       //Button Controls
       /*      speed = 0;
    
