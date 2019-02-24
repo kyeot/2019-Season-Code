@@ -12,15 +12,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-
-import frc.robot.subsystems.SwerveDriveBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DriverStation;
-
-import frc.loops.Looper;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
+import frc.robot.subsystems.SwerveDriveBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI;
+
+import frc.loops.Looper;
+import frc.loops.VisionProcessor;
+import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
 import frc.util.NavSensor;
 import frc.autonomous.*;
@@ -29,7 +33,10 @@ import frc.autonomous.actiongroups.*;
 import java.io.File;
 import java.io.IOException;
 
+import com.kauailabs.navx.frc.AHRS;
+
 public class Robot extends TimedRobot {
+  NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
 
   public static OI oi;
 
@@ -40,8 +47,7 @@ public class Robot extends TimedRobot {
 
   public Looper looper = new Looper(Constants.kLoopPeriod);
   private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
-
-  public static Subsystem elevator;
+  public VisionProcessor visionProcessor = VisionProcessor.getInstance();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -50,6 +56,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     oi = new OI();
 
+    looper.addLoop(visionProcessor);
     looper.startLoops();
 
     String[] autonomousList = { "Test" };

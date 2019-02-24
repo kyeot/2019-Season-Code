@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import frc.autonomous.actiongroups.TestGroup;
+import frc.robot.FieldTransform;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.Controls;
@@ -7,6 +9,7 @@ import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
 import frc.util.NavSensor;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -14,6 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SwerveDrive extends Command {
 
 	private SwerveController swerveController = SwerveController.getInstance();
+	private FieldTransform fieldTransform = FieldTransform.getInstance();
 
 	boolean sprinting;
 
@@ -78,7 +82,7 @@ public class SwerveDrive extends Command {
 			fbValue = -fbValue;
     		swerveController.update(false);
     	} else {
-    		swerveController.update(true);
+    		swerveController.move(fbValue, rlValue, rotValue);
     	}
     }
 

@@ -6,21 +6,30 @@ package frc.robot;
  *
  */
 public class Constants {
-
-	/*
-		PID'S
-	*/
-
-	// For the swivel part of the swerve modules
+	
+	public static final double kPeriod = 0.01;
+	
+	public static final double kSwerveRotP = 0.0015;
+	public static final double kSwerveRotI = 0.00; 
+	public static final double kSwerveRotD = 0.001;
+	
 	public static final double kSwerveP = 0.03;
-	public static final double kSwerveI = 0.0; 
+	public static final double kSwerveI = 0.0;
 	public static final double kSwerveD = 0.007;
 
-	// For setting the pose of the robot (SwerveController)
-	public static final double kSwerveRotP = 0.0015;
-	public static final double kSwerveRotI = 0.0; 
-	public static final double kSwerveRotD = 0.001;
-
+	public static final double kTooFast = 0.5; //max output for pid before it stops
+	
+	public static final double kCameraFrameRate = 30;
+	public static final double kTargetMaxAge = 0.4; //seconds, time it smooths over
+	
+	public static final double kCameraXOffset = 10.75;
+	public static final double kCameraYOffset = -16.25;
+	public static final double kCameraZOffset = 23.5;
+	public static final double kCameraPitchOffset = 0;
+	public static final double kCameraRollOffset = 0.0;
+	public static final double kCameraYawOffset = 0.0;
+	
+	public static final double kGoalHeight = 28.75;
 	
 	/* 
 		CONTROLLER ID'S
