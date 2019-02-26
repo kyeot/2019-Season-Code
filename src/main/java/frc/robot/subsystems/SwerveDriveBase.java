@@ -120,7 +120,7 @@ public class SwerveDriveBase extends Subsystem {
 						);
 			
 			pidCont = new PIDController(
-							Constants.kSwerveModP, Constants.kSwerveModI, Constants.kSwerveModD,
+							Constants.kSwerveP, Constants.kSwerveI, Constants.kSwerveD,
 							enc,
 							pidOut
 						);
