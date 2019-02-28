@@ -41,7 +41,8 @@ public class FieldTransform {
 		cameraToRobot = new Transform(Constants.kCameraXOffset, 
 										Constants.kCameraYOffset,
 										Constants.kCameraYawOffset);
-		camPitch = new Bearing(-Constants.kCameraPitchOffset);
+		camPitch = new Bearing(Constants.kCameraPitchOffset);
+		camYaw = new Bearing(Constants.kCameraYawOffset);
 		camHeight = Constants.kCameraZOffset;
 		camToGoal = Constants.kGoalHeight - camHeight;
 		targetHistory = new TargetTracker();
@@ -65,17 +66,27 @@ public class FieldTransform {
 		double x = t.getX();
 		double y = t.getY();
 		double z = t.getZ();
+
+		//Rotation matrices (right-handed system)
+		//Pitch (Rx)
+	  //x = x;
+		y = y*camPitch.cos() - z*camPitch.sin();
+		z = y*camPitch.sin() + z*camPitch.cos();
+
+		//Yaw (Ry)
+		x =  x*camYaw.cos() - z*camYaw.sin();
+      //y =  y;
+		z = -x*camYaw.sin() + z*camYaw.cos();
+		 
+		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
+	    double xf = x;
+		double yf = z;
+		double zf = y;
 		
-		//Rotate target direction to compensate for camera pitch (rotation matrix)
-		double xr = z * camPitch.sin() + x * camPitch.cos();
-		double yr = y;
-		double zr = z * camPitch.cos() - x * camPitch.sin();
-		
-		double s = camToGoal / zr;
-		double dist = Math.hypot(xr, yr) * s;
-		Bearing angle = new Bearing(new Vector(xr, yr));
+		double s = camToGoal / zf;
+		double dist = Math.hypot(xf, yf) * s;
+		Bearing angle = new Bearing(new Vector(xf, yf));
 		Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
-		SmartDashboard.putString("DB/String 6", "" + angle.getTheta());
 
 		Timestamp time = new Timestamp(target.getTime());
 		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));

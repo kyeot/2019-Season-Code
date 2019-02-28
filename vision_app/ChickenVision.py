@@ -483,9 +483,9 @@ def findTape(contours, image, centerX, centerY):
         finalTarget = min(targets, key=lambda x: math.fabs(x[1]))
         # Puts the yaw on screen
         #Draws yaw of target + line where center of target is
-        cv2.putText(image, "y: " + str(finalTarget[2]), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
+        cv2.putText(image, "x: " + str(finalTarget[1]), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
                     (255, 255, 255))
-        cv2.putText(image, "z: " + str(finalTarget[3]), (40, 60), cv2.FONT_HERSHEY_COMPLEX, .6,
+        cv2.putText(image, "y: " + str(finalTarget[2]), (40, 60), cv2.FONT_HERSHEY_COMPLEX, .6,
                     (255, 255, 255))
         cv2.line(image, (finalTarget[0], screenHeight), (finalTarget[0], 0), (255, 0, 0), 2)
 
@@ -564,10 +564,10 @@ def calculatePitch(pixelY, centerY, vFocalLength):
 
 # Return 3d vector from pixel offset
 def calculateVector(pixelY, centerY, pixelX, centerX):
-    x = 1.0
+    z = 1.0
     print(-(pixelX - centerX))
-    y = -(pixelX - centerX) / focal_pixels
-    z = -(pixelY - centerY) / focal_pixels
+    x = -(pixelX - centerX) / focal_pixels
+    y = -(pixelY - centerY) / focal_pixels
     return x, y, z
 
 
@@ -770,14 +770,16 @@ if __name__ == "__main__":
             if(networkTable.getBoolean("Tape", True)):
                 #Lowers exposure to 0
                 cap.autoExpose = False
-                gamma_adjusted = adjust_gamma(frame)
+                flip = cv2.flip(frame, -1)
+                gamma_adjusted = adjust_gamma(flip)
                 boxBlur = blurImg(gamma_adjusted, green_blur)
                 threshold = threshold_video(lower_green, upper_green, boxBlur)
-                processed = findTargets(frame, threshold)
+                processed = findTargets(flip, threshold)
             else:
                 # Checks if you just want camera for Cargo processing, by dent of everything else being false, true by default
                 cap.autoExpose = True
-                boxBlur = blurImg(frame, orange_blur)
+                vert_flip = cv2.flip(frame, 1)
+                boxBlur = blurImg(vert_flip, orange_blur)
                 threshold = threshold_video(lower_orange, upper_orange, boxBlur)
                 processed = findCargo(frame, threshold)
         #Puts timestamp of camera on netowrk tables

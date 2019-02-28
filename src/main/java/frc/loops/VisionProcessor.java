@@ -89,7 +89,7 @@ public class VisionProcessor implements Loop {
             return;
         }
        
-        
+        //Incoming vector in right-handed system
         TargetInfo newTarget = new TargetInfo(
                                         xEntry.getDouble(0), 
                                         yEntry.getDouble(0), 
