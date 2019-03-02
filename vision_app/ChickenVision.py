@@ -28,7 +28,7 @@ import math
 # import the necessary packages
 import datetime
 
-exposure = 2
+exposure = 0
 
 #Class to examine Frames per second of camera stream. Currently not used.
 class FPS:
@@ -770,11 +770,11 @@ if __name__ == "__main__":
 			if(networkTable.getBoolean("Tape", True)):
 				#Lowers exposure to 0
 				cap.autoExpose = False
-				#processed = frame
-				#gamma_adjusted = adjust_gamma(flip)
-				#boxBlur = blurImg(gamma_adjusted, green_blur)
-				#threshold = threshold_video(lower_green, upper_green, boxBlur)
-				#processed = findTargets(flip, threshold)
+				flip = cv2.flip(frame, -1)
+				gamma_adjusted = adjust_gamma(flip)
+				boxBlur = blurImg(gamma_adjusted, green_blur)
+				threshold = threshold_video(lower_green, upper_green, boxBlur)
+				processed = findTargets(flip, threshold)
 			else:
 				# Checks if you just want camera for Cargo processing, by dent of everything else being false, true by default
 				cap.autoExpose = True
