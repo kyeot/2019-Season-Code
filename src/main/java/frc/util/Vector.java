@@ -17,8 +17,8 @@ public class Vector {
 	}
 	
 	public Vector(double mag, double dir, boolean a) { 
-		this.a = Math.sin(dir) * mag;
-		this.b = Math.cos(dir) * mag;
+		this.a = Math.cos(dir) * mag;
+		this.b = Math.sin(dir) * mag;
 	}
 	
 	public Vector translate(Vector v) {

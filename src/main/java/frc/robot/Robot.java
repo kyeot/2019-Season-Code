@@ -88,11 +88,6 @@ public class Robot extends TimedRobot {
 		 * SmartDashboard.putString("DB/String 3", "rr: " +
 		 * swerveBase.rrMod.getAngle());
 		 */
-
-		SmartDashboard.putString("DB/String 1", "" + NavSensor.getInstance().getAngle(true));
-		SmartDashboard.putString("DB/String 3", "" + swerveBase.frMod.getAngle());
-		SmartDashboard.putString("DB/String 4", "" + elevatorBase.elevatorEnc.getRawAngle());
-
 	}
 
 	@Override
