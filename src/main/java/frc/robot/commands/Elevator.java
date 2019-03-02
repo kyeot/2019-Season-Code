@@ -34,7 +34,7 @@ public class Elevator extends Command {
         
         speed = 0;
         
-        speed = Controls.getAxis(Controls.ELEVATOR_UP_AXIS, 0.1) - Controls.getAxis(Controls.ELEVATOR_DOWN_AXIS, 0.1)*0.5;
+        speed = Controls.getAxis(Controls.ELEVATOR_UP_AXIS, 0.1) - Controls.getAxis(Controls.ELEVATOR_DOWN_AXIS, 0.1)*Constants.kElevatorDownSpeed;
 
         if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON) && (!foo)) {
             ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());

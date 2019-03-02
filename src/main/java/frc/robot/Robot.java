@@ -18,6 +18,7 @@ import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SPI;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.SPI;
 import frc.loops.Looper;
 import frc.loops.VisionProcessor;
 import frc.robot.subsystems.SwerveDriveBase;
+import frc.util.AbsoluteEncoder;
 import frc.util.Logger;
 import frc.util.NavSensor;
 import frc.autonomous.*;
@@ -49,6 +51,8 @@ public class Robot extends TimedRobot {
   private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
   public VisionProcessor visionProcessor = VisionProcessor.getInstance();
 
+  AnalogInput elevatorEnc = new AnalogInput(5);
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -71,6 +75,8 @@ public class Robot extends TimedRobot {
     }
 
     NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
+
+    elevatorBase.elevatorEnc.reset();
   }
 
   public static void setGroup(ActionGroup group) {
@@ -89,6 +95,10 @@ public class Robot extends TimedRobot {
      * SmartDashboard.putString("DB/String 3", "rr: " +
      * swerveBase.rrMod.getAngle());
      */
+
+    SmartDashboard.putString("DB/String 1", "" + NavSensor.getInstance().navSensor.isConnected());
+    SmartDashboard.putString("DB/String 3", "" + swerveBase.frMod.getAngle());
+    SmartDashboard.putString("DB/String 4", "" + elevatorBase.elevatorEnc.getRawAngle());
 
   }
 

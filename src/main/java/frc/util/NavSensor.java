@@ -44,12 +44,12 @@ public class NavSensor {
 		}
 	}
 
-	AHRS navSensor;
+	public AHRS navSensor;
 	double offset = 0;
 
 	public double getAngle(boolean reversed) {
     	if(reversed) {
-    		return (navSensor.getAngle()+180.0+offset)%360; //deals with negative angles, java 8 simply keeps the sign when modulating negative values.
+    		return 360 - (navSensor.getAngle()+offset)%360; //deals with negative angles, java 8 simply keeps the sign when modulating negative values.
     	} else {
     		return (navSensor.getAngle()+offset)%360;
     	}
@@ -65,7 +65,7 @@ public class NavSensor {
 	}
 
 	public void updateHistory() {
-		history.put(Timestamp.setNewTime().getTime(), new Bearing(getAngle(false)));
+		history.put(Timestamp.setNewTime().getTime(), new Bearing(getAngle(true)));
 		ArrayList<Double> toRemove = new ArrayList<Double>();
 		for (Double t : history.keySet()) {
 			double age = RobotController.getFPGATime() * 10E-7 - t;

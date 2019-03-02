@@ -4,6 +4,7 @@ import frc.autonomous.actiongroups.TestGroup;
 import frc.robot.FieldTransform;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.subsystems.SwerveController;
 import frc.util.Bearing;
@@ -35,15 +36,15 @@ public class SwerveDrive extends Command {
     protected void execute() {
     	
     	//Sets input for swerveDrive method as input from controller stick axes. Note: FBValue is negative as required by doc linked to in swerveDrive method
-    	Double fbValue = Controls.getAxis(Controls.FB_AXIS, 0.2)/2;
-    	Double rlValue = -Controls.getAxis(Controls.RL_AXIS, 0.2)/2;
-		Double rotValue = -Controls.getAxis(Controls.ROT_AXIS, 0.2)/2;;
+    	Double fbValue = Controls.getAxis(Controls.FB_AXIS, 0.2)*Constants.normalSpeedSpeed;
+    	Double rlValue = -Controls.getAxis(Controls.RL_AXIS, 0.2)*Constants.normalSpeedSpeed;
+		Double rotValue = -Controls.getAxis(Controls.ROT_AXIS, 0.2)*Constants.normalSpeedSpeed;
     	
     	//While the left bumper is held go full speed
     	if(Controls.getButton(Controls.HALF_SPEED_BUTTON)) {
-    		fbValue *= 0.7;
-    		rlValue *= 0.7;
-    		rotValue *= 0.7;
+    		fbValue *= Constants.halfSpeedSpeed;
+    		rlValue *= Constants.halfSpeedSpeed;
+    		rotValue *= Constants.halfSpeedSpeed;
 		}
 
 		if(Controls.getButton(Controls.SPRINT_BUTTON) && ((fbValue != 0) || (rlValue != 0) || (rotValue != 0))) {
@@ -54,9 +55,9 @@ public class SwerveDrive extends Command {
 		}
 		
 		if(sprinting) {
-			fbValue *= 2;
-			rlValue *= 2;
-			rotValue *= 2;
+			fbValue *= Constants.fastSpeedSpeed;
+			rlValue *= Constants.fastSpeedSpeed;
+			rotValue *= Constants.fastSpeedSpeed;
 		}
     	
     	//If the X button is pressed resets the Swerve Modules
@@ -73,16 +74,18 @@ public class SwerveDrive extends Command {
 			swerveController.setPose(new Bearing(OI.driver.getPOV()));
 		}
 		else{
+			if(Controls.getButton(Controls.DOCKING_MODE_BUTTON)) {
+				fbValue = -fbValue;
+			}
 			swerveController.slide(fbValue, rlValue);
 			swerveController.rotate(-rotValue);
 		}
 		//goes into docking mode
     	if(Controls.getButton(Controls.DOCKING_MODE_BUTTON)) {
 			System.out.println("Docking Mode");
-			fbValue = -fbValue;
     		swerveController.update(false);
     	} else {
-    		swerveController.move(fbValue, rlValue, rotValue);
+    		swerveController.update(true);
     	}
     }
 

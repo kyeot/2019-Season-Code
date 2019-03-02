@@ -5,21 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous.actiongroups;
+package frc.autonomous.actions;
 
-import frc.autonomous.actions.ReleaseServo;
 import frc.autonomous.*;
+import frc.robot.*;
 
 /**
  * Add your docs here.
  */
-public class ServoGroup extends ActionGroup{
-
-    public ServoGroup(){
-        super();
-
-        addAction(new ReleaseServo(0, 0.5));
-        addAction(new ReleaseServo(180, 0.5));
-        addAction(new ReleaseServo(0, 0.5));
+public class ReleaseServo extends Action {
+	
+	double angle;
+	
+	//drives autonomously
+	public ReleaseServo(double angle, double time) {
+		super("AutoDrive", time);
+		
+		this.angle = angle;
+	}
+	
+	@Override
+	public void perform() {
+		Robot.intakeBase.testServo(angle);
     }
+    
 }

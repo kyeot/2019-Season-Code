@@ -17,19 +17,23 @@ public class Constants {
 	public static final double kSwerveI = 0.0;
 	public static final double kSwerveD = 0.007;
 
+	public static final double kElevateP = 0.01;
+	public static final double kElevateI = 0.0;
+	public static final double kElevateD = 0.0;
+
 	public static final double kTooFast = 0.5; //max output for pid before it stops
 	
 	public static final double kCameraFrameRate = 30;
 	public static final double kTargetMaxAge = 0.4; //seconds, time it smooths over
 	
-	public static final double kCameraXOffset = 10.75;
-	public static final double kCameraYOffset = -16.25;
-	public static final double kCameraZOffset = 23.5;
+	public static final double kCameraXOffset = 2.375;
+	public static final double kCameraYOffset = -9.5;
+	public static final double kCameraZOffset = 28;
 	public static final double kCameraPitchOffset = 0;
 	public static final double kCameraRollOffset = 0.0;
 	public static final double kCameraYawOffset = 0.0;
 	
-	public static final double kGoalHeight = 28.75;
+	public static final double kGoalHeight = 27.75;
 	
 	/* 
 		CONTROLLER ID'S
@@ -43,10 +47,13 @@ public class Constants {
 	public static final int kRLAxisId = 0;
 	public static final int kRotAxisId = 4;
 	public static final int kHalfSpeedButtonId = 5;
-	public static final int kSprintButtonId = 9;
-	public static final int kCenterGyroButtonId = 4;
+	public static final int kSprintButtonId = 9;	public static final int kCenterGyroButtonId = 4;
 	public static final int kZeroModulesButtonId = 3;
 	public static final int kDockingModeButtonId = 6;
+
+	public static final double halfSpeedSpeed = 0.7;
+	public static final double normalSpeedSpeed = 0.5;
+	public static final double fastSpeedSpeed = 2;
 
 	// Manipulator
 	public static final int kElevatorUpAxisId = 3;
@@ -90,10 +97,10 @@ public class Constants {
 	*/
 
 	// Practice
-	public static final double kFrontLeftAngleOffset = 360 - 35;
-	public static final double kFrontRightAngleOffset = 360 - 328;
-	public static final double kRearLeftAngleOffset = 360 - 244;
-	public static final double kRearRightAngleOffset = 360 - 136;
+	public static final double kFrontLeftAngleOffset = 35;
+	public static final double kFrontRightAngleOffset = 180;
+	public static final double kRearLeftAngleOffset = 244;
+	public static final double kRearRightAngleOffset = 136;
 
 	// Competition
 	//public static final double kFrontLeftAngleOffset = 360 - ;
@@ -126,4 +133,7 @@ public class Constants {
 
 	public static final double kGyroMaxAge = 0.6;                    // Length(s) of angle history stored in NavSensor
 
+	public static final double kElevatorDownSpeed = 0.8;
+
+	public static final double kSwerveRampRate = 0.1;
 }

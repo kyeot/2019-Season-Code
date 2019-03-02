@@ -41,22 +41,9 @@ public class Intake extends Command {
         ActionScheduler.getInstance().start();
       }
       
-      //Button Controls
-      /*      speed = 0;
-   
-    	if(OI.manipulator.getRawButton(Constants.kIntakeIn)) {
-            speed = -1;
-       
-        }
-        else if(OI.manipulator.getRawButton(Constants.kIntakeOut)) {
-           speed = 1;
-          
-            
-        }
-  */          
-        if(!ActionScheduler.getInstance().isActive()){
-              Robot.intakeBase.intake(speed);
-        }
+      if(!ActionScheduler.getInstance().isActive()){
+        Robot.intakeBase.intake(speed);
+      }
               
     }
 

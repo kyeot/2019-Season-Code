@@ -69,19 +69,19 @@ public class FieldTransform {
 
 		//Rotation matrices (right-handed system)
 		//Pitch (Rx)
-	  //x = x;
-		y = y*camPitch.cos() - z*camPitch.sin();
-		z = y*camPitch.sin() + z*camPitch.cos();
+	    double xx = x;
+		double yx = y*camPitch.cos() - z*camPitch.sin();
+		double zx = y*camPitch.sin() + z*camPitch.cos();
 
 		//Yaw (Ry)
-		x =  x*camYaw.cos() - z*camYaw.sin();
-      //y =  y;
-		z = -x*camYaw.sin() + z*camYaw.cos();
+		double xy =  xx*camYaw.cos() - zx*camYaw.sin();
+        double yy =  yx;
+		double zy = -xx*camYaw.sin() + zx*camYaw.cos();
 		 
 		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
-	    double xf = x;
-		double yf = z;
-		double zf = y;
+	    double xf = xy;
+		double yf = zy;
+		double zf = yy;
 		
 		double s = camToGoal / zf;
 		double dist = Math.hypot(xf, yf) * s;

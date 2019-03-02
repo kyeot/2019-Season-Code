@@ -50,7 +50,7 @@ public class SwerveController {
 
 		@Override
 		public double pidGet() {
-			return gyro.getAngle(false);
+			return gyro.getAngle(true);
 		}
 	}
 	

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -126,6 +127,7 @@ public class SwerveDriveBase extends Subsystem {
 						);
 			
 			
+			driveMot.configOpenloopRamp(Constants.kSwerveRampRate);
 			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
 		}
@@ -165,9 +167,6 @@ public class SwerveDriveBase extends Subsystem {
 	    		
 	    		lastAngle = angle;
 			}
-			
-			
-
 		}
 		
 		//Sets the module to a specific angle
@@ -232,7 +231,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kFrontLeftSwivelId),
     					new VictorSPX(Constants.kFrontLeftWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder), 
-						Constants.kFrontLeftAngleOffset)
+						360 - Constants.kFrontLeftAngleOffset)
     				);
     	
     	//Creates the front left Swerve Module
@@ -240,7 +239,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kRearLeftSwivelId),
     					new VictorSPX(Constants.kRearLeftWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder), 
-						Constants.kRearLeftAngleOffset)
+						360 - Constants.kRearLeftAngleOffset)
     				);
     	
     	//Creates the rear right Swerve Module
@@ -248,7 +247,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kFrontRightSwivelId),
     					new VictorSPX(Constants.kFrontRightWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kFrontRightAbsoluteEncoder),
-						Constants.kFrontRightAngleOffset)
+						360 - Constants.kFrontRightAngleOffset)
     				);
     			
     	//Creates the rear left Swerve Module
@@ -256,7 +255,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kRearRightSwivelId),
     					new VictorSPX(Constants.kRearRightWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
-						Constants.kRearRightAngleOffset)
+						360 - Constants.kRearRightAngleOffset)
 					); // ):
     }
 
@@ -304,8 +303,8 @@ public class SwerveDriveBase extends Subsystem {
 	    	fbMot = temp;
     	}
     	
-    	double L = 1.0;
-    	double W = 1.0;
+    	double L = 19.5;
+    	double W = 23;
     	double R = Math.sqrt((L*L) + (W*W));
     	
     	double A = rlMot + rotMot*(L/R);
@@ -345,6 +344,11 @@ public class SwerveDriveBase extends Subsystem {
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);
+
+		SmartDashboard.putString("DB/String 5", "fr: " + frMod.pidCont.getError());
+		SmartDashboard.putString("DB/String 6", "fl: " + flMod.pidCont.getError());
+		SmartDashboard.putString("DB/String 7", "rr: " + rrMod.pidCont.getError());
+		SmartDashboard.putString("DB/String 8", "rl: " + rlMod.pidCont.getError());
 
 		
 

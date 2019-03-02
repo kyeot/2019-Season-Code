@@ -71,6 +71,8 @@ public class LinearActuatorBase extends Subsystem {
 		else{
 			back.set(ControlMode.PercentOutput, 0);
 		}
+
+		driveMot.set(ControlMode.PercentOutput, driveSpeed);
 	}
 
 	@Override
