@@ -65,10 +65,10 @@ public class FieldTransform {
 		double z = t.getZ();
 
 		//Rotation matrices (right-handed system)
-		//Pitch (Rx)
-	    double xx = x;
-		double yx = y*camPitch.cos() - z*camPitch.sin();
-		double zx = y*camPitch.sin() + z*camPitch.cos();
+		//Pitch (Rz)
+	    double xx = x*camPitch.cos() - y*camPitch.sin();
+		double yx = x*camPitch.sin() + y*camPitch.cos();
+		double zx = z;
 
 		//Yaw (Ry)
 		double xy =  xx*camYaw.cos() - zx*camYaw.sin();

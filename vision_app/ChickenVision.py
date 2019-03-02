@@ -564,9 +564,9 @@ def calculatePitch(pixelY, centerY, vFocalLength):
 
 # Return 3d vector from pixel offset
 def calculateVector(pixelY, centerY, pixelX, centerX):
-	z = 1.0
+	x = 1.0
 	print(-(pixelX - centerX))
-	x = -(pixelX - centerX) / focal_pixels
+	z = -(pixelX - centerX) / focal_pixels
 	y = -(pixelY - centerY) / focal_pixels
 	return x, y, z
 
