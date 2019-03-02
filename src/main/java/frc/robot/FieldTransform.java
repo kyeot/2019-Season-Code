@@ -79,9 +79,9 @@ public class FieldTransform {
 		double zy = -xp*camYaw.sin() + zp*camYaw.cos();
 		 
 		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
-	    double xf = x;
-		double yf = z;
-		double zf = y;
+	    double xf = xy;
+		double yf = zy;
+		double zf = yy;
 		
 		double s = camToGoal / zf;
 		double dist = Math.hypot(xf, yf) * s;

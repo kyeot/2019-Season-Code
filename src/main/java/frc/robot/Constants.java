@@ -33,7 +33,7 @@ public class Constants {
 	public static final double kCameraRollOffset = 0.0;
 	public static final double kCameraYawOffset = 0.0;
 	
-	public static final double kGoalHeight = 27.75;
+	public static final double kGoalHeight = 36;
 	
 	/* 
 		CONTROLLER ID'S
