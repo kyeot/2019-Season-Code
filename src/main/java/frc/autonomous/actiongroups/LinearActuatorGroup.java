@@ -15,13 +15,13 @@ import frc.autonomous.actions.*;
  */
 public class LinearActuatorGroup extends ActionGroup {
 
-    public LinearActuatorGroup(){
-        super();
+	public LinearActuatorGroup(){
+		super();
 
-        addAction(new AutoLA(0, 0.5, 0, 1));
-        addAction(new AutoLA(0.5, 0.5, 0, 2));
-    
-    }
+		addAction(new AutoLA(0, 0.5, 0, 1));
+		addAction(new AutoLA(0.5, 0.5, 0, 2));
+	
+	}
 
 
 }

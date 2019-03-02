@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import frc.robot.Constants;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 /**
  * Singleton class for getting the angle read by the gyro sensor mounted on the

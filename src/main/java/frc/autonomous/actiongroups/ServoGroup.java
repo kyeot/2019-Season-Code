@@ -15,11 +15,11 @@ import frc.autonomous.*;
  */
 public class ServoGroup extends ActionGroup{
 
-    public ServoGroup(){
-        super();
+	public ServoGroup(){
+		super();
 
-        addAction(new ReleaseServo(0, 0.5));
-        addAction(new ReleaseServo(180, 0.5));
-        addAction(new ReleaseServo(0, 0.5));
-    }
+		addAction(new ReleaseServo(0, 0.5));
+		addAction(new ReleaseServo(180, 0.5));
+		addAction(new ReleaseServo(0, 0.5));
+	}
 }

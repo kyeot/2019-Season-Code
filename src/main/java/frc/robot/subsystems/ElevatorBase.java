@@ -1,9 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.Elevator;
-import frc.util.*;
-import frc.robot.*;
-
 import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -14,7 +10,9 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.commands.Elevator;
+import frc.util.AbsoluteEncoder;
 
 /**
  * @purpose: Controlling the Elevator Subsystem

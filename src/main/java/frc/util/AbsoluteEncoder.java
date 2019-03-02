@@ -15,55 +15,55 @@ import edu.wpi.first.wpilibj.PIDSourceType;
  * Add your docs here.
  */
 public class AbsoluteEncoder implements PIDSource {
-    PIDSourceType sourceType;
+	PIDSourceType sourceType;
 
-    AnalogInput enc;
+	AnalogInput enc;
 
-    double offset = 0;
-    double revolutions = 0;
+	double offset = 0;
+	double revolutions = 0;
 
-    double lastAngle;
-    double startAngle;
-    double angle;
+	double lastAngle;
+	double startAngle;
+	double angle;
 
-    public AbsoluteEncoder(AnalogInput enc){
-        this.enc = enc;
-        sourceType = PIDSourceType.kDisplacement;
-    }
+	public AbsoluteEncoder(AnalogInput enc){
+		this.enc = enc;
+		sourceType = PIDSourceType.kDisplacement;
+	}
 
-    @Override
-    public void setPIDSourceType(PIDSourceType pidSource) {
-        sourceType = pidSource;
-    }
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		sourceType = pidSource;
+	}
 
-    @Override
-    public PIDSourceType getPIDSourceType() {
-        return sourceType;
-    }
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		return sourceType;
+	}
 
-    public double getRawAngle(){
-        return enc.getValue();
-    }
+	public double getRawAngle(){
+		return enc.getValue();
+	}
 
-    @Override
-    public double pidGet(){
-        startAngle = getRawAngle();
+	@Override
+	public double pidGet(){
+		startAngle = getRawAngle();
 
-        if((startAngle > 0 && startAngle < 1000) && (lastAngle > 3096 && lastAngle < 4096)){
-            revolutions++;
-        }
-        else if((startAngle > 3096 && startAngle < 4096) && (lastAngle > 0 && lastAngle < 1000)){
-            revolutions--;
-        }
+		if((startAngle > 0 && startAngle < 1000) && (lastAngle > 3096 && lastAngle < 4096)){
+			revolutions++;
+		}
+		else if((startAngle > 3096 && startAngle < 4096) && (lastAngle > 0 && lastAngle < 1000)){
+			revolutions--;
+		}
 
-        angle = startAngle + (revolutions*4096);
+		angle = startAngle + (revolutions*4096);
 
-        lastAngle = startAngle;
-        return angle - offset;
-    }
+		lastAngle = startAngle;
+		return angle - offset;
+	}
 
-    public void reset(){
-        offset = enc.getValue();
-    }
+	public void reset(){
+		offset = enc.getValue();
+	}
 
 }
