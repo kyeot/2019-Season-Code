@@ -18,11 +18,11 @@ import frc.autonomous.actions.AutoDrive;
  */
 public class BaselineCross extends ActionGroup {
 
-    public BaselineCross() {
+	public BaselineCross() {
 
-            super();
-            addAction(new AutoDrive(0, 0.5, 0, 8));
-        
-    }
+			super();
+			addAction(new AutoDrive(0, 0.5, 0, 8));
+		
+	}
 
 }

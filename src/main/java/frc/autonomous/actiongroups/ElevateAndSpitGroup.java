@@ -15,13 +15,13 @@ import frc.autonomous.actions.*;
  */
 public class ElevateAndSpitGroup extends ActionGroup {
 
-    public ElevateAndSpitGroup(){
-        super();
-    
-        addAction(new AutoSpit(-.9, 1));
+	public ElevateAndSpitGroup(){
+		super();
+	
+		addAction(new AutoSpit(-.9, 1));
 
-    
-    }
+	
+	}
 
 
 }
