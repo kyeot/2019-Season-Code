@@ -13,6 +13,7 @@ import java.io.IOException;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,12 +22,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.ActionGroup;
 import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.TestGroup;
+import frc.loops.EncoderCounter;
 import frc.loops.Looper;
 import frc.loops.VisionProcessor;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
+import frc.util.ElevatorEncoder;
 import frc.util.Logger;
 import frc.util.NavSensor;
 
@@ -43,8 +46,7 @@ public class Robot extends TimedRobot {
 	public Looper looper = new Looper(Constants.kLoopPeriod);
 	private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
 	public VisionProcessor visionProcessor = VisionProcessor.getInstance();
-
-	AnalogInput elevatorEnc = new AnalogInput(5);
+	public EncoderCounter encoderCounter = EncoderCounter.getInstance();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -54,6 +56,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 
 		looper.addLoop(visionProcessor);
+		looper.addLoop(encoderCounter);
 		looper.startLoops();
 
 		String[] autonomousList = { "Test" };
@@ -68,8 +71,6 @@ public class Robot extends TimedRobot {
 		}
 
 		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
-
-		elevatorBase.elevatorEnc.reset();
 	}
 
 	public static void setGroup(ActionGroup group) {
@@ -90,8 +91,6 @@ public class Robot extends TimedRobot {
 		 */
 
 		SmartDashboard.putString("DB/String 1", "" + NavSensor.getInstance().navSensor.isConnected());
-		SmartDashboard.putString("DB/String 3", "" + swerveBase.frMod.getAngle());
-		SmartDashboard.putString("DB/String 4", "" + elevatorBase.elevatorEnc.getRawAngle());
 
 	}
 
@@ -129,6 +128,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+
+		EncoderCounter.zero();
 	}
 
 	@Override

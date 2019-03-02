@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
 import frc.robot.*;
-
+import frc.util.ElevatorEncoder;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.*;
+import frc.loops.EncoderCounter;
 
 /**
  * @purpose Command class for Elevator
@@ -40,16 +41,20 @@ public class Elevator extends Command {
 			ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
 			ActionScheduler.getInstance().start();
 			foo = true; 
-		} else if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON)) {
+		} 
+		else if(Controls.getButton(Controls.ZERO_ELEVATOR)){
+			EncoderCounter.getInstance().zero();
+		}
+		else if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON)) {
 			foo = true;
-		} else{
+		} 
+		else{
 			if(!ActionScheduler.getInstance().isActive()){
 				Robot.elevatorBase.elevator(speed);
 				foo = false;
 			}
 
 		  } 
-	
 	
 		}
 

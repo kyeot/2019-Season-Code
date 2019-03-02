@@ -7,12 +7,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.loops.EncoderCounter;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator;
-import frc.util.AbsoluteEncoder;
+import frc.util.ElevatorEncoder;
 
 /**
  * @purpose: Controlling the Elevator Subsystem
@@ -27,7 +30,8 @@ public class ElevatorBase extends Subsystem {
 	TalonSRX elevator;
 
 	PIDController pidCont;
-	public AbsoluteEncoder elevatorEnc = new AbsoluteEncoder(new AnalogInput(4));
+	public ElevatorEncoder elevatorEnc = new ElevatorEncoder();
+	DigitalInput elevatorTopSwitch = new DigitalInput(4);
 	PIDOutput pidOut;
 	ArrayList<Double> angles;
 
@@ -51,6 +55,19 @@ public class ElevatorBase extends Subsystem {
 	
 	//Method to use Elevator base
 	public void elevator(double speed) {
+		//if((EncoderCounter.getInstance().getAngle() > (4400 - EncoderCounter.getInstance().offset)) && speed > 0.1){
+		//	speed = 0;
+		//}
+
+		if(!elevatorTopSwitch.get() && speed > 0.1){
+			speed = 0;
+		}
+		
+		SmartDashboard.putString("DB/String 6", "" + elevatorTopSwitch.get());
+		SmartDashboard.putString("DB/String 8", "raw: " + EncoderCounter.getInstance().enc.getValue());
+		SmartDashboard.putString("DB/String 7", "revos: " + EncoderCounter.getInstance().revolutions);
+		SmartDashboard.putString("DB/String 9", "final: " + EncoderCounter.getInstance().angle);
+
 		if(!pidCont.isEnabled()){
 			elevator.set(ControlMode.PercentOutput, -speed);
 		}	

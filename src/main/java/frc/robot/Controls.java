@@ -24,7 +24,8 @@ public enum Controls {
 	ELEVATOR_UP_AXIS(Constants.kElevatorUpAxisId, Controller.MANIPULATOR, ControlType.AXIS),
 	ELEVATOR_DOWN_AXIS(Constants.kElevatorDownAxisId, Controller.MANIPULATOR, ControlType.AXIS),
 	SERVO_RELEASE(Constants.kServoReleaseButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	INTAKE_AXIS(Constants.kIntakeAxisId, Controller.MANIPULATOR, ControlType.AXIS);
+	INTAKE_AXIS(Constants.kIntakeAxisId, Controller.MANIPULATOR, ControlType.AXIS),
+	ZERO_ELEVATOR(Constants.kZeroElevatorButtonId, Controller.MANIPULATOR, ControlType.BUTTON);
 	
 	public enum Controller {
 		DRIVER(OI.driver),
