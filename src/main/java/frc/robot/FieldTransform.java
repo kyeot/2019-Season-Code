@@ -1,8 +1,5 @@
 package frc.robot;
 
-import java.util.List;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.util.Bearing;
 import frc.util.NavSensor;
 import frc.util.Timestamp;

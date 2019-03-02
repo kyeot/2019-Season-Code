@@ -7,35 +7,28 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.io.IOException;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.autonomous.ActionGroup;
+import frc.autonomous.ActionScheduler;
+import frc.autonomous.actiongroups.TestGroup;
+import frc.loops.Looper;
+import frc.loops.VisionProcessor;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.SPI;
-
-import frc.loops.Looper;
-import frc.loops.VisionProcessor;
-import frc.robot.subsystems.SwerveDriveBase;
-import frc.util.AbsoluteEncoder;
 import frc.util.Logger;
 import frc.util.NavSensor;
-import frc.autonomous.*;
-import frc.autonomous.actiongroups.*;
-
-import java.io.File;
-import java.io.IOException;
-
-import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends TimedRobot {
   NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
