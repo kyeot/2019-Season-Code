@@ -16,18 +16,18 @@ import frc.util.Bearing;
  */
 public class SwerveAlign extends Action {
 
-    double angle;
+	double angle;
 
-    public SwerveAlign(double angle, double time){
-        super("SwerveAlign", time);
-    
-        this.angle = angle;
-    }
+	public SwerveAlign(double angle, double time){
+		super("SwerveAlign", time);
+	
+		this.angle = angle;
+	}
 
-    @Override 
-    public void perform(){
-        SwerveController.getInstance().setPose(new Bearing(angle));
-    }
+	@Override 
+	public void perform(){
+		SwerveController.getInstance().setPose(new Bearing(angle));
+	}
 
 }
 

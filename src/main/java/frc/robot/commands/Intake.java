@@ -13,51 +13,51 @@ import frc.autonomous.actiongroups.*;
  */
 public class Intake extends Command {
 
-    public static double speed;
+		public static double speed;
 
 
-    public Intake() {
-    	//Sets the required Subsystem
-        requires(Robot.intakeBase);
+		public Intake() {
+			//Sets the required Subsystem
+				requires(Robot.intakeBase);
 
-        speed = 0;
-  
-    }
+				speed = 0;
+	
+		}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+		// Called just before this Command runs the first time
+		protected void initialize() {
+		}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {    	
-     // Trigger and Joystick Controls
+		// Called repeatedly when this Command is scheduled to run
+		protected void execute() {    	
+		 // Trigger and Joystick Controls
 
-      speed = 0;
-    	
-      speed = Controls.getButton(Controls.INTAKE_AXIS, 0.3) ? Controls.getAxis(Controls.INTAKE_AXIS, 0.3) : Controls.getAxis(Controls.INTAKE_IN_BUTTON) - Controls.getAxis(Controls.INTAKE_OUT_BUTTON);
+			speed = 0;
+			
+			speed = Controls.getButton(Controls.INTAKE_AXIS, 0.3) ? Controls.getAxis(Controls.INTAKE_AXIS, 0.3) : Controls.getAxis(Controls.INTAKE_IN_BUTTON) - Controls.getAxis(Controls.INTAKE_OUT_BUTTON);
 
-      if(Controls.getButton(Controls.SERVO_RELEASE)) {
-        ActionScheduler.getInstance().setGroup(new ServoGroup());
-        ActionScheduler.getInstance().start();
-      }
-      
-      if(!ActionScheduler.getInstance().isActive()){
-        Robot.intakeBase.intake(speed);
-      }
-              
-    }
+			if(Controls.getButton(Controls.SERVO_RELEASE)) {
+				ActionScheduler.getInstance().setGroup(new ServoGroup());
+				ActionScheduler.getInstance().start();
+			}
+			
+			if(!ActionScheduler.getInstance().isActive()){
+				Robot.intakeBase.intake(speed);
+			}
+							
+		}
 
-    // Make this return true when this Command no
-    protected boolean isFinished() {
-        return false;
-    }
+		// Make this return true when this Command no
+		protected boolean isFinished() {
+				return false;
+		}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+		// Called once after isFinished returns true
+		protected void end() {
+		}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+		// Called when another command which requires one or more of the same
+		// subsystems is scheduled to run
+		protected void interrupted() {
+		}
 }

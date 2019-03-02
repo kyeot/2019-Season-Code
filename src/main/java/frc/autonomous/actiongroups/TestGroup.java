@@ -19,13 +19,13 @@ import frc.autonomous.*;
  */
 public class TestGroup extends ActionGroup{
 
-    public TestGroup(){
-        super();
+	public TestGroup(){
+		super();
 
-        addAction(new AutoDrive(0, 0.5, 0, 3));
-        addAction(new ParallelAction((Arrays.asList(new Action[] {
-            new AutoLA(0.5, 0.5, 0, 3)	
-        }))));;
-    }
+		addAction(new AutoDrive(0, 0.5, 0, 3));
+		addAction(new ParallelAction((Arrays.asList(new Action[] {
+			new AutoLA(0.5, 0.5, 0, 3)	
+		}))));;
+	}
 
 }
