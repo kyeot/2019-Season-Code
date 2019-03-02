@@ -68,15 +68,15 @@ public class FieldTransform {
 		double z = t.getZ();
 
 		//Rotation matrices (right-handed system)
-		//Pitch (Rx)
-	  //x = x;
-		y = y*camPitch.cos() - z*camPitch.sin();
-		z = y*camPitch.sin() + z*camPitch.cos();
+		//Pitch (Rz)
+	    double xp = x*camPitch.cos() - y*camPitch.sin();
+		double yp = x*camPitch.sin() + y*camPitch.cos();
+		double zp = z;
 
 		//Yaw (Ry)
-		x =  x*camYaw.cos() - z*camYaw.sin();
-      //y =  y;
-		z = -x*camYaw.sin() + z*camYaw.cos();
+		double xy =  xp*camYaw.cos() + zp*camYaw.sin();
+		double yy =  yp;
+		double zy = -xp*camYaw.sin() + zp*camYaw.cos();
 		 
 		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
 	    double xf = x;
