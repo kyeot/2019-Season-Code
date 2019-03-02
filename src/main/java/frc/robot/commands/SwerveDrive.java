@@ -33,7 +33,7 @@ public class SwerveDrive extends Command {
     	
     	//Sets input for swerveDrive method as input from controller stick axes. Note: FBValue is negative as required by doc linked to in swerveDrive method
     	Double fbValue = Controls.getAxis(Controls.FB_AXIS, 0.2)*Constants.normalSpeedSpeed;
-    	Double rlValue = -Controls.getAxis(Controls.RL_AXIS, 0.2)*Constants.normalSpeedSpeed;
+    	Double rlValue = Controls.getAxis(Controls.RL_AXIS, 0.2)*Constants.normalSpeedSpeed;
 		Double rotValue = -Controls.getAxis(Controls.ROT_AXIS, 0.2)*Constants.normalSpeedSpeed;
     	
     	//While the left bumper is held go full speed
@@ -63,7 +63,7 @@ public class SwerveDrive extends Command {
     	
 		//If Y is pressed resets the field orientation
     	if(Controls.getButton(Controls.CENTER_GYRO_BUTTON)) {
-    		NavSensor.getInstance().resetGyroNorth(180, 0);
+    		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetOffset, 0);
 		}
 		
 		if(OI.driver.getPOV() != -1){

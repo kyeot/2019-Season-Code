@@ -483,9 +483,9 @@ def findTape(contours, image, centerX, centerY):
 		finalTarget = min(targets, key=lambda x: math.fabs(x[1]))
 		# Puts the yaw on screen
 		#Draws yaw of target + line where center of target is
-		cv2.putText(image, "x: " + str(finalTarget[1]), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
+		cv2.putText(image, "y: " + str(finalTarget[2]), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
 					(255, 255, 255))
-		cv2.putText(image, "y: " + str(finalTarget[2]), (40, 60), cv2.FONT_HERSHEY_COMPLEX, .6,
+		cv2.putText(image, "z: " + str(finalTarget[3]), (40, 60), cv2.FONT_HERSHEY_COMPLEX, .6,
 					(255, 255, 255))
 		cv2.line(image, (finalTarget[0], screenHeight), (finalTarget[0], 0), (255, 0, 0), 2)
 
@@ -770,7 +770,7 @@ if __name__ == "__main__":
 			if(networkTable.getBoolean("Tape", True)):
 				#Lowers exposure to 0
 				cap.autoExpose = False
-				processed = frame
+				#processed = frame
 				#gamma_adjusted = adjust_gamma(flip)
 				#boxBlur = blurImg(gamma_adjusted, green_blur)
 				#threshold = threshold_video(lower_green, upper_green, boxBlur)

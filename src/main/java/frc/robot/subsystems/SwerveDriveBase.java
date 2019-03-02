@@ -294,12 +294,17 @@ public class SwerveDriveBase extends Subsystem {
      * @param fieldOriented If it's field oriented or not
      */
     public void swerveDrive(double fbMot, double rlMot, double rotMot, boolean fieldOriented) {
-    	//Swerve Math Taken from: https://www.chiefdelphi.com/media/papers/2426
-    	
+		//Swerve Math Taken from: https://www.chiefdelphi.com/media/papers/2426
+		//temporary fix
+		double temp1 = fbMot;
+		fbMot = -rlMot;
+		rlMot = temp1;
+
+
     	if(fieldOriented) {
 	    	double curAngle = NavSensor.getInstance().getAngle(false);
-	    	double temp = fbMot*(cosDeg(curAngle)) + rlMot*(sinDeg(curAngle));
-	    	rlMot = fbMot*(sinDeg(curAngle)) + -(rlMot*(cosDeg(curAngle)));
+	    	double temp = fbMot*(cosDeg(curAngle)) - rlMot*(sinDeg(curAngle));
+	    	rlMot = fbMot*(sinDeg(curAngle)) + (rlMot*(cosDeg(curAngle)));
 	    	fbMot = temp;
     	}
     	

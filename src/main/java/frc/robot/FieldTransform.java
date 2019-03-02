@@ -1,5 +1,8 @@
 package frc.robot;
 
+import java.util.List;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.util.Bearing;
 import frc.util.NavSensor;
 import frc.util.Timestamp;
@@ -28,14 +31,14 @@ public class FieldTransform {
 	
 	public TargetTracker targetHistory;
 	
-	Transform cameraToRobot;
+	Transform robotToCamera;
 	Bearing camYaw;
 	Bearing camPitch;
 	double camHeight;
 	double camToGoal;
 	
 	FieldTransform() {
-		cameraToRobot = new Transform(Constants.kCameraXOffset, 
+		robotToCamera = new Transform(Constants.kCameraXOffset, 
 										Constants.kCameraYOffset,
 										Constants.kCameraYawOffset);
 		camPitch = new Bearing(Constants.kCameraPitchOffset);
@@ -51,7 +54,7 @@ public class FieldTransform {
 	}
 	
 	public Transform getFieldToCamera(Timestamp t) {
-		return getRobotPose(t).transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
+		return getRobotPose(t).transform(new Transform(robotToCamera.getTranslation().rotateBy(getRobotPose(t).getRotation()), robotToCamera.getRotation()));
 		
 	}
 	
@@ -65,28 +68,28 @@ public class FieldTransform {
 		double z = t.getZ();
 
 		//Rotation matrices (right-handed system)
-		//Pitch (Rz)
-	    double xx = x*camPitch.cos() - y*camPitch.sin();
-		double yx = x*camPitch.sin() + y*camPitch.cos();
-		double zx = z;
+		//Pitch (Rx)
+	  //x = x;
+		y = y*camPitch.cos() - z*camPitch.sin();
+		z = y*camPitch.sin() + z*camPitch.cos();
 
 		//Yaw (Ry)
-		double xy =  xx*camYaw.cos() - zx*camYaw.sin();
-        double yy =  yx;
-		double zy = -xx*camYaw.sin() + zx*camYaw.cos();
+		x =  x*camYaw.cos() - z*camYaw.sin();
+      //y =  y;
+		z = -x*camYaw.sin() + z*camYaw.cos();
 		 
 		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
-	    double xf = xy;
-		double yf = zy;
-		double zf = yy;
+	    double xf = x;
+		double yf = z;
+		double zf = y;
 		
 		double s = camToGoal / zf;
 		double dist = Math.hypot(xf, yf) * s;
 		Bearing angle = new Bearing(new Vector(xf, yf));
-		Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
+		Vector cameraToTarget = new Vector(angle.cos()*dist, angle.sin()*dist);
 
 		Timestamp time = new Timestamp(target.getTime());
-		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
+		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(cameraToTarget.rotateBy(getFieldToCamera(time).getRotation())));
 	}
 	
 	public void addVisionTarget(TargetInfo target) {

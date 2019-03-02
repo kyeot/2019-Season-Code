@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 			e.printStackTrace();
 		}
 
-		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
+		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetOffset, 0);
 
 		elevatorBase.elevatorEnc.reset();
 	}
@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
 		 * swerveBase.rrMod.getAngle());
 		 */
 
-		SmartDashboard.putString("DB/String 1", "" + NavSensor.getInstance().navSensor.isConnected());
+		SmartDashboard.putString("DB/String 1", "" + NavSensor.getInstance().getAngle(true));
 		SmartDashboard.putString("DB/String 3", "" + swerveBase.frMod.getAngle());
 		SmartDashboard.putString("DB/String 4", "" + elevatorBase.elevatorEnc.getRawAngle());
 
