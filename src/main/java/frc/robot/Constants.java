@@ -61,6 +61,7 @@ public class Constants {
 	public static final int kIntakeAxisId = 5;
 	public static final int kAutoElevateAndSpitButtonId = 1;
 	public static final int kAutoLinearActuatorButtonId = 2;
+	public static final int kZeroElevatorButtonId = 4;
 	public static final int kIntakeInButtonId = 5;
 	public static final int kIntakeOutButtonId = 6;
 	public static final int kServoReleaseButtonId = 3;
