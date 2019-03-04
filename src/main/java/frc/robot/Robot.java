@@ -23,6 +23,7 @@ import frc.autonomous.ActionGroup;
 import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.TestGroup;
 import frc.loops.EncoderCounter;
+import frc.loops.LogData;
 import frc.loops.Looper;
 import frc.loops.VisionProcessor;
 import frc.robot.subsystems.ElevatorBase;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot {
 	private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
 	public VisionProcessor visionProcessor = VisionProcessor.getInstance();
 	public EncoderCounter encoderCounter = EncoderCounter.getInstance();
+	public LogData logData = new LogData();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -55,8 +57,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 
+
 		looper.addLoop(visionProcessor);
 		looper.addLoop(encoderCounter);
+		looper.addLoop(logData);
 		looper.startLoops();
 
 		String[] autonomousList = { "Test" };
