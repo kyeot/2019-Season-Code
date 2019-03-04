@@ -87,6 +87,8 @@ public class FieldTransform {
 		double dist = Math.hypot(xf, yf) * s;
 		Bearing angle = new Bearing(new Vector(xf, yf));
 		Vector cameraToTarget = new Vector(angle.cos()*dist, angle.sin()*dist);
+		SmartDashboard.putString("DB/String 1", "" + angle.getTheta());
+		SmartDashboard.putString("DB/String 2", "" + dist);
 
 		Timestamp time = new Timestamp(target.getTime());
 		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(cameraToTarget.rotateBy(getFieldToCamera(time).getRotation())));
