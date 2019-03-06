@@ -345,13 +345,6 @@ public class SwerveDriveBase extends Subsystem {
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);
 
-		SmartDashboard.putString("DB/String 5", "fr: " + frMod.pidCont.getError());
-		SmartDashboard.putString("DB/String 6", "fl: " + flMod.pidCont.getError());
-		SmartDashboard.putString("DB/String 7", "rr: " + rrMod.pidCont.getError());
-		SmartDashboard.putString("DB/String 8", "rl: " + rlMod.pidCont.getError());
-
-		
-
     }
     
     /**
