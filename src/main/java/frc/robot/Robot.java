@@ -75,6 +75,8 @@ public class Robot extends TimedRobot {
 		}
 
 		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
+
+		Logger.info("Robot Start");
 	}
 
 	public static void setGroup(ActionGroup group) {
