@@ -13,14 +13,16 @@ import frc.autonomous.actiongroups.*;
  */
 public class LinearActuator extends Command {
 
-	double liftSpeed;
+	double frontLiftSpeed;
+	double backLiftSpeed;
 	double driveSpeed;
 
 	public LinearActuator() {
 		//Sets the required Subsystem
 		requires(Robot.linearActuatorBase);
 
-		liftSpeed = 0;
+		frontLiftSpeed = .25;
+		backLiftSpeed = 0;
 		driveSpeed = 0;
 	}
 
@@ -31,7 +33,18 @@ public class LinearActuator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-		liftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
+	frontLiftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
+
+
+		if(OI.manipulator.getRawButton(7)){
+			backLiftSpeed = -1;
+		}
+		else if(OI.manipulator.getRawButton(8)){
+			backLiftSpeed = 1;
+		}
+		else{
+			backLiftSpeed = 0;
+		}
 
 		//drive forward    
 		driveSpeed = Controls.getAxis(Controls.LA_DRIVE_FORWARD_DPAD) - Controls.getAxis(Controls.LA_DRIVE_BACKWARD_DPAD);
@@ -42,7 +55,7 @@ public class LinearActuator extends Command {
 			ActionScheduler.getInstance().start();
 		}
 		else if(!ActionScheduler.getInstance().isActive()){
-				Robot.linearActuatorBase.linearActuator(liftSpeed, liftSpeed, driveSpeed);
+				Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
 		}
 	}
 	//liam code bad
