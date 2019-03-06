@@ -97,8 +97,13 @@ public class Constants {
 	*/
 
 	// Practice
+<<<<<<< HEAD
 	public static final double kFrontLeftAngleOffset = 35;
 	public static final double kFrontRightAngleOffset = 180;
+=======
+	public static final double kFrontLeftAngleOffset = 12;
+	public static final double kFrontRightAngleOffset = 9;
+>>>>>>> ad77542... Recalibrate Front Left Module
 	public static final double kRearLeftAngleOffset = 244;
 	public static final double kRearRightAngleOffset = 136;
 
