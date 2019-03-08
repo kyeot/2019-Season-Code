@@ -137,4 +137,6 @@ public class Constants {
 	public static final double kElevatorDownSpeed = 0.8;
 
 	public static final double kSwerveRampRate = 0.1;
+
+	public static final double kEventDelay = 3;
 }
