@@ -67,9 +67,14 @@ public class Robot extends TimedRobot {
 			e.printStackTrace();
 		}
 
+<<<<<<< Updated upstream
 		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetOffset, 0);
 
 		elevatorBase.elevatorEnc.reset();
+=======
+		Logger.info("Robot Start");
+		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
+>>>>>>> Stashed changes
 	}
 
 	public static void setGroup(ActionGroup group) {

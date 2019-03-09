@@ -349,9 +349,13 @@ public class SwerveDriveBase extends Subsystem {
     	flMod.setModule(flAng, flSpd);
     	rrMod.setModule(rrAng, rrSpd);
 		rlMod.setModule(rlAng, rlSpd);
+<<<<<<< Updated upstream
 
 		
 
+=======
+		
+>>>>>>> Stashed changes
     }
     
     /**
