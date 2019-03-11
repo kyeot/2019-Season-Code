@@ -26,8 +26,8 @@ public class Constants {
 	public static final double kCameraFrameRate = 30;
 	public static final double kTargetMaxAge = 0.4; //seconds, time it smooths over
 	
-	public static final double kCameraXOffset = 6.5;
-	public static final double kCameraYOffset = 1.75;
+	public static final double kCameraXOffset = 1.75;
+	public static final double kCameraYOffset = -10.5;
 	public static final double kCameraZOffset = 27.75;
 	public static final double kCameraPitchOffset = 0.0;
 	public static final double kCameraRollOffset = 0.0;
