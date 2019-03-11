@@ -9,9 +9,9 @@ public class Constants {
 	
 	public static final double kPeriod = 0.01;
 	
-	public static final double kSwerveRotP = 0.0015;
-	public static final double kSwerveRotI = 0.00; 
-	public static final double kSwerveRotD = 0.001;
+	public static final double kSwerveRotP = 0.025;
+	public static final double kSwerveRotI = 0.0001; 
+	public static final double kSwerveRotD = 0.01;
 	
 	public static final double kSwerveP = 0.03;
 	public static final double kSwerveI = 0.0;
