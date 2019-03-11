@@ -53,8 +53,8 @@ public class FieldTransform {
 		return new Transform(0.0,0.0,foo.getTheta());
 	}
 	
-	public Transform getFieldToCamera(Timestamp t) {
-		return getRobotPose(t).transform(new Transform(robotToCamera.getTranslation().rotateBy(getRobotPose(t).getRotation()), robotToCamera.getRotation()));
+	public Vector getFieldToCamera(Timestamp t) {
+		return getRobotPose(t).getTranslation().translate(robotToCamera.getTranslation().rotateBy(getRobotPose(t).getRotation()));
 		
 	}
 	
@@ -91,7 +91,8 @@ public class FieldTransform {
 		SmartDashboard.putString("DB/String 2", "" + dist);
 
 		Timestamp time = new Timestamp(target.getTime());
-		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(cameraToTarget.rotateBy(getFieldToCamera(time).getRotation())));
+		targetHistory.register(time, getFieldToCamera(time).translate(cameraToTarget.rotateBy(getRobotPose(time).getRotation())));
+
 	}
 	
 	public void addVisionTarget(TargetInfo target) {
