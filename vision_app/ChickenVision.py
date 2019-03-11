@@ -734,6 +734,7 @@ if __name__ == "__main__":
 	#Get the first camera
 
 	webcam = cameras[0]
+	webcam2 = cameras[1]
 	cameraServer = streams[0]
 	#Start thread reading camera
 	cap = WebcamVideoStream(webcam, cameraServer, image_width, image_height).start()
@@ -770,7 +771,7 @@ if __name__ == "__main__":
 			if(networkTable.getBoolean("Tape", True)):
 				#Lowers exposure to 0
 				cap.autoExpose = False
-				processed = frame
+				processed = cv2.flip(frame, -1)
 				#gamma_adjusted = adjust_gamma(flip)
 				#boxBlur = blurImg(gamma_adjusted, green_blur)
 				#threshold = threshold_video(lower_green, upper_green, boxBlur)

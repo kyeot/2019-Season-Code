@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
 		}
 
 		EncoderCounter.zero();
+
+		
 	}
 
 	@Override

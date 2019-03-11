@@ -15,8 +15,8 @@ public enum Controls {
 
 	LA_OUT_DPAD(Constants.kLAOutDpadId, Controller.MANIPULATOR, ControlType.DPAD),
 	LA_IN_DPAD(Constants.kLAInDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_DRIVE_FORWARD_DPAD(Constants.kLADriveForwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_DRIVE_BACKWARD_DPAD(Constants.kLADriveBackwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
+	LA_DRIVE_FORWARD_BUTTON(Constants.kLADriveForwardButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
+	LA_DRIVE_BACKWARD_BUTTON(Constants.kLADriveBackwardButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
 	LA_AUTO_BUTTON(Constants.kAutoLinearActuatorButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
 	INTAKE_IN_BUTTON(Constants.kIntakeInButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
 	INTAKE_OUT_BUTTON(Constants.kIntakeOutButtonId, Controller.MANIPULATOR, ControlType.BUTTON),

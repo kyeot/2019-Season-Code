@@ -62,13 +62,13 @@ public class Constants {
 	public static final int kAutoElevateAndSpitButtonId = 1;
 	public static final int kAutoLinearActuatorButtonId = 2;
 	public static final int kZeroElevatorButtonId = 4;
-	public static final int kIntakeInButtonId = 5;
-	public static final int kIntakeOutButtonId = 6;
+	public static final int kIntakeInButtonId = 7;
+	public static final int kIntakeOutButtonId = 8;
 	public static final int kServoReleaseButtonId = 3;
 	public static final int kLAOutDpadId = 0;
 	public static final int kLAInDpadId = 180;
-	public static final int kLADriveForwardDpadId = 90;
-	public static final int kLADriveBackwardDpadId = 270;
+	public static final int kLADriveForwardButtonId = 5;
+	public static final int kLADriveBackwardButtonId = 6;
 
 
 	/*
@@ -98,7 +98,7 @@ public class Constants {
 	*/
 
 	// Practice
-	public static final double kFrontLeftAngleOffset = 12;
+	public static final double kFrontLeftAngleOffset = 322;
 	public static final double kFrontRightAngleOffset = 9;
 	public static final double kRearLeftAngleOffset = 244;
 	public static final double kRearRightAngleOffset = 136;
@@ -129,6 +129,8 @@ public class Constants {
 	public static final double kRobotFront = 180;                      // Angle Offset to Front of Robot from NavX
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
+
+	public static final double kElevatorEncRange = (850-155)/2;
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360; // Amount of degrees per tick of an absolute encoder
 

@@ -9,6 +9,7 @@ package frc.loops;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 /**
  * Add your docs here.
@@ -29,6 +30,8 @@ public class EncoderCounter implements Loop{
 	static double lastAngle = 0;
 	public static double revolutions;
 	public static double angle;
+
+	boolean up;
 	
 	public EncoderCounter(){
 	}
@@ -39,7 +42,35 @@ public class EncoderCounter implements Loop{
 
 	@Override
 	public void onLoop() {
-		getAngle();
+		startAngle = getValueFromEdge();
+
+		if((startAngle < 100 && up) && (lastAngle < 100 && !up)){
+			revolutions++;
+		}
+		else if((startAngle < 100 && !up) && (lastAngle < 100 && up)){
+			revolutions--;
+		}
+
+		angle = startAngle + (revolutions*Constants.kElevatorEncRange);
+
+		lastAngle = startAngle;
+
+		System.out.println(getAngle());
+	}
+
+	public double getValueFromEdge(){
+		double ang = getRawAngle();
+
+		if(ang <= Constants.kElevatorEncRange){
+			ang -= 155;
+			up = false;
+		}
+		else{
+			ang = 850-ang;
+			up = true;
+		}
+
+		return ang;
 	}
 
 	@Override
@@ -55,21 +86,6 @@ public class EncoderCounter implements Loop{
 	}
 	
 	public static double getAngle(){
-		startAngle = getRawAngle() -155;
-
-		System.out.println(enc.getValue());
-
-		if((startAngle > 0 && startAngle < 100) && (lastAngle > 595 && lastAngle < 695)){
-			revolutions++;
-		}
-		else if((startAngle > 595 && startAngle < 695) && (lastAngle > 0 && lastAngle < 100)){
-			revolutions--;
-		}
-
-		angle = startAngle + (revolutions*695);
-
-		lastAngle = startAngle;
-		
 		return angle;
 	}
 

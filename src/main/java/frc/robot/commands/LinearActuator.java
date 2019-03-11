@@ -33,21 +33,37 @@ public class LinearActuator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-	frontLiftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
-
-
-		if(OI.manipulator.getRawButton(7)){
+		frontLiftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
+			
+		/*if(OI.manipulator.getPOV() == 0){
+			frontLiftSpeed = -1;
+		}
+		else if(OI.manipulator.getPOV() == 180){
+			frontLiftSpeed = 1;
+		}
+		else{
+			frontLiftSpeed = 0;
+		}*/
+		
+		if(OI.manipulator.getRawButton(1)){
 			backLiftSpeed = -1;
 		}
-		else if(OI.manipulator.getRawButton(8)){
+		else if(OI.manipulator.getRawButton(4)){
 			backLiftSpeed = 1;
 		}
 		else{
 			backLiftSpeed = 0;
 		}
 
-		//drive forward    
-		driveSpeed = Controls.getAxis(Controls.LA_DRIVE_FORWARD_DPAD) - Controls.getAxis(Controls.LA_DRIVE_BACKWARD_DPAD);
+		if(Controls.getButton(Controls.LA_DRIVE_FORWARD_BUTTON)){
+			driveSpeed = 1;
+		}
+		else if(Controls.getButton(Controls.LA_DRIVE_BACKWARD_BUTTON)){
+			driveSpeed = -1;
+		}
+		else{
+			driveSpeed = 0;
+		}
 
 		//climbs when button is pressed
 		if (Controls.getButton(Controls.LA_AUTO_BUTTON)) {
@@ -58,6 +74,7 @@ public class LinearActuator extends Command {
 				Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
 		}
 	}
+
 	//liam code bad
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {

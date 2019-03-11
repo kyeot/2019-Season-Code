@@ -38,15 +38,13 @@ public class Elevator extends Command {
 		speed = Controls.getAxis(Controls.ELEVATOR_UP_AXIS, 0.1) - Controls.getAxis(Controls.ELEVATOR_DOWN_AXIS, 0.1)*Constants.kElevatorDownSpeed;
 
 		if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON) && (!foo)) {
-			ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
-			ActionScheduler.getInstance().start();
-			foo = true; 
+		//	ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
+		//	ActionScheduler.getInstance().start();
+		//	foo = true; 
 		} 
 		else if(Controls.getButton(Controls.ZERO_ELEVATOR)){
-			EncoderCounter.getInstance().zero();
 		}
 		else if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON)) {
-			foo = true;
 		} 
 		else{
 			if(!ActionScheduler.getInstance().isActive()){
