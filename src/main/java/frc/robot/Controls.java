@@ -12,6 +12,7 @@ public enum Controls {
 	CENTER_GYRO_BUTTON(Constants.kCenterGyroButtonId, Controller.DRIVER, ControlType.BUTTON),
 	ZERO_MODULES_BUTTON(Constants.kZeroModulesButtonId, Controller.DRIVER, ControlType.BUTTON),
 	DOCKING_MODE_BUTTON(Constants.kDockingModeButtonId, Controller.DRIVER, ControlType.BUTTON),
+	VISION_BUTTON(Constants.kVisionButton, Controller.DRIVER, ControlType.BUTTON),
 
 	LA_OUT_DPAD(Constants.kLAOutDpadId, Controller.MANIPULATOR, ControlType.DPAD),
 	LA_IN_DPAD(Constants.kLAInDpadId, Controller.MANIPULATOR, ControlType.DPAD),

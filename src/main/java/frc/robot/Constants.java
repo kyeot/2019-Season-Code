@@ -24,7 +24,7 @@ public class Constants {
 	public static final double kTooFast = 0.5; //max output for pid before it stops
 	
 	public static final double kCameraFrameRate = 30;
-	public static final double kTargetMaxAge = 0.4; //seconds, time it smooths over
+	public static final double kTargetMaxAge = 0.6; //seconds, time it smooths over
 	
 	public static final double kCameraXOffset = 1.75;
 	public static final double kCameraYOffset = -10.5;
@@ -50,6 +50,7 @@ public class Constants {
 	public static final int kSprintButtonId = 9;	public static final int kCenterGyroButtonId = 4;
 	public static final int kZeroModulesButtonId = 3;
 	public static final int kDockingModeButtonId = 6;
+	public static final int kVisionButton = 1;
 
 	public static final double halfSpeedSpeed = 0.7;
 	public static final double normalSpeedSpeed = 0.5;

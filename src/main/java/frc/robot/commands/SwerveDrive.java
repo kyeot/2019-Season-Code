@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.loops.VisionProcessor;
 import frc.robot.Constants;
 import frc.robot.Controls;
+import frc.robot.FieldTransform;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveController;
@@ -66,16 +68,19 @@ public class SwerveDrive extends Command {
     		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetOffset, 0);
 		}
 		
-		if(OI.driver.getPOV() != -1){
-			swerveController.setPose(new Bearing(OI.driver.getPOV()));
-		}
-		else{
-			if(Controls.getButton(Controls.DOCKING_MODE_BUTTON)) {
-				fbValue = -fbValue;
-			}
-			swerveController.slide(fbValue, rlValue);
+		if(Controls.getButton(Controls.VISION_BUTTON)) {
+			swerveController.setPose(FieldTransform.getInstance().targetHistory.getSmoothTarget().dir());
+		} else {
 			swerveController.rotate(-rotValue);
 		}
+
+
+		if(Controls.getButton(Controls.DOCKING_MODE_BUTTON)) {
+			fbValue = -fbValue;
+		}
+		
+		swerveController.slide(fbValue, rlValue);
+		
 		//goes into docking mode
     	if(Controls.getButton(Controls.DOCKING_MODE_BUTTON)) {
 			System.out.println("Docking Mode");
