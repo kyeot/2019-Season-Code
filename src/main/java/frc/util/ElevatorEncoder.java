@@ -7,7 +7,6 @@
 
 package frc.util;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.loops.EncoderCounter;

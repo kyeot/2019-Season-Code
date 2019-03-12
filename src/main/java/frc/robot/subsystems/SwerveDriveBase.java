@@ -1,21 +1,18 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.SwerveDrive;
-import frc.util.NavSensor;
-import frc.robot.Constants;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
+import frc.robot.commands.SwerveDrive;
+import frc.util.NavSensor;
 
 /**
  * Subsystem used to control the Swerve Drive
