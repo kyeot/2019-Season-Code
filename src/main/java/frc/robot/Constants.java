@@ -6,8 +6,10 @@ package frc.robot;
  *
  */
 public class Constants {
-	
-	public static final double kPeriod = 0.01;
+
+	/*
+		PID's
+	*/
 	
 	public static final double kSwerveRotP = 0.0015;
 	public static final double kSwerveRotI = 0.00; 
@@ -20,20 +22,6 @@ public class Constants {
 	public static final double kElevateP = 0.01;
 	public static final double kElevateI = 0.0;
 	public static final double kElevateD = 0.0;
-
-	public static final double kTooFast = 0.5; //max output for pid before it stops
-	
-	public static final double kCameraFrameRate = 30;
-	public static final double kTargetMaxAge = 0.4; //seconds, time it smooths over
-	
-	public static final double kCameraXOffset = 2.375;
-	public static final double kCameraYOffset = -9.5;
-	public static final double kCameraZOffset = 28;
-	public static final double kCameraPitchOffset = 0;
-	public static final double kCameraRollOffset = 0.0;
-	public static final double kCameraYawOffset = 0.0;
-	
-	public static final double kGoalHeight = 27.75;
 	
 	/* 
 		CONTROLLER ID'S
@@ -47,7 +35,8 @@ public class Constants {
 	public static final int kRLAxisId = 0;
 	public static final int kRotAxisId = 4;
 	public static final int kHalfSpeedButtonId = 5;
-	public static final int kSprintButtonId = 9;	public static final int kCenterGyroButtonId = 4;
+	public static final int kSprintButtonId = 9;	
+	public static final int kCenterGyroButtonId = 4;
 	public static final int kZeroModulesButtonId = 3;
 	public static final int kDockingModeButtonId = 6;
 
@@ -65,10 +54,14 @@ public class Constants {
 	public static final int kIntakeInButtonId = 7;
 	public static final int kIntakeOutButtonId = 8;
 	public static final int kServoReleaseButtonId = 3;
-	public static final int kLAOutDpadId = 0;
-	public static final int kLAInDpadId = 180;
+	public static final int kLAFrontOutDpadId = 0;
+	public static final int kLAFrontInDpadId = 180;
+	public static final int kLABackOutButtonId = 4;
+	public static final int kLABackInButtonId = 1;
 	public static final int kLADriveForwardButtonId = 5;
 	public static final int kLADriveBackwardButtonId = 6;
+
+	public static final double kElevatorDownSpeed = 0.8; 
 
 
 	/*
@@ -104,10 +97,10 @@ public class Constants {
 	public static final double kRearRightAngleOffset = 136;
 
 	// Competition
-	//public static final double kFrontLeftAngleOffset = 360 - ;
-	//public static final double kFrontRightAngleOffset = 360 - ;
-	//public static final double kRearLeftAngleOffset = 360 - ;
-	//public static final double kRearRightAngleOffset = 360 - ;
+	//public static final double kFrontLeftAngleOffset = ;
+	//public static final double kFrontRightAngleOffset = ;
+	//public static final double kRearLeftAngleOffset = ;
+	//public static final double kRearRightAngleOffset = ;
 
 	
 	/*
@@ -120,13 +113,26 @@ public class Constants {
 	public static final int kRearRightAbsoluteEncoder = 2;
 
 	/*
+		VISION
+	*/
+
+	public static final double kCameraXOffset = 0.0;
+	public static final double kCameraYOffset = 0.0;
+	public static final double kCameraZOffset = 0.0;
+
+	public static final double kCameraPitchOffset = 0.0;
+	public static final double kCameraYawOffset = 0.0;
+
+	public static final double kGoalHeight = 0.0;
+
+	/*
 		MISC
 	*/
 
 	public static final double kLoopPeriod = 0.01;                   // Amount of time(s) the loop notifier runs in
 	public static final double kActionPeriod = 0.01;                 // Amount of time(s) the action notifier runs in;
 
-	public static final double kRobotFront = 180;                      // Angle Offset to Front of Robot from NavX
+	public static final double kRobotFront = 180;                    // Angle Offset to Front of Robot from NavX
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 
@@ -134,11 +140,11 @@ public class Constants {
 
 	public static final double kAnalogInputToDegreeRatio = 4096/360; // Amount of degrees per tick of an absolute encoder
 
-	public static final double kGyroMaxAge = 0.6;                    // Length(s) of angle history stored in NavSensor
+	public static final double kGyroMaxAge = 0.6;                    // Length(s) of angle history stored in NavSensor            
 
-	public static final double kElevatorDownSpeed = 0.8;
+	public static final double kSwerveRampRate = 0.0;                // Sets the open-loop ramp rate for swerve drive in seconds
 
-	public static final double kSwerveRampRate = 0.1;
-
-	public static final double kEventDelay = 3;
+	public static final double kEventDelay = 3;                      // Time(s) the event logger will wait before logging the same message
+	
+	public static final double kTooFast = 0.5;                       // Max output for pose pid before it stops
 }
