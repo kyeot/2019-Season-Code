@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
-import frc.robot.*;
-
 import edu.wpi.first.wpilibj.command.Command;
-import frc.autonomous.ActionScheduler;
-import frc.autonomous.actiongroups.*;
+import frc.robot.Controls;
+import frc.robot.Robot;
 
 /**
  * @purpose Command class for Intake
@@ -15,6 +13,7 @@ public class Intake extends Command {
 
 		public static double speed;
 
+		boolean xPressedLast = false;
 
 		public Intake() {
 			//Sets the required Subsystem
@@ -35,15 +34,14 @@ public class Intake extends Command {
 			speed = 0;
 			
 			speed = Controls.getButton(Controls.IntakeAxis, 0.3) ? Controls.getAxis(Controls.IntakeAxis, 0.3) : Controls.getAxis(Controls.IntakeInButton) - Controls.getAxis(Controls.IntakeOutButton);
-
-			if(Controls.getButton(Controls.ServoRelease)) {
-				ActionScheduler.getInstance().setGroup(new ServoGroup());
-				ActionScheduler.getInstance().start();
-			}
 			
-			if(!ActionScheduler.getInstance().isActive()){
-				Robot.intakeBase.intake(speed);
+			Robot.intakeBase.intake(speed);
+
+			boolean servoReleaseButton = Controls.getButton(Controls.ServoRelease);
+			if(servoReleaseButton && !xPressedLast) {
+				Robot.intakeBase.toggleLatch();
 			}
+			xPressedLast = servoReleaseButton;
 							
 		}
 
