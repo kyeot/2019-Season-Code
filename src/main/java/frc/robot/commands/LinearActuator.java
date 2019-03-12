@@ -33,7 +33,7 @@ public class LinearActuator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-		frontLiftSpeed = Controls.getAxis(Controls.LA_OUT_DPAD) - Controls.getAxis(Controls.LA_IN_DPAD);
+		frontLiftSpeed = Controls.getAxis(Controls.LaOutDpad) - Controls.getAxis(Controls.LaInDpad);
 			
 		/*if(OI.manipulator.getPOV() == 0){
 			frontLiftSpeed = -1;
@@ -55,10 +55,10 @@ public class LinearActuator extends Command {
 			backLiftSpeed = 0;
 		}
 
-		if(Controls.getButton(Controls.LA_DRIVE_FORWARD_BUTTON)){
+		if(Controls.getButton(Controls.LaDriveForwardButton)){
 			driveSpeed = 1;
 		}
-		else if(Controls.getButton(Controls.LA_DRIVE_BACKWARD_BUTTON)){
+		else if(Controls.getButton(Controls.laDriveBackwardButton)){
 			driveSpeed = -1;
 		}
 		else{
@@ -66,7 +66,7 @@ public class LinearActuator extends Command {
 		}
 
 		//climbs when button is pressed
-		if (Controls.getButton(Controls.LA_AUTO_BUTTON)) {
+		if (Controls.getButton(Controls.LaAutoButton)) {
 			ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
 			ActionScheduler.getInstance().start();
 		}

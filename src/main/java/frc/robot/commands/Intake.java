@@ -34,9 +34,9 @@ public class Intake extends Command {
 
 			speed = 0;
 			
-			speed = Controls.getButton(Controls.INTAKE_AXIS, 0.3) ? Controls.getAxis(Controls.INTAKE_AXIS, 0.3) : Controls.getAxis(Controls.INTAKE_IN_BUTTON) - Controls.getAxis(Controls.INTAKE_OUT_BUTTON);
+			speed = Controls.getButton(Controls.IntakeAxis, 0.3) ? Controls.getAxis(Controls.IntakeAxis, 0.3) : Controls.getAxis(Controls.IntakeInButton) - Controls.getAxis(Controls.IntakeOutButton);
 
-			if(Controls.getButton(Controls.SERVO_RELEASE)) {
+			if(Controls.getButton(Controls.ServoRelease)) {
 				ActionScheduler.getInstance().setGroup(new ServoGroup());
 				ActionScheduler.getInstance().start();
 			}
