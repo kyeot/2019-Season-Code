@@ -33,37 +33,9 @@ public class LinearActuator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-		frontLiftSpeed = Controls.getAxis(Controls.LaOutDpad) - Controls.getAxis(Controls.LaInDpad);
-			
-		/*if(OI.manipulator.getPOV() == 0){
-			frontLiftSpeed = -1;
-		}
-		else if(OI.manipulator.getPOV() == 180){
-			frontLiftSpeed = 1;
-		}
-		else{
-			frontLiftSpeed = 0;
-		}*/
-		
-		if(OI.manipulator.getRawButton(1)){
-			backLiftSpeed = -1;
-		}
-		else if(OI.manipulator.getRawButton(4)){
-			backLiftSpeed = 1;
-		}
-		else{
-			backLiftSpeed = 0;
-		}
-
-		if(Controls.getButton(Controls.LaDriveForwardButton)){
-			driveSpeed = 1;
-		}
-		else if(Controls.getButton(Controls.laDriveBackwardButton)){
-			driveSpeed = -1;
-		}
-		else{
-			driveSpeed = 0;
-		}
+		frontLiftSpeed = Controls.getAxis(Controls.LaFrontOutDpad) - Controls.getAxis(Controls.LaFrontInDpad);
+		backLiftSpeed = Controls.getAxis(Controls.LaBackOutDpad) - Controls.getAxis(Controls.LaBackInDpad);
+		driveSpeed = Controls.getAxis(Controls.LaDriveForwardButton) - Controls.getAxis(Controls.LaDriveBackwardButton);
 
 		Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
 	}
