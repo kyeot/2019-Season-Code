@@ -65,14 +65,7 @@ public class LinearActuator extends Command {
 			driveSpeed = 0;
 		}
 
-		//climbs when button is pressed
-		if (Controls.getButton(Controls.LaAutoButton)) {
-			ActionScheduler.getInstance().setGroup(new LinearActuatorGroup());
-			ActionScheduler.getInstance().start();
-		}
-		else if(!ActionScheduler.getInstance().isActive()){
-				Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
-		}
+		Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
 	}
 
 	//liam code bad
