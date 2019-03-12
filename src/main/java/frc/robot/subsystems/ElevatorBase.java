@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator;
 import frc.util.ElevatorEncoder;
@@ -58,8 +57,6 @@ public class ElevatorBase extends Subsystem {
 		if(!elevatorTopSwitch.get() && speed > 0.1){
 			speed = 0;
 		}
-		
-		SmartDashboard.putString("DB/String 6", "" + elevatorTopSwitch.get());
 
 		if(!pidCont.isEnabled()){
 			elevator.set(ControlMode.PercentOutput, -speed);

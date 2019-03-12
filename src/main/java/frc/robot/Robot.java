@@ -84,10 +84,10 @@ public class Robot extends TimedRobot {
 
 		
 		//Prints for the Absolute Encoder Angles, Use to calculate offsets
-		SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle()); 
-		SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
-		SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
-		SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
+		//SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle()); 
+		//SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
+		//SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
+		//SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
 
 	}
 
