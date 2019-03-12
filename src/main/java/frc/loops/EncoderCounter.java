@@ -10,6 +10,7 @@ package frc.loops;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.util.Logger;
 
 /**
  * Add your docs here.
@@ -42,20 +43,11 @@ public class EncoderCounter implements Loop{
 
 	@Override
 	public void onLoop() {
-		startAngle = getValueFromEdge();
-
-		if((startAngle < 100 && up) && (lastAngle < 100 && !up)){
-			revolutions++;
-		}
-		else if((startAngle < 100 && !up) && (lastAngle < 100 && up)){
-			revolutions--;
-		}
-
-		angle = startAngle + (revolutions*Constants.kElevatorEncRange);
-
-		lastAngle = startAngle;
+		getAngle();
 
 		System.out.println(getAngle());
+
+		Logger.info("" + enc.getAverageValue());
 	}
 
 	public double getValueFromEdge(){
@@ -86,6 +78,22 @@ public class EncoderCounter implements Loop{
 	}
 	
 	public static double getAngle(){
+
+		startAngle = getRawAngle() -155;
+
+		System.out.println(enc.getValue());
+
+		if((startAngle > 0 && startAngle < 100) && (lastAngle > 595 && lastAngle < 695)){
+			revolutions++;
+		}
+		else if((startAngle > 595 && startAngle < 695) && (lastAngle > 0 && lastAngle < 100)){
+			revolutions--;
+		}
+
+		angle = startAngle + (revolutions*695);
+
+		lastAngle = startAngle;
+		
 		return angle;
 	}
 
