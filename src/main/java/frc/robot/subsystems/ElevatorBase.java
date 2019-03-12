@@ -1,18 +1,14 @@
 package frc.robot.subsystems;
 
 import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.loops.EncoderCounter;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator;
 import frc.util.ElevatorEncoder;
@@ -64,9 +60,6 @@ public class ElevatorBase extends Subsystem {
 		}
 		
 		SmartDashboard.putString("DB/String 6", "" + elevatorTopSwitch.get());
-		SmartDashboard.putString("DB/String 8", "raw: " + EncoderCounter.getInstance().enc.getValue());
-		SmartDashboard.putString("DB/String 7", "revos: " + EncoderCounter.getInstance().revolutions);
-		SmartDashboard.putString("DB/String 9", "final: " + EncoderCounter.getInstance().angle);
 
 		if(!pidCont.isEnabled()){
 			elevator.set(ControlMode.PercentOutput, -speed);

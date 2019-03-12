@@ -9,11 +9,8 @@ package frc.robot;
 
 import java.io.File;
 import java.io.IOException;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,7 +27,6 @@ import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
-import frc.util.ElevatorEncoder;
 import frc.util.Logger;
 import frc.util.NavSensor;
 

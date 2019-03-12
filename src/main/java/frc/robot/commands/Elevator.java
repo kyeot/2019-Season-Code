@@ -1,11 +1,10 @@
 package frc.robot.commands;
 
-import frc.robot.*;
-import frc.util.ElevatorEncoder;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.autonomous.ActionScheduler;
-import frc.autonomous.actiongroups.*;
-import frc.loops.EncoderCounter;
+import frc.robot.Constants;
+import frc.robot.Controls;
+import frc.robot.Robot;
 
 /**
  * @purpose Command class for Elevator
