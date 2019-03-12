@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.ActionGroup;
 import frc.autonomous.ActionScheduler;
 import frc.autonomous.actiongroups.TestGroup;
-import frc.loops.EncoderCounter;
 import frc.loops.LogData;
 import frc.loops.Looper;
 import frc.robot.subsystems.ElevatorBase;
@@ -41,7 +40,6 @@ public class Robot extends TimedRobot {
 
 	public Looper looper = new Looper(Constants.kLoopPeriod);
 	private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
-	public EncoderCounter encoderCounter = EncoderCounter.getInstance();
 	public LogData logData = new LogData();
 
 	Command m_autonomousCommand;
@@ -53,7 +51,7 @@ public class Robot extends TimedRobot {
 
 
 		//looper.addLoop(visionProcessor);
-		looper.addLoop(encoderCounter);
+		//looper.addLoop(encoderCounter);
 		looper.addLoop(logData);
 		looper.startLoops();
 
@@ -123,10 +121,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-
-		EncoderCounter.zero();
-
-		
 	}
 
 	@Override

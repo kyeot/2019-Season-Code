@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.autonomous.ActionScheduler;
 import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.Robot;
