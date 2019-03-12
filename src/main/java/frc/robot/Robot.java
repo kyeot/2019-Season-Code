@@ -22,7 +22,6 @@ import frc.autonomous.actiongroups.TestGroup;
 import frc.loops.EncoderCounter;
 import frc.loops.LogData;
 import frc.loops.Looper;
-import frc.loops.VisionProcessor;
 import frc.robot.subsystems.ElevatorBase;
 import frc.robot.subsystems.IntakeBase;
 import frc.robot.subsystems.LinearActuatorBase;
@@ -42,7 +41,6 @@ public class Robot extends TimedRobot {
 
 	public Looper looper = new Looper(Constants.kLoopPeriod);
 	private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
-	public VisionProcessor visionProcessor = VisionProcessor.getInstance();
 	public EncoderCounter encoderCounter = EncoderCounter.getInstance();
 	public LogData logData = new LogData();
 
@@ -54,7 +52,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 
 
-		looper.addLoop(visionProcessor);
+		//looper.addLoop(visionProcessor);
 		looper.addLoop(encoderCounter);
 		looper.addLoop(logData);
 		looper.startLoops();

@@ -4,9 +4,6 @@ import frc.util.Bearing;
 import frc.util.NavSensor;
 import frc.util.Timestamp;
 import frc.util.Transform;
-import frc.util.Vector;
-import frc.vision.TargetInfo;
-import frc.vision.TargetTracker;
 
 /**
  * Singleton class used to get useful Transformations of things tracked on the field,
@@ -22,11 +19,8 @@ public class FieldTransform {
 	}
 	
 	NavSensor gyro = NavSensor.getInstance();
-	
-	TargetInfo target;
+
 	double targetsTimestamp;
-	
-	public TargetTracker targetHistory;
 	
 	Transform cameraToRobot;
 	Bearing camYaw;
@@ -42,55 +36,15 @@ public class FieldTransform {
 		camYaw = new Bearing(Constants.kCameraYawOffset);
 		camHeight = Constants.kCameraZOffset;
 		camToGoal = Constants.kGoalHeight - camHeight;
-		targetHistory = new TargetTracker();
 	}
 	
 	public Transform getRobotPose(Timestamp t) {
-		Bearing foo = gyro.getAngleAtTime(t);
-		return new Transform(0.0,0.0,foo.getTheta());
+		return new Transform(0.0,0.0,gyro.getAngleAtTime(t).getTheta());
 	}
 	
 	public Transform getFieldToCamera(Timestamp t) {
 		return getRobotPose(t).transform(new Transform(cameraToRobot.getTranslation().rotateBy(getRobotPose(t).getRotation()), cameraToRobot.getRotation()));
 		
-	}
-	
-	/**
-	 * Updates the target history stored 
-	 */
-	public void trackLatestTarget() {
-		TargetInfo t = target;
-		double x = t.getX();
-		double y = t.getY();
-		double z = t.getZ();
-
-		//Rotation matrices (right-handed system)
-		//Pitch (Rx)
-	    double xx = x;
-		double yx = y*camPitch.cos() - z*camPitch.sin();
-		double zx = y*camPitch.sin() + z*camPitch.cos();
-
-		//Yaw (Ry)
-		double xy =  xx*camYaw.cos() - zx*camYaw.sin();
-        double yy =  yx;
-		double zy = -xx*camYaw.sin() + zx*camYaw.cos();
-		 
-		//Right-Handed -> Flat-Field(x is right, y is forward, z is up)
-	    double xf = xy;
-		double yf = zy;
-		double zf = yy;
-		
-		double s = camToGoal / zf;
-		double dist = Math.hypot(xf, yf) * s;
-		Bearing angle = new Bearing(new Vector(xf, yf));
-		Vector targetToCam = new Vector(angle.cos()*dist, angle.sin()*dist);
-
-		Timestamp time = new Timestamp(target.getTime());
-		targetHistory.register(time, getFieldToCamera(time).getTranslation().translate(targetToCam.rotateBy(getFieldToCamera(time).getRotation())));
-	}
-	
-	public void addVisionTarget(TargetInfo target) {
-		this.target = target;
 	}
 
 }
