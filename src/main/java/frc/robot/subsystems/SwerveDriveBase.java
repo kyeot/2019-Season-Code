@@ -74,9 +74,7 @@ public class SwerveDriveBase extends Subsystem {
 		public double pidGet() {
 			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
 
-			if(angle > 360){
-				angle %= 360;
-			}
+			angle %= 360;
 
 			return angle;
 		}

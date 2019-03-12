@@ -36,6 +36,6 @@ public class ActionGroup {
 	
 	public ArrayList<Action> getTandemActions() {
 		return actions2;
-		}
+	}
 		
 }

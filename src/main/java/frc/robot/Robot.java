@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.ActionGroup;
 import frc.autonomous.ActionScheduler;
-import frc.autonomous.actiongroups.TestGroup;
 import frc.loops.LogData;
 import frc.loops.Looper;
 import frc.robot.subsystems.ElevatorBase;
@@ -104,7 +103,6 @@ public class Robot extends TimedRobot {
 
 		switch (autoSelected) {
 		case "Test":
-			setGroup(new TestGroup());
 			break;
 		}
 
