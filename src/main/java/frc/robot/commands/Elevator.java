@@ -32,29 +32,11 @@ public class Elevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-		speed = 0;
-		
 		speed = Controls.getAxis(Controls.ElevatorUpAxis, 0.1) - Controls.getAxis(Controls.ElevatorDownAxis, 0.1)*Constants.kElevatorDownSpeed;
 
-		if (Controls.getButton(Controls.ElevateAndSpitButton) && (!foo)) {
-		//	ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
-		//	ActionScheduler.getInstance().start();
-		//	foo = true; 
-		} 
-		else if(Controls.getButton(Controls.ZeroElevator)){
-		}
-		else if (Controls.getButton(Controls.ElevateAndSpitButton)) {
-		} 
-		else{
-			if(!ActionScheduler.getInstance().isActive()){
-				Robot.elevatorBase.elevator(speed);
-				foo = false;
-			}
-
-		  } 
+		Robot.elevatorBase.elevator(speed);
+	}
 	
-		}
-
 	// Make this return true when this Command no
 	protected boolean isFinished() {
 		return false;
