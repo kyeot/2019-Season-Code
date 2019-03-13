@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.autonomous.ActionScheduler;
+import frc.autonomous.actiongroups.ReleaseHatch;
 import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.Robot;
@@ -12,15 +14,15 @@ import frc.robot.Robot;
  */
 public class Elevator extends Command {
 
-	public static double speed;
-	public boolean foo;
+	double speed;
+	boolean bPressedLast;
 
 	public Elevator() {
 		//Sets the required Subsystem
 		requires(Robot.elevatorBase);
 
 		speed = 0;
-		foo = false;
+		bPressedLast = false;
   
 	}
 
@@ -33,7 +35,14 @@ public class Elevator extends Command {
 		
 		speed = Controls.getAxis(Controls.ElevatorUpAxis, 0.1) - Controls.getAxis(Controls.ElevatorDownAxis, 0.1)*Constants.kElevatorDownSpeed;
 
-		Robot.elevatorBase.elevator(speed);
+		boolean releaseHatchButton = Controls.getButton(Controls.ReleaseHatchButton);
+		if(!ActionScheduler.getInstance().isActive() && releaseHatchButton && !bPressedLast) {
+			ActionScheduler.getInstance().setGroup(new ReleaseHatch());
+			ActionScheduler.getInstance().start();
+		} else {
+			Robot.elevatorBase.elevator(speed);
+		}
+		bPressedLast = releaseHatchButton;
 	}
 	
 	// Make this return true when this Command no

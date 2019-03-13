@@ -19,7 +19,7 @@ public enum Controls {
 	LaBackInDpad(Constants.kLABackInButtonId, Controller.Manipulator, ControlType.Dpad),
 	LaDriveForwardButton(Constants.kLADriveForwardButtonId, Controller.Manipulator, ControlType.Button),
 	LaDriveBackwardButton(Constants.kLADriveBackwardButtonId, Controller.Manipulator, ControlType.Button),
-	LaAutoButton(Constants.kAutoLinearActuatorButtonId, Controller.Manipulator, ControlType.Button),
+	ReleaseHatchButton(Constants.kReleaseHatchButtonId, Controller.Manipulator, ControlType.Button),
 	IntakeInButton(Constants.kIntakeInButtonId, Controller.Manipulator, ControlType.Button),
 	IntakeOutButton(Constants.kIntakeOutButtonId, Controller.Manipulator, ControlType.Button),
 	ElevateAndSpitButton(Constants.kAutoElevateAndSpitButtonId, Controller.Manipulator, ControlType.Button),
