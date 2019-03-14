@@ -63,7 +63,7 @@ public class SwerveDrive extends Command {
     	
 		//If Y is pressed resets the field orientation
     	if(Controls.getButton(Controls.CenterGyroButton)) {
-    		NavSensor.getInstance().resetGyroNorth(180, 0);
+    		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetAngle, 0);
 		}
 		
 		if(OI.driver.getPOV() != -1){

@@ -133,6 +133,8 @@ public class Constants {
 	public static final double kActionPeriod = 0.01;                 // Amount of time(s) the action notifier runs in;
 
 	public static final double kRobotFront = 180;                    // Angle Offset to Front of Robot from NavX
+	public static final double kGyroResetAngle = 0;
+	public static final double kRobotStartAngle = 90;
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 
