@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
 			e.printStackTrace();
 		}
 
-		NavSensor.getInstance().resetGyroNorth(Constants.kRobotFront, 0);
+		NavSensor.getInstance().resetGyroNorth(Constants.kRobotStartAngle, 0);
 
 		Logger.info("Robot Start");
 	}
