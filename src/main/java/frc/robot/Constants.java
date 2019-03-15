@@ -138,7 +138,7 @@ public class Constants {
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 
-	public static final double kServoLatchedAngle = 90;
+	public static final double kServoLatchedAngle = 180;
 	public static final double kServoUnlatchedAngle = 0;
 
 	public static final double kElevatorEncRange = (850-155)/2;
