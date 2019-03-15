@@ -60,7 +60,7 @@ public class SwerveDrive extends Command {
     	if(Controls.getButton(Controls.ZeroModulesButton)) {
 			Robot.swerveBase.setZero();
     	}
-    	
+		
 		//If Y is pressed resets the field orientation
     	if(Controls.getButton(Controls.CenterGyroButton)) {
     		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetAngle, 0);

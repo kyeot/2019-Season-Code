@@ -9,6 +9,7 @@ package frc.robot;
 
 import java.io.File;
 import java.io.IOException;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -71,7 +72,6 @@ public class Robot extends TimedRobot {
 
 		Logger.info("Robot Start");
 	}
-
 	public static void setGroup(ActionGroup group) {
 		actionScheduler.setGroup(group);
 	}

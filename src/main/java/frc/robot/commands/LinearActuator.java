@@ -34,7 +34,7 @@ public class LinearActuator extends Command {
 	protected void execute() {    	
 		
 		frontLiftSpeed = Controls.getAxis(Controls.LaFrontOutDpad) - Controls.getAxis(Controls.LaFrontInDpad);
-		backLiftSpeed = Controls.getAxis(Controls.LaBackOutDpad) - Controls.getAxis(Controls.LaBackInDpad);
+		backLiftSpeed = Controls.getAxis(Controls.LaBackOutButton) - Controls.getAxis(Controls.LaBackInButton);
 		driveSpeed = Controls.getAxis(Controls.LaDriveForwardButton) - Controls.getAxis(Controls.LaDriveBackwardButton);
 
 		Robot.linearActuatorBase.linearActuator(frontLiftSpeed, backLiftSpeed, driveSpeed);
