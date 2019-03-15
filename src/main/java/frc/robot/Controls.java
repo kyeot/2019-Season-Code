@@ -15,8 +15,8 @@ public enum Controls {
 
 	LaFrontOutDpad(Constants.kLAFrontOutDpadId, Controller.Manipulator, ControlType.Dpad),
 	LaFrontInDpad(Constants.kLAFrontInDpadId, Controller.Manipulator, ControlType.Dpad),
-	LaBackOutDpad(Constants.kLABackOutButtonId, Controller.Manipulator, ControlType.Dpad),
-	LaBackInDpad(Constants.kLABackInButtonId, Controller.Manipulator, ControlType.Dpad),
+	LaBackOutButton(Constants.kLABackOutButtonId, Controller.Manipulator, ControlType.Button),
+	LaBackInButton(Constants.kLABackInButtonId, Controller.Manipulator, ControlType.Button),
 	LaDriveForwardButton(Constants.kLADriveForwardButtonId, Controller.Manipulator, ControlType.Button),
 	LaDriveBackwardButton(Constants.kLADriveBackwardButtonId, Controller.Manipulator, ControlType.Button),
 	ReleaseHatchButton(Constants.kReleaseHatchButtonId, Controller.Manipulator, ControlType.Button),
