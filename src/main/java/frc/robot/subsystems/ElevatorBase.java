@@ -46,6 +46,7 @@ public class ElevatorBase extends Subsystem {
 		pidCont = new PIDController(Constants.kElevateP, Constants.kElevateI, Constants.kElevateD, elevatorEnc, pidOut);
 		pidCont.setContinuous(false);
 		pidCont.setInputRange(0, 100000);
+		elevator.configOpenloopRamp(Constants.kElevatorRampRate);
 	}
 	
 	//Method to use Elevator base
