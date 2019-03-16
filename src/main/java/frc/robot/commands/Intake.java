@@ -33,11 +33,11 @@ public class Intake extends Command {
 
 			speed = 0;
 			
-			speed = Controls.getButton(Controls.IntakeAxis, 0.3) ? Controls.getAxis(Controls.IntakeAxis, 0.3) : Controls.getAxis(Controls.IntakeInButton) - Controls.getAxis(Controls.IntakeOutButton);
+			speed = Controls.getAxis(Controls.IntakeAxis, 0.3);
 			
 			Robot.intakeBase.intake(speed);
 
-			boolean servoReleaseButton = Controls.getButton(Controls.ServoRelease);
+			boolean servoReleaseButton = Controls.getButton(Controls.ServoRelease) || Controls.getButton(Controls.ServoRelease2);
 			if(servoReleaseButton && !xPressedLast) {
 				Robot.intakeBase.toggleLatch();
 			}
