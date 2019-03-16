@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.Robot;
 
@@ -33,7 +34,7 @@ public class Intake extends Command {
 
 			speed = 0;
 			
-			speed = Controls.getAxis(Controls.IntakeAxis, 0.3);
+			speed = Controls.getAxis(Controls.IntakeAxis, 0.3) * Constants.kIntakeSpeed;
 			
 			Robot.intakeBase.intake(speed);
 
