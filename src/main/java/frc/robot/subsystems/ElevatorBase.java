@@ -27,6 +27,7 @@ public class ElevatorBase extends Subsystem {
 		elevator = new TalonSRX(Constants.kElevatorId);
 
 		elevator.setNeutralMode(NeutralMode.Brake);
+		elevator.configOpenloopRamp(Constants.kElevatorRampRate);
 	}
 	
 	//Method to use Elevator base
