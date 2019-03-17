@@ -19,22 +19,31 @@ public class IntakeBase extends Subsystem {
 	
 	//Creates Victor object
 	TalonSRX intake;
-	Servo testServo;
+	Servo latchServo;
 
+	boolean latched;
 
 	public IntakeBase(){
 		intake = new TalonSRX(Constants.kIntakeId);
-		testServo = new Servo(Constants.kServoId);
+		latchServo = new Servo(Constants.kServoId);
 
 		intake.setNeutralMode(NeutralMode.Brake);
+
+		latchServo.setAngle(Constants.kServoLatchedAngle);
+		latched = true;
 	}
 
-	public void testServo(double angle) {
-		testServo.setAngle(angle);
+	public void toggleLatch() {
+		if(latched) {
+			latchServo.setAngle(Constants.kServoUnlatchedAngle);
+		} else {
+			latchServo.setAngle(Constants.kServoLatchedAngle);
+		}
+		latched = !latched;
 	}
 
 	public double getServo(){
-		return testServo.getAngle();
+		return latchServo.getAngle();
 	}
 
 	//Method to use Intake base

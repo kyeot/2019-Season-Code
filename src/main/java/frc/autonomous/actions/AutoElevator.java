@@ -5,27 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.autonomous.actiongroups;
+package frc.autonomous.actions;
 
-import java.util.Arrays;
-
-import frc.autonomous.ActionGroup;
-import frc.autonomous.ParallelAction;
-import frc.autonomous.actions.*;
-import frc.autonomous.*;
+import frc.autonomous.Action;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class TestGroup extends ActionGroup{
+public class AutoElevator extends Action {
 
-	public TestGroup(){
-		super();
+    double speed;
 
-		addAction(new AutoDrive(0, 0.5, 0, 3));
-		addAction(new ParallelAction((Arrays.asList(new Action[] {
-			new AutoLA(0.5, 0.5, 0, 3)	
-		}))));;
-	}
+    public AutoElevator(double speed, double time) {
+        super("AutoElevator", time);
+
+        this.speed = speed;
+    }
+
+    @Override
+    public void perform() {
+        Robot.elevatorBase.elevator(speed);
+    }
+
+    @Override
+    public void finish() {
+        Robot.elevatorBase.elevator(0);
+    }
 
 }

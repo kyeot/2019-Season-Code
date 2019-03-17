@@ -49,7 +49,7 @@ public class NavSensor {
     	if(reversed) {
     		return 360 - (navSensor.getAngle()+Constants.kRobotFront + offset)%360; //deals with negative angles, java 8 simply keeps the sign when modulating negative values.
     	} else {
-    		return (navSensor.getAngle()+offset)%360;
+    		return (navSensor.getAngle()+Constants.kRobotFront+offset)%360;
     	}
     }
 	

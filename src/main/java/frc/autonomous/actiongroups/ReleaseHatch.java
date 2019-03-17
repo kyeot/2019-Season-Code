@@ -8,20 +8,18 @@
 package frc.autonomous.actiongroups;
 
 import frc.autonomous.ActionGroup;
-import frc.autonomous.actions.*;
+import frc.autonomous.actions.AutoElevator;
 
 /**
  * Add your docs here.
  */
-public class ElevateAndSpitGroup extends ActionGroup {
+public class ReleaseHatch extends ActionGroup {
+    
+    public ReleaseHatch() {
+        super();
 
-	public ElevateAndSpitGroup(){
-		super();
-	
-		addAction(new AutoSpit(-.9, 1));
-
-	
-	}
-
+        addAction(new AutoElevator(-0.4, 0.13));
+    }
 
 }
+

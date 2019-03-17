@@ -4,32 +4,36 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public enum Controls {
 
-	FB_AXIS(Constants.kFBAxisId, Controller.DRIVER, ControlType.AXIS),
-	RL_AXIS(Constants.kRLAxisId, Controller.DRIVER, ControlType.AXIS),
-	ROT_AXIS(Constants.kRotAxisId, Controller.DRIVER, ControlType.AXIS),
-	HALF_SPEED_BUTTON(Constants.kHalfSpeedButtonId, Controller.DRIVER, ControlType.BUTTON),
-	SPRINT_BUTTON(Constants.kSprintButtonId, Controller.DRIVER, ControlType.BUTTON),
-	CENTER_GYRO_BUTTON(Constants.kCenterGyroButtonId, Controller.DRIVER, ControlType.BUTTON),
-	ZERO_MODULES_BUTTON(Constants.kZeroModulesButtonId, Controller.DRIVER, ControlType.BUTTON),
-	DOCKING_MODE_BUTTON(Constants.kDockingModeButtonId, Controller.DRIVER, ControlType.BUTTON),
-	VISION_BUTTON(Constants.kVisionButton, Controller.DRIVER, ControlType.BUTTON),
+	FbAxis(Constants.kFBAxisId, Controller.Driver, ControlType.Axis),
+	RlAxis(Constants.kRLAxisId, Controller.Driver, ControlType.Axis),
+	RotAxis(Constants.kRotAxisId, Controller.Driver, ControlType.Axis),
+	HalfSpeedButton(Constants.kHalfSpeedButtonId, Controller.Driver, ControlType.Button),
+	SprintButton(Constants.kSprintButtonId, Controller.Driver, ControlType.Button),
+	CenterGyroButton(Constants.kCenterGyroButtonId, Controller.Driver, ControlType.Button),
+	ZeroModulesButton(Constants.kZeroModulesButtonId, Controller.Driver, ControlType.Button),
+	DockingModeButton(Constants.kDockingModeButtonId, Controller.Driver, ControlType.Button),
+	VisionButton(Constants.kVisionButtonId, Controller.Driver, ControlType.Button),
 
-	LA_OUT_DPAD(Constants.kLAOutDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_IN_DPAD(Constants.kLAInDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_DRIVE_FORWARD_DPAD(Constants.kLADriveForwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_DRIVE_BACKWARD_DPAD(Constants.kLADriveBackwardDpadId, Controller.MANIPULATOR, ControlType.DPAD),
-	LA_AUTO_BUTTON(Constants.kAutoLinearActuatorButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	INTAKE_IN_BUTTON(Constants.kIntakeInButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	INTAKE_OUT_BUTTON(Constants.kIntakeOutButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	ELEVATE_AND_SPIT_BUTTON(Constants.kAutoElevateAndSpitButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	ELEVATOR_UP_AXIS(Constants.kElevatorUpAxisId, Controller.MANIPULATOR, ControlType.AXIS),
-	ELEVATOR_DOWN_AXIS(Constants.kElevatorDownAxisId, Controller.MANIPULATOR, ControlType.AXIS),
-	SERVO_RELEASE(Constants.kServoReleaseButtonId, Controller.MANIPULATOR, ControlType.BUTTON),
-	INTAKE_AXIS(Constants.kIntakeAxisId, Controller.MANIPULATOR, ControlType.AXIS);
+	LaFrontOutDpad(Constants.kLAFrontOutDpadId, Controller.Manipulator, ControlType.Dpad),
+	LaFrontInDpad(Constants.kLAFrontInDpadId, Controller.Manipulator, ControlType.Dpad),
+	LaBackOutButton(Constants.kLABackOutButtonId, Controller.Manipulator, ControlType.Button),
+	LaBackInButton(Constants.kLABackInButtonId, Controller.Manipulator, ControlType.Button),
+	LaDriveForwardButton(Constants.kLADriveForwardButtonId, Controller.Manipulator, ControlType.Button),
+	LaDriveBackwardButton(Constants.kLADriveBackwardButtonId, Controller.Manipulator, ControlType.Button),
+	ReleaseHatchButton(Constants.kReleaseHatchButtonId, Controller.Manipulator, ControlType.Button),
+	IntakeInButton(Constants.kIntakeInButtonId, Controller.Manipulator, ControlType.Button),
+	IntakeOutButton(Constants.kIntakeOutButtonId, Controller.Manipulator, ControlType.Button),
+	ElevateAndSpitButton(Constants.kAutoElevateAndSpitButtonId, Controller.Manipulator, ControlType.Button),
+	ElevatorUpAxis(Constants.kElevatorUpAxisId, Controller.Manipulator, ControlType.Axis),
+	ElevatorDownAxis(Constants.kElevatorDownAxisId, Controller.Manipulator, ControlType.Axis),
+	ServoRelease(Constants.kServoReleaseButtonId, Controller.Manipulator, ControlType.Button),
+	ServoRelease2(Constants.kServoRelease2ButtonId, Controller.Manipulator, ControlType.Button),
+	IntakeAxis(Constants.kIntakeAxisId, Controller.Manipulator, ControlType.Axis),
+	ZeroElevator(Constants.kZeroElevatorButtonId, Controller.Manipulator, ControlType.Button);
 	
 	public enum Controller {
-		DRIVER(OI.driver),
-		MANIPULATOR(OI.manipulator);
+		Driver(OI.driver),
+		Manipulator(OI.manipulator);
 
 		Joystick joystick;
 		
@@ -43,9 +47,9 @@ public enum Controls {
 	}
 
 	public enum ControlType {
-		BUTTON,
-		AXIS,
-		DPAD;
+		Button,
+		Axis,
+		Dpad;
 	}
 
 	int id;
@@ -76,11 +80,11 @@ public enum Controls {
 	}
 
 	public static boolean getButton(Controls control, double deadband) {
-		if(control.getType() == ControlType.BUTTON) {
+		if(control.getType() == ControlType.Button) {
 			return control.getController().getJoystick().getRawButton(control.getId());
-		} else if(control.getType() == ControlType.DPAD) {
+		} else if(control.getType() == ControlType.Dpad) {
 			return control.getController().getJoystick().getPOV() == control.getId();
-		} else if(control.getType() == ControlType.AXIS) {
+		} else if(control.getType() == ControlType.Axis) {
 			return Math.abs(control.getController().getJoystick().getRawAxis(control.getId())) > deadband;
 		}
 		return false;
@@ -91,11 +95,11 @@ public enum Controls {
 	}
 
 	public static double getAxis(Controls control, double deadband) {
-		if(control.getType() == ControlType.BUTTON) {
+		if(control.getType() == ControlType.Button) {
 			return control.getController().getJoystick().getRawButton(control.getId()) ? 1.0 : 0.0;
-		} else if(control.getType() == ControlType.DPAD) {
+		} else if(control.getType() == ControlType.Dpad) {
 			return control.getController().getJoystick().getPOV() == control.getId() ? 1.0 : 0.0;
-		} else if(control.getType() == ControlType.AXIS) {
+		} else if(control.getType() == ControlType.Axis) {
 			return Math.abs(control.getController().getJoystick().getRawAxis(control.getId())) > deadband ? control.getController().getJoystick().getRawAxis(control.getId()) : 0.0;
 		}
 		return 0.0;

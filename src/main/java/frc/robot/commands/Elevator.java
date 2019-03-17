@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
-import frc.robot.*;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.autonomous.ActionScheduler;
-import frc.autonomous.actiongroups.*;
+import frc.autonomous.actiongroups.ReleaseHatch;
+import frc.robot.Constants;
+import frc.robot.Controls;
+import frc.robot.Robot;
 
 /**
  * @purpose Command class for Elevator
@@ -13,15 +14,15 @@ import frc.autonomous.actiongroups.*;
  */
 public class Elevator extends Command {
 
-	public static double speed;
-	public boolean foo;
+	double speed;
+	boolean bPressedLast;
 
 	public Elevator() {
 		//Sets the required Subsystem
 		requires(Robot.elevatorBase);
 
 		speed = 0;
-		foo = false;
+		bPressedLast = false;
   
 	}
 
@@ -32,27 +33,18 @@ public class Elevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {    	
 		
-		speed = 0;
-		
-		speed = Controls.getAxis(Controls.ELEVATOR_UP_AXIS, 0.1) - Controls.getAxis(Controls.ELEVATOR_DOWN_AXIS, 0.1)*Constants.kElevatorDownSpeed;
+		speed = Controls.getAxis(Controls.ElevatorUpAxis, 0.1) - Controls.getAxis(Controls.ElevatorDownAxis, 0.1)*Constants.kElevatorDownSpeed;
 
-		if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON) && (!foo)) {
-			ActionScheduler.getInstance().setGroup(new ElevateAndSpitGroup());
+		boolean releaseHatchButton = Controls.getButton(Controls.ReleaseHatchButton);
+		if(!ActionScheduler.getInstance().isActive() && releaseHatchButton && !bPressedLast) {
+			ActionScheduler.getInstance().setGroup(new ReleaseHatch());
 			ActionScheduler.getInstance().start();
-			foo = true; 
-		} else if (Controls.getButton(Controls.ELEVATE_AND_SPIT_BUTTON)) {
-			foo = true;
-		} else{
-			if(!ActionScheduler.getInstance().isActive()){
-				Robot.elevatorBase.elevator(speed);
-				foo = false;
-			}
-
-		  } 
-	
-	
+		} else {
+			Robot.elevatorBase.elevator(speed);
 		}
-
+		bPressedLast = releaseHatchButton;
+	}
+	
 	// Make this return true when this Command no
 	protected boolean isFinished() {
 		return false;

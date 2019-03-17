@@ -1,15 +1,14 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved. */
+/* Open Source Software - may be modified and shared by FRC teams. The code */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
+/* the project. */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
 
 import java.io.File;
 import java.io.IOException;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.ActionGroup;
 import frc.autonomous.ActionScheduler;
-import frc.autonomous.actiongroups.TestGroup;
 import frc.loops.Looper;
 import frc.loops.VisionProcessor;
 import frc.robot.subsystems.ElevatorBase;
@@ -67,11 +65,10 @@ public class Robot extends TimedRobot {
 			e.printStackTrace();
 		}
 
-		NavSensor.getInstance().resetGyroNorth(Constants.kGyroResetOffset, 0);
+		NavSensor.getInstance().resetGyroNorth(Constants.kRobotStartAngle, 0);
 
-		elevatorBase.elevatorEnc.reset();
+		Logger.info("Robot Start");
 	}
-
 	public static void setGroup(ActionGroup group) {
 		actionScheduler.setGroup(group);
 	}
@@ -79,15 +76,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 
-		/*
-		 * Prints for the Absolute Encoder Angles, Use to calculate offsets
-		 * SmartDashboard.putString("DB/String 0", "fl: " +
-		 * swerveBase.flMod.getAngle()); SmartDashboard.putString("DB/String 1", "fr: "
-		 * + swerveBase.frMod.getAngle()); SmartDashboard.putString("DB/String 2",
-		 * "rl: " + swerveBase.rlMod.getAngle());
-		 * SmartDashboard.putString("DB/String 3", "rr: " +
-		 * swerveBase.rrMod.getAngle());
-		 */
+		
+		//Prints for the Absolute Encoder Angles, Use to calculate offsets
+		//SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle()); 
+		//SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
+		//SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
+		//SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
+
 	}
 
 	@Override
@@ -107,7 +102,6 @@ public class Robot extends TimedRobot {
 
 		switch (autoSelected) {
 		case "Test":
-			setGroup(new TestGroup());
 			break;
 		}
 

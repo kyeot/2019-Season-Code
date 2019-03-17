@@ -49,12 +49,21 @@ public class LinearActuatorBase extends Subsystem {
 	// Method to use Linear Actuator base
 	public void linearActuator(double liftFrontSpeed, double liftBackSpeed, double driveSpeed) {
 		//if (!frontDigitalInputBot.get() && liftFrontSpeed < -0.1) {
-			front.set(ControlMode.PercentOutput, liftFrontSpeed * 0.5);
+			front.set(ControlMode.PercentOutput, liftFrontSpeed);
 		//} else if (!frontDigitalInputTop.get() && liftFrontSpeed > 0.1) {
 		//	front.set(ControlMode.PercentOutput, liftFrontSpeed * 0.5);
 		//} else {
 		//	front.set(ControlMode.PercentOutput, 0);
 		//}
+
+		/*if (liftFrontSpeed < -0.1) {
+			front.set(ControlMode.PercentOutput, liftBackSpeed);
+		} else if (liftFrontSpeed > 0.1) {
+			front.set(ControlMode.PercentOutput, liftBackSpeed);
+		}
+		else{
+			front.set(ControlMode.PercentOutput, 0);
+		}*/
 
 		/* Prints for the Linear Actuator Limit Switches
 		SmartDashboard.putString("DB/String 5", "FRONT BOT: " + frontDigitalInputBot.get());
@@ -64,9 +73,9 @@ public class LinearActuatorBase extends Subsystem {
 		*/
 
 		if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
-			back.set(ControlMode.PercentOutput, liftBackSpeed * 0.5);
+			back.set(ControlMode.PercentOutput, liftBackSpeed);
 		} else if (!backDigitalInputTop.get() && liftBackSpeed > 0.1) {
-			back.set(ControlMode.PercentOutput, liftBackSpeed * 0.5);
+			back.set(ControlMode.PercentOutput, liftBackSpeed);
 		}
 		else{
 			back.set(ControlMode.PercentOutput, 0);
