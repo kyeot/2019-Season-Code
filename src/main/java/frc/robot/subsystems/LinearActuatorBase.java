@@ -72,14 +72,14 @@ public class LinearActuatorBase extends Subsystem {
 		SmartDashboard.putString("DB/String 8", "BACK TOP: " + backDigitalInputTop.get());
 		*/
 
-		if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
+		//if (!backDigitalInputBot.get() && liftBackSpeed < -0.1) {
 			back.set(ControlMode.PercentOutput, liftBackSpeed);
-		} else if (!backDigitalInputTop.get() && liftBackSpeed > 0.1) {
+		/*} else if (!backDigitalInputTop.get() && liftBackSpeed > 0.1) {
 			back.set(ControlMode.PercentOutput, liftBackSpeed);
 		}
 		else{
 			back.set(ControlMode.PercentOutput, 0);
-		}
+		}*/
 
 		driveMot.set(ControlMode.PercentOutput, driveSpeed);
 	}

@@ -93,16 +93,23 @@ public class Constants {
 	*/
 
 	// Practice
-	public static final double kFrontLeftAngleOffset = 322;
-	public static final double kFrontRightAngleOffset = 9;
-	public static final double kRearLeftAngleOffset = 244;
-	public static final double kRearRightAngleOffset = 136;
+	// public static final double kFrontLeftAngleOffset = 322;
+	// public static final double kFrontRightAngleOffset = 9;
+	// public static final double kRearLeftAngleOffset = 244;
+	// public static final double kRearRightAngleOffset = 136;
 
 	// Competition
+<<<<<<< HEAD
 	//public static final double kFrontLeftAngleOffset = ;
 	//public static final double kFrontRightAngleOffset = ;
 	//public static final double kRearLeftAngleOffset = ;
 	//public static final double kRearRightAngleOffset = ;
+=======
+	public static final double kFrontLeftAngleOffset = 140;
+	public static final double kFrontRightAngleOffset = 95;
+	public static final double kRearLeftAngleOffset = 301;
+	public static final double kRearRightAngleOffset = 190;
+>>>>>>> master
 
 	
 	/*
@@ -140,8 +147,13 @@ public class Constants {
 
 	public static final int kServoId = 0;                            // Latch Servo Port (PWM)
 
+<<<<<<< HEAD
 	public static final double kServoLatchedAngle = 90;
 	public static final double kServoUnlatchedAngle = 0;
+=======
+	public static final double kServoLatchedAngle = 0;
+	public static final double kServoUnlatchedAngle = 180;
+>>>>>>> master
 
 	public static final double kElevatorEncRange = (850-155)/2;
 
