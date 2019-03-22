@@ -93,16 +93,16 @@ public class Constants {
 	*/
 
 	// Practice
-	// public static final double kFrontLeftAngleOffset = 322;
-	// public static final double kFrontRightAngleOffset = 9;
-	// public static final double kRearLeftAngleOffset = 244;
-	// public static final double kRearRightAngleOffset = 136;
+	public static final double kFrontLeftAngleOffset = 322;
+	public static final double kFrontRightAngleOffset = 9;
+	public static final double kRearLeftAngleOffset = 244;
+	public static final double kRearRightAngleOffset = 136;
 
 	// Competition
-	public static final double kFrontLeftAngleOffset = 140;
-	public static final double kFrontRightAngleOffset = 95;
-	public static final double kRearLeftAngleOffset = 301;
-	public static final double kRearRightAngleOffset = 190;
+	// public static final double kFrontLeftAngleOffset = 140;
+	// public static final double kFrontRightAngleOffset = 95;
+	// public static final double kRearLeftAngleOffset = 301;
+	// public static final double kRearRightAngleOffset = 190;
 
 	
 	/*
