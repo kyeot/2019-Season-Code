@@ -7,6 +7,8 @@ public enum Controls {
 	FbAxis(Constants.kFBAxisId, Controller.Driver, ControlType.Axis),
 	RlAxis(Constants.kRLAxisId, Controller.Driver, ControlType.Axis),
 	RotAxis(Constants.kRotAxisId, Controller.Driver, ControlType.Axis),
+	FastVariableAxis(Constants.kFastVariableAxisId, Controller.Driver, ControlType.Axis),
+	SlowVariableAxis(Constants.kSlowVariableAxisId, Controller.Driver, ControlType.Axis),
 	HalfSpeedButton(Constants.kHalfSpeedButtonId, Controller.Driver, ControlType.Button),
 	SprintButton(Constants.kSprintButtonId, Controller.Driver, ControlType.Button),
 	CenterGyroButton(Constants.kCenterGyroButtonId, Controller.Driver, ControlType.Button),
