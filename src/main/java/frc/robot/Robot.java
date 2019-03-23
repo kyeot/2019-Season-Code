@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 
 		//looper.addLoop(visionProcessor);
 		//looper.addLoop(encoderCounter);
-		looper.addLoop(logData);
+		//looper.addLoop(logData);
 		looper.startLoops();
 
 		String[] autonomousList = { "Test" };
