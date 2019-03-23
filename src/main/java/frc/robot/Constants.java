@@ -34,6 +34,8 @@ public class Constants {
 	public static final int kFBAxisId = 1;
 	public static final int kRLAxisId = 0;
 	public static final int kRotAxisId = 4;
+	public static final int kFastVariableAxisId = 3;
+	public static final int kSlowVariableAxisId = 2;
 	public static final int kHalfSpeedButtonId = 5;
 	public static final int kSprintButtonId = 9;	
 	public static final int kCenterGyroButtonId = 4;

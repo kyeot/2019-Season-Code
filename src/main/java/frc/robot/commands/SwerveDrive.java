@@ -37,10 +37,14 @@ public class SwerveDrive extends Command {
 		Double rotValue = -Controls.getAxis(Controls.RotAxis, 0.2)*Constants.normalSpeedSpeed;
     	
     	//While the left bumper is held go full speed
-    	if(Controls.getButton(Controls.HalfSpeedButton)) {
+    	if(Controls.getButton(Controls.HalfSpeedButton) && !Controls.getButton(Controls.SlowVariableAxis, 0.1)) {
     		fbValue *= Constants.halfSpeedSpeed;
     		rlValue *= Constants.halfSpeedSpeed;
     		rotValue *= Constants.halfSpeedSpeed;
+		} else if(Controls.getButton(Controls.SlowVariableAxis, 0.1)) {
+			fbValue *= 1-Controls.getAxis(Controls.SlowVariableAxis);
+    		rlValue *= 1-Controls.getAxis(Controls.SlowVariableAxis);
+    		rotValue *= 1-Controls.getAxis(Controls.SlowVariableAxis);
 		}
 
 		if(Controls.getButton(Controls.SprintButton) && ((fbValue != 0) || (rlValue != 0) || (rotValue != 0))) {
@@ -50,10 +54,14 @@ public class SwerveDrive extends Command {
 			sprinting = false;
 		}
 		
-		if(sprinting) {
+		if(sprinting && !Controls.getButton(Controls.FastVariableAxis, 0.1)) {
 			fbValue *= Constants.fastSpeedSpeed;
 			rlValue *= Constants.fastSpeedSpeed;
 			rotValue *= Constants.fastSpeedSpeed;
+		} else if(Controls.getButton(Controls.FastVariableAxis, 0.1)) {
+			fbValue *= 1+Controls.getAxis(Controls.FastVariableAxis);
+			rlValue *= 1+Constants.fastSpeedSpeed*Controls.getAxis(Controls.FastVariableAxis);
+			rotValue *= 1+Constants.fastSpeedSpeed*Controls.getAxis(Controls.FastVariableAxis);
 		}
     	
     	//If the X button is pressed resets the Swerve Modules
