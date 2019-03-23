@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LinearActuatorBase extends Subsystem {
 
 	// Creates Victor object
-	TalonSRX front;
-	TalonSRX back;
-	TalonSRX driveMot;
+	public static TalonSRX front;
+	public static TalonSRX back;
+	public static TalonSRX drive;
 
 	DigitalInput backDigitalInputBot;
 	DigitalInput backDigitalInputTop;
@@ -34,7 +34,7 @@ public class LinearActuatorBase extends Subsystem {
 	public LinearActuatorBase() {
 		front = new TalonSRX(Constants.kFrontLinearActuatorId);
 		back = new TalonSRX(Constants.kBackLinearActuatorId);
-		driveMot = new TalonSRX(Constants.kLinearActuatorDriveMotId);
+		drive = new TalonSRX(Constants.kLinearActuatorDriveMotId);
 
 		backDigitalInputBot = new DigitalInput(0);
 		backDigitalInputTop = new DigitalInput(1);
@@ -43,7 +43,7 @@ public class LinearActuatorBase extends Subsystem {
 
 		front.setNeutralMode(NeutralMode.Brake);
 		back.setNeutralMode(NeutralMode.Brake);
-		driveMot.setNeutralMode(NeutralMode.Brake);
+		drive.setNeutralMode(NeutralMode.Brake);
 	}
 
 	// Method to use Linear Actuator base
@@ -81,7 +81,8 @@ public class LinearActuatorBase extends Subsystem {
 			back.set(ControlMode.PercentOutput, 0);
 		}*/
 
-		driveMot.set(ControlMode.PercentOutput, driveSpeed);
+		drive.set(ControlMode.PercentOutput, driveSpeed);
+
 	}
 
 	@Override

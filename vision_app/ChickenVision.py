@@ -734,7 +734,6 @@ if __name__ == "__main__":
 	#Get the first camera
 
 	webcam = cameras[0]
-	webcam2 = cameras[1]
 	cameraServer = streams[0]
 	#Start thread reading camera
 	cap = WebcamVideoStream(webcam, cameraServer, image_width, image_height).start()

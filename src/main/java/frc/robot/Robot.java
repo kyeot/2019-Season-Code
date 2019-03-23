@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.LinearActuatorBase;
 import frc.robot.subsystems.SwerveDriveBase;
 import frc.util.Logger;
 import frc.util.NavSensor;
+import java.util.Date;
 
 public class Robot extends TimedRobot {
 	NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
@@ -42,6 +44,8 @@ public class Robot extends TimedRobot {
 	private static ActionScheduler actionScheduler = ActionScheduler.getInstance();
 	public LogData logData = new LogData();
 
+	public static String fileName = "/home/lvuser/log_startup_" + new Date().toString() + ".txt";
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -49,22 +53,14 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 
-
 		//looper.addLoop(visionProcessor);
 		//looper.addLoop(encoderCounter);
-		looper.addLoop(logData);
+		//looper.addLoop(logData);
 		looper.startLoops();
 
 		String[] autonomousList = { "Test" };
 
 		SmartDashboard.putStringArray("Auto List", autonomousList);
-
-		File logFile = new File("/home/lvuser/log.txt");
-		try {
-			logFile.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		NavSensor.getInstance().resetGyroNorth(Constants.kRobotStartAngle, 0);
 
@@ -76,10 +72,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotPeriodic() {
-
 		
 		//Prints for the Absolute Encoder Angles, Use to calculate offsets
-		//SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle()); 
+		SmartDashboard.putString("DB/String 0", "fl: " + swerveBase.flMod.getAngle()); 
 		//SmartDashboard.putString("DB/String 1", "fr: " + swerveBase.frMod.getAngle());
 		//SmartDashboard.putString("DB/String 2", "rl: " + swerveBase.rlMod.getAngle());
 		//SmartDashboard.putString("DB/String 3", "rr: " + swerveBase.rrMod.getAngle());
@@ -119,6 +114,16 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+
+		//fileName = "/home/lvuser/log_" + new Date().toString() + ".txt";
+		//File logFile = new File(fileName);
+
+		//try {
+		//	logFile.createNewFile();
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//}
+		
 	}
 
 	@Override

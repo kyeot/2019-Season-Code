@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.commands.Intake;
+import frc.util.Logger;
 import frc.robot.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class IntakeBase extends Subsystem {
 	
 	//Creates Victor object
-	TalonSRX intake;
+	public static  TalonSRX intake;
 	Servo latchServo;
 
 	boolean latched;

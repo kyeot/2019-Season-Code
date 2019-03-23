@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator;
+import frc.util.Logger;
 
 /**
  * @purpose: Controlling the Elevator Subsystem
@@ -18,7 +19,7 @@ public class ElevatorBase extends Subsystem {
 	double out;
 	
 	//Creates Victor object
-	TalonSRX elevator;
+	public static TalonSRX elevator;
 
 	DigitalInput elevatorTopSwitch = new DigitalInput(4);
 
@@ -38,6 +39,7 @@ public class ElevatorBase extends Subsystem {
 		}
 
 		elevator.set(ControlMode.PercentOutput, -speed);
+
 	}
 
  	@Override

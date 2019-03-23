@@ -40,9 +40,9 @@ public class Constants {
 	public static final int kZeroModulesButtonId = 3;
 	public static final int kDockingModeButtonId = 6;
 
-	public static final double halfSpeedSpeed = 0.7;
-	public static final double normalSpeedSpeed = 0.5;
-	public static final double fastSpeedSpeed = 2;
+	public static final double halfSpeedSpeed = 0.5;//0.7
+	public static final double normalSpeedSpeed = 0.6;//0.5
+	public static final double fastSpeedSpeed = 1.5;//2
 
 	// Manipulator
 	public static final int kElevatorUpAxisId = 3;
@@ -93,6 +93,7 @@ public class Constants {
 	*/
 
 	// Practice
+<<<<<<< Updated upstream
 	// public static final double kFrontLeftAngleOffset = 322;
 	// public static final double kFrontRightAngleOffset = 9;
 	// public static final double kRearLeftAngleOffset = 244;
@@ -103,6 +104,31 @@ public class Constants {
 	public static final double kFrontRightAngleOffset = 95;
 	public static final double kRearLeftAngleOffset = 301;
 	public static final double kRearRightAngleOffset = 190;
+=======
+<<<<<<< Updated upstream
+	public static final double kFrontLeftAngleOffset = 322;
+	public static final double kFrontRightAngleOffset = 9;
+	public static final double kRearLeftAngleOffset = 244;
+	public static final double kRearRightAngleOffset = 136;
+
+	// Competition
+	// public static final double kFrontLeftAngleOffset = 140;
+	// public static final double kFrontRightAngleOffset = 95;
+	// public static final double kRearLeftAngleOffset = 301;
+	// public static final double kRearRightAngleOffset = 190;
+=======
+	 public static final double kFrontLeftAngleOffset = 144;
+	 public static final double kFrontRightAngleOffset = 9;
+	 public static final double kRearLeftAngleOffset = 244;
+	 public static final double kRearRightAngleOffset = 136;
+
+	// Competition
+	//public static final double kFrontLeftAngleOffset = 140;
+	//public static final double kFrontRightAngleOffset = 95;
+	//public static final double kRearLeftAngleOffset = 301;
+	//public static final double kRearRightAngleOffset = 190;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 	
 	/*
@@ -150,7 +176,7 @@ public class Constants {
 	public static final double kGyroMaxAge = 0.6;                    // Length(s) of angle history stored in NavSensor            
 
 	public static final double kSwerveRampRate = 0.0;                // Sets the open-loop ramp rate for swerve drive in seconds
-	public static final double kElevatorRampRate = 0.2;
+	public static final double kElevatorRampRate = 0.0;
 
 	public static final double kEventDelay = 3;                      // Time(s) the event logger will wait before logging the same message
 	

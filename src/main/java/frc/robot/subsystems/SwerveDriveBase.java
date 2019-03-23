@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.SwerveDrive;
+import frc.util.Logger;
 import frc.util.NavSensor;
 
 /**
@@ -50,14 +51,16 @@ public class SwerveDriveBase extends Subsystem {
 
 		AnalogInput enc;
 		double angleOffset;
+		double rotRatio;
 
 		double angle;
 
-		public PIDAnalogInput(AnalogInput enc, double angleOffset) {
+		public PIDAnalogInput(AnalogInput enc, double angleOffset, double rotRatio) {
 			setPIDSourceType(PIDSourceType.kDisplacement);
 
 			this.enc = enc;
 			this.angleOffset = angleOffset;
+			this.rotRatio = rotRatio;
 		}
 
 		@Override
@@ -72,7 +75,7 @@ public class SwerveDriveBase extends Subsystem {
 
 		@Override
 		public double pidGet() {
-			angle = (enc.getValue()/Constants.kAnalogInputToDegreeRatio)+angleOffset;
+			angle = ((enc.getValue()*rotRatio)/Constants.kAnalogInputToDegreeRatio)+angleOffset;
 
 			angle %= 360;
 
@@ -86,8 +89,8 @@ public class SwerveDriveBase extends Subsystem {
 	 *
 	 */
 	public class SwerveModule {
-		VictorSPX driveMot;
-		VictorSPX swivelMot;
+		public VictorSPX driveMot;
+		public VictorSPX swivelMot;
 		PIDAnalogInput enc;
 		
 		PIDOutputClass pidOut;
@@ -122,6 +125,8 @@ public class SwerveDriveBase extends Subsystem {
 						);
 			
 			
+			driveMot.setNeutralMode(NeutralMode.Coast);
+			swivelMot.setNeutralMode(NeutralMode.Brake);
 			driveMot.configOpenloopRamp(Constants.kSwerveRampRate);
 			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
@@ -226,7 +231,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kFrontLeftSwivelId),
     					new VictorSPX(Constants.kFrontLeftWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kFrontLeftAbsoluteEncoder), 
-						360 - Constants.kFrontLeftAngleOffset)
+						360 - Constants.kFrontLeftAngleOffset, 1)
     				);
     	
     	//Creates the front left Swerve Module
@@ -234,7 +239,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kRearLeftSwivelId),
     					new VictorSPX(Constants.kRearLeftWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kRearLeftAbsoluteEncoder), 
-						360 - Constants.kRearLeftAngleOffset)
+						360 - Constants.kRearLeftAngleOffset, 1)
     				);
     	
     	//Creates the rear right Swerve Module
@@ -242,7 +247,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kFrontRightSwivelId),
     					new VictorSPX(Constants.kFrontRightWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kFrontRightAbsoluteEncoder),
-						360 - Constants.kFrontRightAngleOffset)
+						360 - Constants.kFrontRightAngleOffset, 1)
     				);
     			
     	//Creates the rear left Swerve Module
@@ -250,7 +255,7 @@ public class SwerveDriveBase extends Subsystem {
     					new VictorSPX(Constants.kRearRightSwivelId),
     					new VictorSPX(Constants.kRearRightWheelId),
 						new PIDAnalogInput(new AnalogInput(Constants.kRearRightAbsoluteEncoder), 
-						360 - Constants.kRearRightAngleOffset)
+						360 - Constants.kRearRightAngleOffset, 1)
 					); // ):
     }
 
