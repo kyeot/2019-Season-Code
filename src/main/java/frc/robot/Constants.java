@@ -64,7 +64,7 @@ public class Constants {
 	public static final int kLADriveForwardButtonId = 5;
 	public static final int kLADriveBackwardButtonId = 6;
 
-	public static final double kElevatorDownSpeed = 0.8; 
+	public static final double kElevatorDownSpeed = 1; 
 	public static final double kIntakeSpeed = 0.75;
 
 
