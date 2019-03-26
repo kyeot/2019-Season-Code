@@ -55,8 +55,8 @@ public class Constants {
 	public static final int kZeroElevatorButtonId = 4;
 	public static final int kIntakeInButtonId = 7;
 	public static final int kIntakeOutButtonId = 8;
-	public static final int kServoReleaseButtonId = 3;
-	public static final int kServoRelease2ButtonId = 8;
+	public static final int kServoReleaseButtonId = 8;
+	public static final int kPickupHatchButtonId = 3;
 	public static final int kLAFrontOutDpadId = 0;
 	public static final int kLAFrontInDpadId = 180;
 	public static final int kLABackOutButtonId = 4;

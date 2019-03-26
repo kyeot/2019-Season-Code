@@ -14,7 +14,7 @@ public class Intake extends Command {
 
 		public static double speed;
 
-		boolean xPressedLast = false;
+		boolean startPressedLast = false;
 
 		public Intake() {
 			//Sets the required Subsystem
@@ -38,11 +38,11 @@ public class Intake extends Command {
 			
 			Robot.intakeBase.intake(speed);
 
-			boolean servoReleaseButton = Controls.getButton(Controls.ServoRelease) || Controls.getButton(Controls.ServoRelease2);
-			if(servoReleaseButton && !xPressedLast) {
+			boolean servoReleaseButton = Controls.getButton(Controls.ServoRelease);
+			if(servoReleaseButton && !startPressedLast) {
 				Robot.intakeBase.toggleLatch();
 			}
-			xPressedLast = servoReleaseButton;
+			startPressedLast = servoReleaseButton;
 							
 		}
 

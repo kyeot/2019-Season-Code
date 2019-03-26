@@ -28,7 +28,7 @@ public enum Controls {
 	ElevatorUpAxis(Constants.kElevatorUpAxisId, Controller.Manipulator, ControlType.Axis),
 	ElevatorDownAxis(Constants.kElevatorDownAxisId, Controller.Manipulator, ControlType.Axis),
 	ServoRelease(Constants.kServoReleaseButtonId, Controller.Manipulator, ControlType.Button),
-	ServoRelease2(Constants.kServoRelease2ButtonId, Controller.Manipulator, ControlType.Button),
+	PickupHatchButton(Constants.kPickupHatchButtonId, Controller.Manipulator, ControlType.Button),
 	IntakeAxis(Constants.kIntakeAxisId, Controller.Manipulator, ControlType.Axis),
 	ZeroElevator(Constants.kZeroElevatorButtonId, Controller.Manipulator, ControlType.Button);
 	
