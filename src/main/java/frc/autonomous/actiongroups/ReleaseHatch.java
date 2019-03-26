@@ -18,7 +18,7 @@ public class ReleaseHatch extends ActionGroup {
     public ReleaseHatch() {
         super();
 
-        addAction(new AutoElevator(-0.4, 0.13));
+        addAction(new AutoElevator(-0.4, 0.16));
     }
 
 }
