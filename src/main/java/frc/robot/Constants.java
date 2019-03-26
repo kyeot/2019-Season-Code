@@ -98,7 +98,7 @@ public class Constants {
 	public static final double kFrontLeftAngleOffset = 144;
 	public static final double kFrontRightAngleOffset = 189;
 	public static final double kRearLeftAngleOffset = 244;
-	public static final double kRearRightAngleOffset = 136;
+	public static final double kRearRightAngleOffset = 286;
 
 	// Competition
 	// public static final double kFrontLeftAngleOffset = 140;
