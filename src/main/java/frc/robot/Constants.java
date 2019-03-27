@@ -152,7 +152,7 @@ public class Constants {
 	public static final double kGyroMaxAge = 0.6;                    // Length(s) of angle history stored in NavSensor            
 
 	public static final double kSwerveRampRate = 0.0;                // Sets the open-loop ramp rate for swerve drive in seconds
-	public static final double kElevatorRampRate = 0.2;
+	public static final double kElevatorRampRate = 0.0;
 
 	public static final double kEventDelay = 3;                      // Time(s) the event logger will wait before logging the same message
 	
