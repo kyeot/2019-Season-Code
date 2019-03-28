@@ -123,6 +123,7 @@ public class SwerveDriveBase extends Subsystem {
 			
 			
 			driveMot.configOpenloopRamp(Constants.kSwerveRampRate);
+			driveMot.setNeutralMode(NeutralMode.Coast);
 			pidCont.setInputRange(0, 360);
 			pidCont.setContinuous();
 		}
