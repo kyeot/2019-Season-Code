@@ -28,7 +28,7 @@ import math
 # import the necessary packages
 import datetime
 
-exposure = 2
+exposure = 1
 
 #Class to examine Frames per second of camera stream. Currently not used.
 class FPS:
